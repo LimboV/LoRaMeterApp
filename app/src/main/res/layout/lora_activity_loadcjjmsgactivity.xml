@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/LoadCjjMsgActivity_lv_meterList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </ListView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取信息"
+        android:id="@+id/LoadCjjMsgActivity_btn_getMsg"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除所有表信息"
+        android:id="@+id/LoadCjjMsgActivity_btn_deleteAllMeter"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="批量导入"
+        android:id="@+id/LoadCjjMsgActivity_btn_Load"/>
+    <Button
+        android:text="结束导入"
+        android:id="@+id/LoadCjjMsgActivity_btn_EndLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

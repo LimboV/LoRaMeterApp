@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写小区号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Xqh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetXqh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SendXqh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写采集机编号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_CjjNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetCjjNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SendCjjNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写自动抄表间隔（天）"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Cbjg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetCbjg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SendCbjg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读软件版本号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Rjbbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetRjbbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读硬件版本号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Yjbbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetYjbbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读设备唯一号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Sbwyh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetSbwyh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读内部RTC时间"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_RTCTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetRTCTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SetRTCTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写集抄定时点"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Dsd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetDsd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SendDsd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读系统连接方式"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--<EditText
+                    android:id="@+id/CjjAboutActivity_et_SysConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>-->
+                <Spinner
+                    android:id="@+id/CjjAboutActivity_sp_SysConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetSysConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_SetSysConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读身份信息"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/CjjAboutActivity_et_Sfxx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"/>
+
+                <Button
+                    android:id="@+id/CjjAboutActivity_btn_GetSfxx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="数据接收区"/>
+
+    <ScrollView
+        android:id="@+id/BluetoothUtilsActivity_sv_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/BluetoothUtilsActivity_tv_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/BluetoothUtilsActivity_et_send"
+                    android:hint="请输入指令"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/BluetoothUtilsActivity_btn_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="发送"/>
+
+                <Button
+                    android:id="@+id/BluetoothUtilsActivity_btn_JcTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="集抄调试"/>
+
+                <Button
+                    android:id="@+id/BluetoothUtilsActivity_btn_ConnectToService"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="连接主服务器"/>
+
+                <Button
+                    android:id="@+id/BluetoothUtilsActivity_btn_ConnectToService2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="连接备用服务器"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBox1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="是否自动下拉"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="Hex格式"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="抄表测试"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/BluetoothUtilsActivity_sp_cbTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </Spinner>
+
+                <Button
+                    android:id="@+id/BluetoothUtilsActivity_btn_cbTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="发送抄表指令"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/BluetoothUtilsActivity_btn_saveAsTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="保存抄表数据"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

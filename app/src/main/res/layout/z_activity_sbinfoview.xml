@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:scrollbars="none">
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+		<TextView android:text="用户" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_NAME"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false" >
+</EditText>
+		<TextView android:text="地址" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_ADDR"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false" >
+</EditText>
+		<TextView android:text="收费编号" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_SFBH"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false" >
+</EditText>
+		<TextView android:text="表地址" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_SBGH"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false"
+		    android:inputType="numberSigned" >
+</EditText>
+		<TextView android:text="上月抄见" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:enabled="false" android:layout_height="wrap_content" android:inputType="numberDecimal"
+			android:id="@+id/sbinfo_SYCJ" android:layout_width="fill_parent"></EditText>
+		<TextView android:text="本次抄见" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_BCCJ"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false"
+		    android:inputType="numberDecimal" >
+</EditText>
+		<TextView android:text="用水量" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+
+		<EditText
+		    android:id="@+id/sbinfo_BYYS"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:enabled="false"
+		    android:inputType="numberDecimal" >
+</EditText>
+		<TextView android:text="抄表日期" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:enabled="false" android:layout_height="wrap_content"
+			android:id="@+id/sbinfo_CBRQ" android:layout_width="fill_parent"></EditText>
+		<TextView android:text="上月抄表日期" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:enabled="false" android:layout_height="wrap_content"
+			android:id="@+id/sbinfo_SYCBRQ" android:layout_width="fill_parent"></EditText>
+		<TextView android:text="抄表状态" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"></TextView>
+		<TextView android:text="未抄表" android:id="@+id/sbinfo_SBZT"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+
+		<View android:layout_width="fill_parent" android:layout_height="1px"
+			android:background="?android:attr/listDivider" />
+
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<ImageView android:id="@+id/ib_08" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_07" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_06" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_05" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_04" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_03" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_02" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		<ImageView android:id="@+id/ib_01" android:layout_weight="1"
+            android:scaleType="matrix"
+			android:layout_width="50px" android:layout_height="72px"></ImageView>
+		</LinearLayout>
+
+
+	</LinearLayout>
+</ScrollView>

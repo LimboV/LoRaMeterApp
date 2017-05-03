@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请输入节点号:"/>
+
+                <EditText
+                    android:id="@+id/CjjGetDataActivity_et_jd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入节点号"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请输入分采号:"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+
+                    <EditText
+                        android:id="@+id/CjjGetDataActivity_et_fc19"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请输入分采号"
+                        android:inputType="number"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hex格式"/>
+
+                <Button
+                    android:id="@+id/CjjGetDataActivity_btn_getData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="读取数据"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/CjjGetDataActivity_tv_showMsg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="接收数据:\n"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

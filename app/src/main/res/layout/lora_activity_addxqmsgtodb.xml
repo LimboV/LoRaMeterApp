@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="小区号"/>
+
+    <EditText
+        android:id="@+id/AddXqMsgToDbActivity_et_XqNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="小区号"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="小区名"/>
+
+    <EditText
+        android:id="@+id/AddXqMsgToDbActivity_et_XqName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="小区名"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="采集机号"/>
+
+    <EditText
+        android:id="@+id/AddXqMsgToDbActivity_et_CjjNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="采集机号"/>
+
+
+    <EditText
+        android:id="@+id/AddXqMsgToDbActivity_et_CjjName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="采集机名"/>
+
+    <Button
+        android:id="@+id/AddXqMsgToDbActivity_btn_saveXqToDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存"/>
+</LinearLayout>

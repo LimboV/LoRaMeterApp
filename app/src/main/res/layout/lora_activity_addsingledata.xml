@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="模块序号"/>
+
+    <EditText
+        android:id="@+id/LoRa_AddSingleData_et_mkxh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="模块序号"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="基表ID"/>
+
+    <EditText
+        android:id="@+id/LoRa_AddSingleData_et_jbid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="基表ID"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="当前读数"/>
+
+    <EditText
+        android:id="@+id/LoRa_AddSingleData_et_dqds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="当前读数"/>
+
+    <Button
+        android:id="@+id/LoRa_AddSingleData_btn_enter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加单个表信息"/>
+</LinearLayout>

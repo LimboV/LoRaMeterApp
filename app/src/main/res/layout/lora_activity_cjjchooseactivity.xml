@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_getData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点抄数据"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_getPic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点抄图片"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_getHis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取历史数据"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="读写参数"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_DActrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="档案管理"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/cjjChooseActivity_btn_Upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="升级程序"
+        android:textColor="@color/white"/>
+</LinearLayout>

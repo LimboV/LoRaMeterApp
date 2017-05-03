@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写GPRS的APN"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/GprsSettingActivity_et_GprsApn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_GetGprsApn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_SendGprsApn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写GPRS的端口号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/GprsSettingActivity_et_GprsDkh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_GetGprsDkh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_SendGprsDkh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写GPRS的IP地址"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/GprsSettingActivity_et_GprsIp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_GetGprsIp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_SendGprsIp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读写SIm卡的CCID号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/GprsSettingActivity_et_SIMCCID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"/>
+                </ScrollView>
+
+
+                <Button
+                    android:id="@+id/GprsSettingActivity_btn_GetSIMCCID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读TCP断开时间"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/LoRaSettingActivity_et_TCPCut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/LoRaSettingActivity_btn_GetTCPCut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读TCP建立时间"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/LoRaSettingActivity_et_TCPBuild"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/LoRaSettingActivity_btn_GetTCPBuild"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="读GPRS异常代码"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/LoRaSettingActivity_et_GPRSError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/LoRaSettingActivity_btn_GetGPRSError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="读"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

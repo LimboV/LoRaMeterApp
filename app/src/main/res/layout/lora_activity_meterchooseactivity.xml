@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meterChooseActivity_btn_getData"
+        android:text="点抄数据"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meterChooseActivity_btn_getPic"
+        android:text="点抄图片"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/meterChooseActivity_btn_setting"
+        android:layout_height="wrap_content"
+        android:text="读写参数"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meterChooseActivity_btn_location"
+        android:text="设置坐标"
+        android:textColor="@color/white"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meterChooseActivity_btn_yc485Test"
+        android:text="宜春485表测试"
+        android:textColor="@color/white"/>
+</LinearLayout>

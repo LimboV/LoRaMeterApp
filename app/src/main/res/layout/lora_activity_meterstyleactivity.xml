@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/meterStyleActivity_tv_tip0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请选择表类型:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/meterStyleActivity_btn_loRaMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="山科LoRa表"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/meterStyleActivity_btn_wmrnetMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="安美通LoRa表"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/meterStyleActivity_btn_wmrnetFSKMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="安美通FSK表"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/meterStyleActivity_btn_PMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="P型摄像表"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/meterStyleActivity_btn_ZDMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="直读表"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/meterStyleActivity_tv_tip1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请选择地区:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/meterStyleActivity_btn_Xj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="新疆"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/meterStyleActivity_btn_Yc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="宜春"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
