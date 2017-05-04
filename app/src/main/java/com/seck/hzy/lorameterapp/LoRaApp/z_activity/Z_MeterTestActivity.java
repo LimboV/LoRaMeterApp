@@ -218,7 +218,7 @@ public class Z_MeterTestActivity extends ListActivity {
                             return;
                         }
 
-                        byte[] dspData = new byte[WDSP_BYTES + 6];
+                        byte[] dspData = new   byte[WDSP_BYTES + 6];
                         byte broadAddr[] = new byte[]{(byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
                                 (byte) 0xaa, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa};
 
@@ -292,7 +292,7 @@ public class Z_MeterTestActivity extends ListActivity {
                             @Override
                             public void run() {
                                 progressBar.cancel();
-                                HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.dsp_load_success),
+                                HintDialog.ShowHintDialog(Z_MeterTestActivity.this, getResources().getString(R.string.dsp_load_success),
                                         getResources().getString(R.string.tips));
                             }
                         });
@@ -300,7 +300,7 @@ public class Z_MeterTestActivity extends ListActivity {
                         try {
                             in.close();
                         } catch (IOException e) {
-                            HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
+                            HintDialog.ShowHintDialog(Z_MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
                                     getResources().getString(R.string.system_error));
                             return;
                         }
