@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+          
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="固件版本号:"
+            android:textSize="24sp"></TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TextView_VerNo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="00 00 00 00 00 00 00"
+        android:textSize="24sp"></TextView>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="表地址(空则使用广播地址)："
+        android:textSize="24sp"></TextView>
+
+    <EditText
+        android:id="@+id/EditText_Addr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text=""></EditText>
+
+    <Button
+        android:id="@+id/Button_ReadVer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="读版本号"
+        android:textSize="24sp"></Button>
+
+    <Button
+        android:id="@+id/Button_ReadAddr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="读地址"
+        android:textSize="24sp"></Button>
+
+    <Button
+        android:id="@+id/Button_WriteAddr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="写地址"
+        android:textSize="24sp"></Button>
+
+
+
+    <!--	<TextView android:layout_height="wrap_content"-->
+    <!--		android:layout_width="fill_parent" android:text="水表读数："></TextView>-->
+    <!--	<TextView android:layout_height="wrap_content"-->
+    <!--		android:layout_width="fill_parent" android:id="@+id/TextView_Flow"-->
+    <!--		android:text="0000000.00"></TextView>-->
+    <!--		-->
+    <!--	<View android:layout_width="fill_parent" android:layout_height="1px"-->
+    <!--		android:background="?android:attr/listDivider" />-->
+    <!--	<TextView android:layout_height="wrap_content"-->
+    <!--		android:layout_width="fill_parent" android:text="水表图像："></TextView>-->
+    <!---->
+    <!--	<LinearLayout android:orientation="horizontal"-->
+    <!--		android:layout_width="fill_parent" android:layout_height="fill_parent">-->
+    <!--		<ImageView android:id="@+id/ib_08" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_07" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_06" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_05" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_04" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_03" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_02" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--		<ImageView android:id="@+id/ib_01" android:layout_weight="1"-->
+    <!--			android:layout_width="30px" android:layout_height="60px"></ImageView>-->
+    <!--	</LinearLayout>-->
+
+</LinearLayout>

@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils.GetCRC16;
+import static com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils.countSum;
+
 /**
  * Created by ssHss on 2016/7/18.
  */
@@ -149,7 +152,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[11] = (byte) 0x91;
         sndBuf[12] = 0x2f;
         sndBuf[13] = 0x00;
-        sndBuf[14] = HzyUtils.countSum(sndBuf, 0, 14);
+        sndBuf[14] = countSum(sndBuf, 0, 14);
         sndBuf[15] = 0x16;
         write(sndBuf);
         mmRevbuffer = new byte[1024000];
@@ -195,7 +198,7 @@ public class BluetoothConnectThread extends Thread {
             for (int i = 0; i < 11 + dataL; i++) {
                 frame_data[i] = waitAByte(i, MenuActivity.timeDelayMax);
             }
-            byte cs_va = HzyUtils.countSum(frame_data, 0, frame_data.length - 3);
+            byte cs_va = countSum(frame_data, 0, frame_data.length - 3);
             byte cs = frame_data[frame_data.length - 3];
             byte endFlag = frame_data[frame_data.length - 2];
             if (endFlag != (byte) 0x16) {
@@ -250,7 +253,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[12] = (byte) 0xfb;
         sndBuf[13] = 0x00;
         System.arraycopy(data, offset, sndBuf, 14, length);
-        sndBuf[length + 14] = HzyUtils.countSum(sndBuf, 0, length + 14);
+        sndBuf[length + 14] = countSum(sndBuf, 0, length + 14);
         sndBuf[length + 15] = 0x16;
 
         write(sndBuf);
@@ -397,7 +400,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[11] = (byte) 0x90;
         sndBuf[12] = 0x1f;
         sndBuf[13] = 0x00;
-        sndBuf[14] = HzyUtils.countSum(sndBuf, 0, 14);
+        sndBuf[14] = countSum(sndBuf, 0, 14);
         sndBuf[15] = 0x16;
 
         write(sndBuf);
@@ -441,7 +444,7 @@ public class BluetoothConnectThread extends Thread {
                 frame_data[i] = waitAByte(i, timeDelayMax);
             }
 
-            byte cs_va = HzyUtils.countSum(frame_data, 0, frame_data.length);
+            byte cs_va = countSum(frame_data, 0, frame_data.length);
             //            byte cs_va = countSum(frame_data, 0, frame_data.length - 3);
             byte cs = waitAByte(10 + dataL + 1, timeDelayMax);
             //            byte cs = frame_data[frame_data.length - 3];
@@ -531,7 +534,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[11] = (byte) 0xA5;
         sndBuf[12] = (byte) 0x02;
         sndBuf[13] = 0x00;
-        sndBuf[14] = HzyUtils.countSum(sndBuf, 0, 14);
+        sndBuf[14] = countSum(sndBuf, 0, 14);
         sndBuf[15] = 0x16;
 
         write(sndBuf);
@@ -563,7 +566,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[11] = (byte) 0x90;
         sndBuf[12] = (byte) 0xf0;
         sndBuf[13] = 0x00;
-        sndBuf[14] = HzyUtils.countSum(sndBuf, 0, 14);
+        sndBuf[14] = countSum(sndBuf, 0, 14);
         sndBuf[15] = 0x16;
 
         write(sndBuf);
@@ -585,7 +588,7 @@ public class BluetoothConnectThread extends Thread {
         PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x31, (byte) 0x90,
                 (byte) 0xf1);
         byte[] picdata = frameRVer.data;
-        byte[] crc = HzyUtils.GetCRC16(picdata, 113);
+        byte[] crc = GetCRC16(picdata, 113);
 
         if (frameRVer.data[113] != crc[0] || frameRVer.data[114] != crc[1]) {
             Log.v("CRC", crc[0] + " " + crc[1]);
@@ -615,10 +618,351 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[12] = (byte) 0xf1;
         sndBuf[13] = 0x00;
         sndBuf[14] = (byte) picno;
-        sndBuf[15] = HzyUtils.countSum(sndBuf, 0, 15);
+        sndBuf[15] = countSum(sndBuf, 0, 15);
         sndBuf[16] = 0x16;
 
         write(sndBuf);
+    }
+    /**
+     * 读地址
+     *
+     * @param addr
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public byte[] readAddr(byte[] addr) throws NetException, IOException {
+
+        scmdRAddr_NB(addr);
+        return rcmdRAddr_NB();
+    }
+    /**
+     * 写地址
+     *
+     * @param addr
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public byte[] writeAddr(byte[] addr, byte[] newaddr) throws NetException,
+            IOException {
+        scmdWAddr_NB(addr, newaddr);
+        return rcmdWAddr_NB();
+    }
+    /**
+     * 读写地址
+     *
+     * @param newaddr
+     * @return
+     * @throws NetException
+     */
+    private byte[] rcmdWAddr_NB() throws NetException {
+
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x15, (byte) 0xa0,
+                (byte) 0x18);
+
+        return frameRVer.addr;
+    }
+    /**
+     * 读取系统配置参数
+     *
+     * @param addr
+     * @param paramAddr
+     * @param dataLen
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public int readParam(byte[] addr, int paramAddr, int dataLen)
+            throws NetException, IOException {
+        scmdReadPara(addr, paramAddr, dataLen);
+        byte[] revData = rcmdReadParam();
+        int nVal = 0;
+        for (int i = 0; i < revData.length; i++)
+            nVal += (revData[i] & 0xff) << (8 * i);
+        return nVal;
+    }
+    /**
+     * 写入参数
+     *
+     * @param addr
+     * @param paramAddr
+     * @param dataLen
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public boolean writeParam(byte[] addr, int paramAddr, byte[] param)
+            throws NetException, IOException {
+        byte[] crcThis = this.scmdWritePara(addr, paramAddr, param);
+        byte[] crcRev = this.rcmdWriteParam();
+        return true;
+    }
+    /**
+     * 自动定位
+     *
+     * @param addr
+     * @throws IOException
+     */
+    public void scmdAutoPos(byte addr[]) throws IOException, NetException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[17];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x30;
+        sndBuf[10] = 0x04;
+        sndBuf[11] = (byte) 0xaa;
+        sndBuf[12] = 0x04;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = 0x00;
+        sndBuf[15] = countSum(sndBuf, 0, 15);
+        sndBuf[16] = 0x16;
+
+        write(sndBuf);
+    }
+    /**
+     * 读取一张Jpeg图像
+     *
+     * @param picno
+     * @param trytimes
+     * @throws NetException
+     * @throws IOException
+     */
+    public Bitmap readPic(byte[] addr, int picno, int ty, Handler progress)
+            throws NetException, IOException {
+        byte[] jpegSource = readPicBytes(addr, picno, ty, progress);
+        return BitmapFactory.decodeByteArray(jpegSource, 0, jpegSource.length);
+    }
+    /**
+     * 写入参数，返回CRC校验
+     *
+     * @return
+     * @throws NetException
+     */
+    private byte[] rcmdWriteParam() throws NetException {
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x23, (byte) 0xa0,
+                (byte) 0xf0);
+        return frameRVer.data;
+    }
+    public Bitmap readBinaryPic_Parse2(byte[] addr, int picno)
+            throws NetException, IOException {
+        byte[] picdata = readBinaryPicBytes(addr, picno);
+        if (picdata != null) {
+            return binaryPicBytesToBitmap(picdata);
+        }
+
+        return null;
+    }
+    /**
+     * 写入参数，返回写入参数的CRC16校验
+     *
+     * @param addr
+     * @param parmAddr
+     * @param params
+     * @throws IOException
+     */
+    private byte[] scmdWritePara(byte addr[], int parmAddr, byte[] params)
+            throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[16 + params.length + 2];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x23;
+        sndBuf[10] = (byte) (0x05 + params.length);
+        sndBuf[11] = (byte) 0xa0;
+        sndBuf[12] = (byte) 0xf0;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = (byte) (parmAddr & 0xFF);
+        sndBuf[15] = (byte) (params.length & 0xFF);
+        System.arraycopy(params, 0, sndBuf, 16, params.length);
+        sndBuf[16 + params.length] = countSum(sndBuf, 0, 16 + params.length);
+        sndBuf[16 + params.length + 1] = 0x16;
+
+        byte[] crc = GetCRC16(params, params.length);
+        write(sndBuf);
+        return crc;
+    }
+    /**
+     * 读取参数
+     *
+     * @param paramLen
+     * @return
+     * @throws NetException
+     */
+    private byte[] rcmdReadParam() throws NetException {
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x22, (byte) 0x81,
+                (byte) 0xf0);
+        return frameRVer.data;
+    }
+    /**
+     * 发送读取摄像表参数命令
+     *
+     * @param addr
+     * @param parmAddr
+     * @throws IOException
+     */
+    private void scmdReadPara(byte addr[], int parmAddr, int paramLen)
+            throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[18];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x22;
+        sndBuf[10] = 0x05;
+        sndBuf[11] = (byte) 0x81;
+        sndBuf[12] = (byte) 0xf0;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = (byte) (parmAddr & 0xFF);
+        sndBuf[15] = (byte) (paramLen & 0xFF);
+        sndBuf[16] = countSum(sndBuf, 0, 16);
+        sndBuf[17] = 0x16;
+
+        write(sndBuf);
+    }
+    /**
+     * 写地址NB表
+     *
+     * @param addr
+     * @throws IOException
+     */
+    private void scmdWAddr_NB(byte addr[], byte newaddr[]) throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[23];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x15;
+        sndBuf[10] = 0x0a;
+        sndBuf[11] = 0x18;
+        sndBuf[12] = (byte) 0xa0;
+        sndBuf[13] = 0x00;
+        System.arraycopy(newaddr, 0, sndBuf, 14, newaddr.length);
+        sndBuf[21] = countSum(sndBuf, 0, 21);
+        sndBuf[22] = 0x16;
+
+        write(sndBuf);
+    }
+    /**
+     * 接受宁波表地址
+     *
+     * @throws NetException
+     */
+    byte[] rcmdRAddr_NB() throws NetException {
+
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x03, (byte) 0x81,
+                (byte) 0x0a);
+
+        return frameRVer.addr;
+    }
+    /**
+     * 读宁波表地址
+     *
+     * @throws IOException
+     */
+    private void scmdRAddr_NB(byte addr[]) throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[16];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x03;
+        sndBuf[10] = 0x03;
+        sndBuf[11] = 0x0a;
+        sndBuf[12] = (byte) 0x81;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = countSum(sndBuf, 0, 14);
+        sndBuf[15] = 0x16;
+
+        write(sndBuf);
+    }
+    /**
+     * 读版本号
+     *
+     * @param addr
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public String readVerNo(byte[] addr) throws NetException, IOException {
+        scmdRVer(addr);
+        return rcmdRVer();
+    }
+    /**
+     * 读版本号
+     *
+     * @param addr
+     * @throws IOException
+     */
+    private void scmdRVer(byte addr[]) throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[16];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x20;
+        sndBuf[10] = 0x03;
+        sndBuf[11] = (byte) 0x81;
+        sndBuf[12] = 0x00;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = countSum(sndBuf, 0, 14);
+        sndBuf[15] = 0x16;
+
+        write(sndBuf);
+    }
+    /**
+     * 读版本号
+     *
+     * @return
+     * @throws NetException
+     */
+    private String rcmdRVer() throws NetException {
+
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x20, (byte) 0x81,
+                (byte) 0x00);
+
+        String recvOutput = "";
+        for (byte b : frameRVer.addr) {
+            String hex = Integer.toHexString(b & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            recvOutput += hex;
+            recvOutput += " ";
+        }
+        return recvOutput;
+    }
+    public void WhileSend(int dly, byte ch) throws IOException {
+        int i;
+        dly /= 100;
+
+        byte[] sndBuf = new byte[]{ch};
+
+        for (i = 0; i < dly; i++)//
+        {
+            write(sndBuf);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+        }
     }
 
     /**
@@ -671,7 +1015,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[11] = 0x1f;
         sndBuf[12] = (byte) 0x90;
         sndBuf[13] = 0x00;
-        sndBuf[14] = HzyUtils.countSum(sndBuf, 0, 14);
+        sndBuf[14] = countSum(sndBuf, 0, 14);
         sndBuf[15] = 0x16;
 
         write(sndBuf);
@@ -760,7 +1104,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[19] = 0;
         sndBuf[20] = 0;
         sndBuf[21] = 0;
-        sndBuf[22] = HzyUtils.countSum(sndBuf, 0, 22);
+        sndBuf[22] = countSum(sndBuf, 0, 22);
         sndBuf[23] = 0x16;
 
         write(sndBuf);
@@ -828,7 +1172,7 @@ public class BluetoothConnectThread extends Thread {
         sndBuf[19] = 0;
         sndBuf[20] = (byte) 128;
         sndBuf[21] = 0;
-        sndBuf[22] = HzyUtils.countSum(sndBuf, 0, 22);
+        sndBuf[22] = countSum(sndBuf, 0, 22);
         sndBuf[23] = 0x16;
 
         write(sndBuf);
@@ -843,7 +1187,7 @@ public class BluetoothConnectThread extends Thread {
         PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x31, (byte) 0x90,
                 (byte) 0x1f);
         byte[] picdata = frameRVer.data;
-        byte[] crc = HzyUtils.GetCRC16(picdata, 128);
+        byte[] crc = GetCRC16(picdata, 128);
 
         if (frameRVer.data[128] != crc[0] || frameRVer.data[129] != crc[1]) {
             Log.v("CRC", crc[0] + " " + crc[1]);

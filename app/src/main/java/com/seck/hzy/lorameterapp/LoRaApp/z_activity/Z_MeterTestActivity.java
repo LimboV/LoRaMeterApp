@@ -57,17 +57,17 @@ public class Z_MeterTestActivity extends ListActivity {
 
                 switch (position) {
                     case 0:
-                        intent = new Intent(thisView, SBControlActivity.class);
+                        intent = new Intent(thisView, Z_SBControlActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
                         if (checkPsw() == 1) {
-                            intent = new Intent(thisView, SXBParamSetting.class);
+                            intent = new Intent(thisView, Z_SXBParamSetting.class);
                             startActivity(intent);
                         }
                         break;
                     case 2:
-                        intent = new Intent(thisView, SXBParamLazySetting.class);
+                        intent = new Intent(thisView, Z_SXBParamLazySetting.class);
                         startActivity(intent);
                         break;
                     case 3: // MCU 升级
@@ -292,16 +292,14 @@ public class Z_MeterTestActivity extends ListActivity {
                             @Override
                             public void run() {
                                 progressBar.cancel();
-                                HintDialog.ShowHintDialog(Z_MeterTestActivity.this, getResources().getString(R.string.dsp_load_success),
-                                        getResources().getString(R.string.tips));
+                                HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "DSP写入成功","提示");
                             }
                         });
 
                         try {
                             in.close();
                         } catch (IOException e) {
-                            HintDialog.ShowHintDialog(Z_MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
-                                    getResources().getString(R.string.system_error));
+                            HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "文件读取失败","系统错误");
                             return;
                         }
 
@@ -311,10 +309,9 @@ public class Z_MeterTestActivity extends ListActivity {
             }
         } else if (requestCode == 2) { // MCU Update
             if (resultCode == Activity.RESULT_OK) {
-                ModuleHintDialog dlg = new ModuleHintDialog(this, getResources().getString(R.string.press_to_confirm),
-                        getResources().getString(R.string.tips));
+                Z_ModuleHintDialog dlg = new Z_ModuleHintDialog(this, "按下此确认键的5秒内给水表上电","提示");
                 dlg.showDialog();
-                String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+                String filePath = data.getStringExtra(Z_FileDialog.RESULT_PATH);
 
                 // upload mcu code
                 final int WMCU_BYTES = 128;
@@ -328,7 +325,7 @@ public class Z_MeterTestActivity extends ListActivity {
 
                 progressBar = new ProgressDialog(this);
                 progressBar.setCancelable(false);
-                progressBar.setMessage(getResources().getString(R.string.wait_dsp_load));
+                progressBar.setMessage("等待MCU进入烧写状态");
                 progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressBar.setProgress(0);
                 progressBar.setMax(4);
@@ -342,13 +339,13 @@ public class Z_MeterTestActivity extends ListActivity {
                         try {
                             in = new FileInputStream(pfPath);
                         } catch (FileNotFoundException e) {
-                            HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
-                                    getResources().getString(R.string.system_error));
+                            HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "文件读取失败",
+                                    "系统错误");
                             return;
                         }
 
                         try {
-                            MeterReader.netThread.WhileSend(6000, (byte) '$');
+                            MenuActivity.netThread.WhileSend(6000, (byte) '$');
                         } catch (IOException e2) {
                             // TODO Auto-generated catch block
                             e2.printStackTrace();
@@ -371,7 +368,7 @@ public class Z_MeterTestActivity extends ListActivity {
                         });
 
                         try {
-                            MeterReader.netThread.WhileSend(200, (byte) '@');
+                            MenuActivity.netThread.WhileSend(200, (byte) '@');
                         } catch (IOException e2) {
                             // TODO Auto-generated catch block
                             e2.printStackTrace();
@@ -396,7 +393,7 @@ public class Z_MeterTestActivity extends ListActivity {
                         progressBarHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                progressBar.setMessage(getResources().getString(R.string.mcu_load));
+                                progressBar.setMessage("MCU烧写进度");
                                 progressBar.setProgress(0);
                                 progressBar.setMax((int) times);
                             }
@@ -426,13 +423,12 @@ public class Z_MeterTestActivity extends ListActivity {
                                     in.close();
                                 } catch (IOException e) {
                                 }
-                                HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
-                                        getResources().getString(R.string.system_error));
+                                HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "文件读取失败","系统错误");
                                 return;
                             }
 
                             try {
-                                MeterReader.netThread.write(mcuData);
+                                MenuActivity.netThread.write(mcuData);
                             } catch (IOException e) {
                                 try {
                                     in.close();
@@ -443,7 +439,7 @@ public class Z_MeterTestActivity extends ListActivity {
                                     @Override
                                     public void run() {
                                         finish();
-                                        MeterReader.uiAct.resetNetworkAndBackToMainFace(MeterTestActivity.this);
+                                        MenuActivity.uiAct.resetNetwork(Z_MeterTestActivity.this);
                                     }
                                 });
                                 return;
@@ -461,16 +457,14 @@ public class Z_MeterTestActivity extends ListActivity {
                             @Override
                             public void run() {
                                 progressBar.cancel();
-                                HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.input_mcu),
-                                        getResources().getString(R.string.tips));
+                                HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "MCU写入成功","提示");
                             }
                         });
 
                         try {
                             in.close();
                         } catch (IOException e) {
-                            HintDialog.ShowHintDialog(MeterTestActivity.this, getResources().getString(R.string.read_file_fail),
-                                    getResources().getString(R.string.system_error));
+                            HintDialog.ShowHintDialog(Z_MeterTestActivity.this, "文件读取失败","系统错误");
                             return;
                         }
 
@@ -479,7 +473,7 @@ public class Z_MeterTestActivity extends ListActivity {
 
 
                 // upload mcu code
-                progressBar = new ProgressDialog(this);
+                /*progressBar = new ProgressDialog(this);
                 progressBar.setCancelable(false);
                 progressBar.setMessage("请等待MCU烧写完成");
                 progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -512,7 +506,7 @@ public class Z_MeterTestActivity extends ListActivity {
                             });
                         }
                     }
-                }).start();
+                }).start();*/
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
