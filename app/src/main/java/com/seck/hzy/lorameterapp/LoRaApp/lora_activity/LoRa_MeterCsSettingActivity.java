@@ -577,7 +577,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                         getMsg.substring(31, 32)+
                                         "."+getMsg.substring(33, 34);//表底数
                                 String wlmoID = getMsg.substring(34,42);//物理模块ID
-                                oldFreq = Integer.parseInt(sfreq, 16) + "";
+                                oldFreq = sfreq;
                                 Log.d("limbo", "频率" + sfreq +
                                         "\n网络ID" + netId +
                                         "\n模块ID" + mkId +
