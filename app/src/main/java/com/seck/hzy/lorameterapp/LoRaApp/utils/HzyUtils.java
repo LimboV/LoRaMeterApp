@@ -2,6 +2,8 @@ package com.seck.hzy.lorameterapp.LoRaApp.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.util.Log;
@@ -11,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by ssHss on 2015/9/10.
@@ -273,6 +277,47 @@ public class HzyUtils {
             hex.append(Integer.toHexString((int) chars[i]));
         }
         return hex.toString();
+    }
+    /**
+     *
+     * 判断网络是否开启
+     *
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        NetworkInfo netInfo = ((ConnectivityManager) context.getSystemService(
+                Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if ((netInfo != null) && (netInfo.isAvailable())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * 获得当前的系统时间
+     *
+     * @return
+     */
+    public String getSysTime() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+
+    /**
+     * from byte to int, because of byte in java is signed
+     */
+    public static int[] toIntArray(byte[] bytes) {
+        if(bytes == null) {
+            return null;
+        }
+        int[] data = new int[bytes.length];
+        for(int i=0; i<bytes.length; i++) {
+            data[i] = bytes[i] >= 0 ? (int)bytes[i] : (int)(bytes[i] + 256);
+        }
+        return data;
     }
     /**
      * 10进制转16进制

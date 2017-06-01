@@ -131,6 +131,18 @@ public class BluetoothConnectThread extends Thread {
     }
 
     /**
+     * 自动定位
+     *
+     * @param addr
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public SXInfo readscmdAutoPos(byte[] addr) throws NetException, IOException, InterruptedException {
+        scmdAutoPos(addr);
+        return rcmdRCFlow_SX();
+    }
+    /**
      * 读取图片
      *
      * @param addr
@@ -233,6 +245,11 @@ public class BluetoothConnectThread extends Thread {
                 mmRQ.r = 0;
         }
     }
+    // 电阻表信息
+    public class ResMeter_Info {
+        public long CFlow, resV1, resV2, resV3;
+        public byte ErrorCode;
+    }
     /**
      * 写Flash
      *
@@ -276,6 +293,61 @@ public class BluetoothConnectThread extends Thread {
         }
 
         throw P_NetExp_Builder.getExp(5);
+    }
+    /**
+     * 电阻表信息读取
+     *
+     * @param addr
+     * @return
+     * @throws NetException
+     * @throws IOException
+     */
+    public ResMeter_Info readResMeter(byte[] addr) throws NetException,
+            IOException {
+        scmdRResMeterData(addr);
+        return rcmdRResMeterData();
+    }/**
+     * 电阻表信息返回
+     *
+     * @return
+     * @throws NetException
+     */
+    private ResMeter_Info rcmdRResMeterData() throws NetException {
+        PrFrame frameRVer = rcmdProtocalGeneral((byte) 0x21, (byte) 0x90,
+                (byte) 0x1f);
+
+        ResMeter_Info info = new ResMeter_Info();
+        info.CFlow = bcdtol(frameRVer.data, 0, 4);
+        info.resV1 = bcdtol(frameRVer.data, 5, 4);
+        info.resV2 = bcdtol(frameRVer.data, 10, 4);
+        info.resV3 = bcdtol(frameRVer.data, 15, 4);
+        info.ErrorCode = frameRVer.data[14];
+        return info;
+    }
+    /**
+     * 电阻表发送字符串
+     *
+     * @param addr
+     * @throws IOException
+     */
+    private void scmdRResMeterData(byte addr[]) throws IOException {
+        byte[] cmd_pre = new byte[]{(byte) 0xfe, (byte) 0xfe, (byte) 0xfe};
+
+        write(cmd_pre);
+
+        byte[] sndBuf = new byte[16];
+        sndBuf[0] = 0x68;
+        sndBuf[1] = 0x10;
+        System.arraycopy(addr, 0, sndBuf, 2, addr.length);
+        sndBuf[9] = 0x21;
+        sndBuf[10] = 0x03;
+        sndBuf[11] = (byte) 0x90;
+        sndBuf[12] = 0x1f;
+        sndBuf[13] = 0x00;
+        sndBuf[14] = countSum(sndBuf, 0, 14);
+        sndBuf[15] = 0x16;
+
+        write(sndBuf);
     }
     /**
      * 获得中间的某个值
@@ -359,7 +431,78 @@ public class BluetoothConnectThread extends Thread {
                 return mmRevbuffer[mmRQ.l + i];
         }
     }
+    /**
+     * 通信测试
+     *
+     * @param addr
+     * @return
+     * @throws InterruptedException
+     * @throws IOException
+     * @throws NetException
+     */
+    public String comTest(byte[] addr) throws InterruptedException,
+            IOException, NetException {
 
+        scmdRCFlow_NB(addr);
+
+        // byte[] revBuf = readUntilTimeout(300);
+        byte[] revBuf = rcmdProtocalGeneral();
+        String recvOutput = "";
+
+        if (revBuf == null)
+            return recvOutput;
+
+        for (byte b : revBuf) {
+            String hex = Integer.toHexString(b & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            recvOutput += hex;
+            recvOutput += " ";
+        }
+
+        return recvOutput;
+    }
+    /**
+     * 分析协议完整版本
+     *
+     * @return
+     */
+    private byte[] rcmdProtocalGeneral() throws NetException {
+        int timeDelayMax = 8000; // ms
+        prepareTimeStart();
+
+        while (true) {
+            byte feFlag = waitTopByte(timeDelayMax);
+            if (feFlag != (byte) 0xfe)
+                continue;
+
+            byte csFlag = waitAByte(0, timeDelayMax);
+            if (csFlag != (byte) 0x68)
+                continue;
+
+            byte dataL = waitAByte(10, timeDelayMax);
+
+            byte[] frame_data = new byte[10 + dataL + 3];
+            for (int i = 0; i < 10 + dataL + 3; i++) {
+                frame_data[i] = waitAByte(i, timeDelayMax);
+            }
+
+            byte cs_va = countSum(frame_data, 0, 10 + dataL + 1);
+            byte cs = waitAByte(10 + dataL + 1, timeDelayMax);
+            byte endFlag = waitAByte(10 + dataL + 2, timeDelayMax);
+
+            if (endFlag != (byte) 0x16)
+                continue;
+
+            if (cs != cs_va)
+                continue;
+
+            for (int i = 0; i < 10 + dataL + 3; i++)
+                queuePop();
+            return frame_data;
+        }
+    }
     public static class SXInfo {
         public String addr;
         public float cflow;
@@ -652,7 +795,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 读写地址
      *
-     * @param newaddr
      * @return
      * @throws NetException
      */
@@ -685,9 +827,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 写入参数
      *
-     * @param addr
-     * @param paramAddr
-     * @param dataLen
      * @return
      * @throws NetException
      * @throws IOException
@@ -726,8 +865,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 读取一张Jpeg图像
      *
-     * @param picno
-     * @param trytimes
      * @throws NetException
      * @throws IOException
      */
@@ -792,7 +929,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 读取参数
      *
-     * @param paramLen
      * @return
      * @throws NetException
      */

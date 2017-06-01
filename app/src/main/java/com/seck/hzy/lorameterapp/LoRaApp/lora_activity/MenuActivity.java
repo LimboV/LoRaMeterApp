@@ -38,7 +38,11 @@ import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NetworkLayer;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.SkDataSource;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_DataSyncActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_GPRSNetActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_MeterTestActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_OtherCommandsActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
 
@@ -96,14 +100,8 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         for (int i = 0; i < strAllPath.length; i++) {
             Log.e("limbo", strAllPath[i]);
         }
-        //        moblieStorgePath = strAllPath[0];// 手机
-        //        sDStorgePath = strAllPath[1];// sd卡
-        //        Log.e("moblieStorgePath", moblieStorgePath + "");
-        //        Log.e("strAllPath", strAllPath.length + "");
-        //        Log.e("strAllPath[0]", strAllPath[0]);
-        //        Log.e("strAllPath[1]", strAllPath[1]);
         Log.e("limbo", Environment.getExternalStorageDirectory().getAbsolutePath());
-
+        dataSource = new SkDataSource(this);
         /**
          * 按键设置
          */
@@ -205,8 +203,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                             if (METER_STYLE.equals("P")) {//P型表测试
                                 i = new Intent(MenuActivity.this, P_CameraTestActivity.class);
                                 startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {
-
+                            } else if (METER_STYLE.equals("Z")) {//测试
+                                i = new Intent(uiAct, Z_OtherCommandsActivity.class);
+                                startActivity(i);
                             } else {
                                 i = new Intent(MenuActivity.this, LoRa_BluetoothUtilsActivity.class);
                                 startActivity(i);
@@ -223,8 +222,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                             if (METER_STYLE.equals("P")) {//参数设置
                                 i = new Intent(MenuActivity.this, P_ChooseActivity.class);
                                 startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {
-
+                            } else if (METER_STYLE.equals("Z")) {//设置
+                                i = new Intent(uiAct, Z_Setting1Activity.class);
+                                startActivity(i);
                             } else {
                                 i = new Intent(MenuActivity.this, LoRa_XqListActivity.class);
                                 startActivity(i);
@@ -234,21 +234,23 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                         }
                         break;
                     case 7:
-                        if (MenuActivity.netThread == null) {
-                            networkConnect();
-                            return;
-                        } else {
                             if (METER_STYLE.equals("P")) {//物联网表设置
-                                i = new Intent(MenuActivity.this, P_GPRSNetActivity.class);
-                                startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {
+                                if (MenuActivity.netThread == null) {
+                                    networkConnect();
+                                    return;
+                                }else {
+                                    i = new Intent(MenuActivity.this, P_GPRSNetActivity.class);
+                                    startActivity(i);
+                                }
 
+                            } else if (METER_STYLE.equals("Z")) {//数据同步
+                                i = new Intent(uiAct, Z_DataSyncActivity.class);
+                                startActivity(i);
                             } else {
 
                             }
 
 
-                        }
                         break;
                     case 8:
                         if (MenuActivity.netThread == null) {
@@ -258,7 +260,8 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                                 i = new Intent(MenuActivity.this, P_UploadActivity.class);
                                 startActivity(i);
                             } else if (METER_STYLE.equals("Z")) {
-
+                                i = new Intent(uiAct, Z_GPRSNetActivity.class);
+                                startActivity(i);
                             } else {
 
                             }
@@ -316,8 +319,8 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         /**
          * 直读表
          */
-        private String Z_Titls[] = {"未连接", "表类型选择", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
-        private String Z_Titls2[] = {"已连接", "表类型选择", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
+        private String Z_Titls[] = {"未连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
+        private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
                 R.drawable.pic_bluetoothutils, R.drawable.pic_save};
@@ -338,7 +341,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             } else if (MenuActivity.METER_STYLE.equals("P")) {
                 return 9;
             } else if (MenuActivity.METER_STYLE.equals("Z")) {
-                return 8;
+                return 9;
             } else {
                 return 7;
             }

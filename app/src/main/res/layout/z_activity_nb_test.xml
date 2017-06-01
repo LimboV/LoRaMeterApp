@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="fill_parent"
+			  android:layout_height="fill_parent"
+			  android:orientation="vertical" >
+	      
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="地址（空则使用广播地址）："
+		android:textSize="24sp" >
+	</TextView>
+
+	<EditText
+		android:id="@+id/EditText_Addr"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:inputType="number"
+		android:hint="富阳表必须先获取表地址才可读取水表读数"
+		android:text="" >
+	</EditText>
+
+	<Button
+		android:id="@+id/btn_getAddress"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="获取地址"
+		android:textSize="24sp" />
+
+	<Button
+		android:id="@+id/Button_SendCmd"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="读取水表读数"
+		android:textSize="24sp" >
+	</Button>
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="返回数据："
+		android:textSize="24sp" >
+	</TextView>
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="水表读数："
+		android:textSize="24sp" >
+	</TextView>
+
+	<TextView
+		android:id="@+id/TextView_Flow"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="0000000.00"
+		android:textSize="24sp" >
+	</TextView>
+
+</LinearLayout>

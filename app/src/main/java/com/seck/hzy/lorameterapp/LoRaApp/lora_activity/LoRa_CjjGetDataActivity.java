@@ -21,8 +21,7 @@ import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
  */
 public class LoRa_CjjGetDataActivity extends Activity {
 
-    private EditText etJd, etFc0, etFc1, etFc2, etFc3, etFc4, etFc5, etFc6, etFc7, etFc8, etFc9, etFc10
-            , etFc11, etFc12, etFc13, etFc14, etFc15, etFc16, etFc17, etFc18, etFc19;
+    private EditText etJd, etFc0, etFc1, etFc2, etFc3, etFc4, etFc5, etFc6, etFc7, etFc8, etFc9, etFc10, etFc11, etFc12, etFc13, etFc14, etFc15, etFc16, etFc17, etFc18, etFc19;
     private Button btnGetData;
     private TextView tv;
     private CheckBox cb;
@@ -36,6 +35,7 @@ public class LoRa_CjjGetDataActivity extends Activity {
     private void init() {
         setContentView(R.layout.lora_activity_cjjgetdata);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
+        MenuActivity.btAuto = false;
         tv = (TextView) findViewById(R.id.CjjGetDataActivity_tv_showMsg);
         etJd = (EditText) findViewById(R.id.CjjGetDataActivity_et_jd);
         etFc0 = (EditText) findViewById(R.id.CjjGetDataActivity_et_fc0);
@@ -64,6 +64,7 @@ public class LoRa_CjjGetDataActivity extends Activity {
         btnGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MenuActivity.btAuto = true;
                 tv.setText("接收数据:\n");
                 String jd = etJd.getText().toString().trim();
                 String fc0 = etFc0.getText().toString().trim();
@@ -268,8 +269,7 @@ public class LoRa_CjjGetDataActivity extends Activity {
                             + fc5 + fc6 + fc7 + fc8 + fc9
                             + fc10 + fc11 + fc12 + fc13 + fc14
                             + fc15 + fc16 + fc17 + fc18 + fc19
-                            +"00000000000000"
-                            ;
+                            + "00000000000000";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);
@@ -278,7 +278,7 @@ public class LoRa_CjjGetDataActivity extends Activity {
                         @Override
                         public void run() {
                             try {
-                                for (int i = 0;i<60;i++){
+                                for (int i = 0; i < 60 && MenuActivity.btAuto == true; i++) {
                                     Thread.sleep(2000);
                                     String getMsg = MenuActivity.Cjj_CB_MSG;
                                     MenuActivity.Cjj_CB_MSG = "";
@@ -288,14 +288,14 @@ public class LoRa_CjjGetDataActivity extends Activity {
 //                                        message.obj = getMsg;
 //                                        mHandler.sendMessage(message);
 //                                    } else {
-                                        getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-                                        Log.d("limbo", getMsg);
+                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    Log.d("limbo", getMsg);
 
-                                        Message message = new Message();
-                                        message.what = 0x00;
-                                        message.obj = getMsg;
-                                        mHandler.sendMessage(message);
-//                                    }
+                                    Message message = new Message();
+                                    message.what = 0x00;
+                                    message.obj = getMsg;
+                                    mHandler.sendMessage(message);
+                                    //                                    }
                                 }
                                 HzyUtils.closeProgressDialog();
                             } catch (InterruptedException e) {
@@ -316,21 +316,21 @@ public class LoRa_CjjGetDataActivity extends Activity {
                     String getMsg = msg.obj.toString();
                     Log.d("limbo", "读到数据:" + getMsg);
                     HzyUtils.closeProgressDialog();
-//                    if (getMsg.trim().length()!=0) {
-//                        tv.append(getMsg+"\n");
-//                    }
+                    //                    if (getMsg.trim().length()!=0) {
+                    //                        tv.append(getMsg+"\n");
+                    //                    }
 
-//                    if (getMsg.trim().length()!=0){
-//                        getMsg = HzyUtils.toStringHex(getMsg).replaceAll("�","");
-//                        tv.append(getMsg+"\n");
-//                    }
-                    if (getMsg.trim().length()!=0){
+                    //                    if (getMsg.trim().length()!=0){
+                    //                        getMsg = HzyUtils.toStringHex(getMsg).replaceAll("�","");
+                    //                        tv.append(getMsg+"\n");
+                    //                    }
+                    if (getMsg.trim().length() != 0) {
 
-                        if (cb.isChecked()){
-                            tv.append(getMsg+"\n");
-                        }else {
-                            getMsg = HzyUtils.toStringHex1(getMsg).replaceAll("�","");
-                            tv.append(getMsg+"\n");
+                        if (cb.isChecked()) {
+                            tv.append(getMsg + "\n");
+                        } else {
+                            getMsg = HzyUtils.toStringHex1(getMsg).replaceAll("�", "");
+                            tv.append(getMsg + "\n");
                         }
                     }
                     break;
@@ -343,4 +343,10 @@ public class LoRa_CjjGetDataActivity extends Activity {
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        MenuActivity.btAuto = false;
+        super.onDestroy();
+    }
 }

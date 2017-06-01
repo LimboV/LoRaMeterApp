@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content"
+	  xmlns:android="http://schemas.android.com/apk/res/android">
+<TableLayout android:id="@+id/table1" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical">
+	<TextView android:id="@+id/text01" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="广播地址:" android:textSize="24sp">
+	</TextView>
+	<EditText android:id="@+id/edittext_gbdz" android:inputType="number"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp">
+	</EditText>
+	<TextView android:id="@+id/text02" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="超时时间(毫秒):" android:textSize="24sp">
+	</TextView>
+	<EditText android:id="@+id/edittext_cssj" android:inputType="number"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp" android:numeric="integer">
+	</EditText>
+	<TextView android:id="@+id/text03" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="通讯延时(毫秒):" android:textSize="24sp">
+	</TextView>
+	<EditText android:id="@+id/edittext_txys" android:inputType="number"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp" android:numeric="integer">
+	</EditText>
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="置信度阈值" android:textSize="24sp">
+	</TextView>
+	<EditText android:id="@+id/edittext_zxd" android:inputType="number"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp" android:numeric="integer">
+	</EditText>
+		<TextView android:id="@+id/text04" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="服务器地址及端口(使用:分隔):" android:textSize="24sp">
+	</TextView>
+	<EditText android:id="@+id/edittext_fwqdz"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp">
+	</EditText>	
+	<CheckBox android:text="自动上传数据" android:id="@+id/checkbox_autoupdate" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+	<Button android:text="确定" android:id="@+id/Button01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_marginTop="30px">
+	</Button>
+	<Button android:text="取消" android:id="@+id/Button02"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+	</Button>
+</TableLayout>
+</ScrollView>

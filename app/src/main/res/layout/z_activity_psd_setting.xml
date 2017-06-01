@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	      
+	<TextView android:text="原始密码：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<EditText android:text="" android:id="@+id/EditText_PsdOld" android:password="true"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+	<TextView android:text="新密码：" android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"></TextView>
+	<EditText android:text="" android:id="@+id/EditText_PsdNew" android:password="true"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+	<TextView android:text="新密码(重复)：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<EditText android:text="" android:id="@+id/EditText_PsdNew2" android:password="true"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+</LinearLayout>

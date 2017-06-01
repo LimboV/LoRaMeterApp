@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	      
+	<TextView android:text="地址（空则使用广播地址）：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<EditText android:text="" android:id="@+id/EditText_Addr" android:inputType="number"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+	<Button android:text="发送" android:id="@+id/Button_SendCmd"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
+	<TextView android:text="返回数据：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<TextView android:text="水表读数：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<TextView android:id="@+id/TextView_ds"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="个位电阻：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<TextView android:id="@+id/TextView_gw"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="十位电阻：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<TextView android:id="@+id/TextView_sw"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="百位电阻：" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+	<TextView android:id="@+id/TextView_bw"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"></TextView>
+</LinearLayout>
