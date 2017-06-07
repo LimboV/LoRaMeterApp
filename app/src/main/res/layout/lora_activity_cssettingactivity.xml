@@ -107,6 +107,14 @@
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/CsSettingActivity_btn_getdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="读取"
+            android:textColor="@color/white"
+            />
+        <Button
             android:id="@+id/CsSettingActivity_btn_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seck.hzy.lorameterapp.LoRaApp.dialog.CustomNeedUpdateCreator;
+import com.seck.hzy.lorameterapp.LoRaApp.dialog.NotificationDownloadCreator;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_CameraTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_ChooseActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_GPRSNetActivity;
@@ -45,6 +47,8 @@ import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_OtherCommandsActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
+
+import org.lzh.framework.updatepluginlib.UpdateBuilder;
 
 import java.io.IOException;
 
@@ -110,7 +114,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
         tvMeterStyle = (TextView) findViewById(R.id.menuActivity_tv_meterStyle);
         loadUser();//加载表类型
-
+        UpdateBuilder.create()
+                .updateDialogCreator(new CustomNeedUpdateCreator())
+                .downloadDialogCreator(new NotificationDownloadCreator())
+                .check();
         mGridView = (GridView) findViewById(R.id.gvMain);
         mGridView.setAdapter(new imageAdapter(this));
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -234,21 +241,21 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                         }
                         break;
                     case 7:
-                            if (METER_STYLE.equals("P")) {//物联网表设置
-                                if (MenuActivity.netThread == null) {
-                                    networkConnect();
-                                    return;
-                                }else {
-                                    i = new Intent(MenuActivity.this, P_GPRSNetActivity.class);
-                                    startActivity(i);
-                                }
-
-                            } else if (METER_STYLE.equals("Z")) {//数据同步
-                                i = new Intent(uiAct, Z_DataSyncActivity.class);
-                                startActivity(i);
+                        if (METER_STYLE.equals("P")) {//物联网表设置
+                            if (MenuActivity.netThread == null) {
+                                networkConnect();
+                                return;
                             } else {
-
+                                i = new Intent(MenuActivity.this, P_GPRSNetActivity.class);
+                                startActivity(i);
                             }
+
+                        } else if (METER_STYLE.equals("Z")) {//数据同步
+                            i = new Intent(uiAct, Z_DataSyncActivity.class);
+                            startActivity(i);
+                        } else {//山科表--检查更新
+
+                        }
 
 
                         break;
@@ -256,10 +263,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                         if (MenuActivity.netThread == null) {
                             networkConnect();
                         } else {
-                            if (METER_STYLE.equals("P")) {//
+                            if (METER_STYLE.equals("P")) {//P型表--采集机升级
                                 i = new Intent(MenuActivity.this, P_UploadActivity.class);
                                 startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {
+                            } else if (METER_STYLE.equals("Z")) {//直读表--物联网设置
                                 i = new Intent(uiAct, Z_GPRSNetActivity.class);
                                 startActivity(i);
                             } else {
@@ -268,9 +275,20 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
                         }
                         break;
+                    /**
+                     * 检查更新
+                     */
+                    case 9:
+                        if (METER_STYLE.equals("P")) {//P型表--检查更新
+                        } else if (METER_STYLE.equals("Z")) {//直读表--检查更新
+                        } else {
+
+                        }
+                        break;
                 }
             }
         });
+
     }
 
     @Override
@@ -309,25 +327,25 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         /**
          * LoRa表
          */
-        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息"};
-        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息"};
+        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "检查更新"};
+        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "检查更新"};
         /**
          * P型表
          */
-        private String P_Titls[] = {"未连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级"};
-        private String P_Titls2[] = {"已连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级"};
+        private String P_Titls[] = {"未连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "检查更新"};
+        private String P_Titls2[] = {"已连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "检查更新"};
         /**
          * 直读表
          */
-        private String Z_Titls[] = {"未连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
-        private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置"};
+        private String Z_Titls[] = {"未连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "检查更新"};
+        private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "检查更新"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
-                R.drawable.pic_bluetoothutils, R.drawable.pic_save};
+                R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.updater};
         private int P_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_cjjcb, R.drawable.pic_meter,
-                R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download};
+                R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download, R.drawable.updater};
         private int Z_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_save, R.drawable.pic_meter,
-                R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet};
+                R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet, R.drawable.updater};
 
 
         public imageAdapter(Context c) {

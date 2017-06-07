@@ -1,11 +1,13 @@
 <manifest
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="1"
-    android:versionName="1.0.170320">
+    android:versionCode="2"
+    android:versionName="1.0.170606">
 
     <uses-sdk
+        android:installLocation="internalOnly"
         android:maxSdkVersion="21"
+        android:sharedUserId="android.uid.system"
         android:minSdkVersion="14"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -34,8 +36,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/pic_seckicon"
+        android:name=".LoRaApp.App"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoRaApp.lora_activity.MenuActivity"
