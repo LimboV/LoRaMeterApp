@@ -26,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.LoRaApp.dialog.CustomNeedUpdateCreator;
-import com.seck.hzy.lorameterapp.LoRaApp.dialog.NotificationDownloadCreator;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_CameraTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_ChooseActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_GPRSNetActivity;
@@ -44,18 +42,20 @@ import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_DataSyncActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_GPRSNetActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_MeterTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_OtherCommandsActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_PasswordDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
 
-import org.lzh.framework.updatepluginlib.UpdateBuilder;
-
 import java.io.IOException;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by ssHss on 2016/7/14.
  */
-public class MenuActivity extends Activity implements View.OnClickListener {
+public class MenuActivity extends Activity {
     /**
      * 全局变量
      */
@@ -81,11 +81,19 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     /**
      * 私有变量
      */
-    private GridView mGridView;
-    private Button btnExit;
-    private TextView tvMeterStyle;
+    @BindView(R.id.gvMain)
+    GridView gvMain;
+
+    @BindView(R.id.menuActivity_btn_exit)
+    Button menuActivity_btn_exit;
+
+    @BindView(R.id.menuActivity_tv_meterStyle)
+    TextView menuActivity_tv_meterStyle;
+
     private ProgressDialog progressBar = null;
     static public MenuActivity uiAct = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     private void init() {
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
+        ButterKnife.bind(this);
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
@@ -109,18 +118,38 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         /**
          * 按键设置
          */
-        btnExit = (Button) findViewById(R.id.menuActivity_btn_exit);
-        btnExit.setOnClickListener(this);
 
-        tvMeterStyle = (TextView) findViewById(R.id.menuActivity_tv_meterStyle);
+        menuActivity_btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MenuActivity.this);
+                dialog.setTitle("请确认是否退出");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
+            }
+        });
+
         loadUser();//加载表类型
-        UpdateBuilder.create()
-                .updateDialogCreator(new CustomNeedUpdateCreator())
-                .downloadDialogCreator(new NotificationDownloadCreator())
-                .check();
-        mGridView = (GridView) findViewById(R.id.gvMain);
-        mGridView.setAdapter(new imageAdapter(this));
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //UpdateBuilder builder = UpdateBuilder.create();
+        //        builder.updateDialogCreator(new CustomNeedUpdateCreator());
+        //        builder.downloadDialogCreator(new NotificationDownloadCreator());
+        //        builder.check();
+
+        gvMain.setAdapter(new imageAdapter(this));
+        gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent i;
@@ -136,7 +165,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                         } else {
                             MenuActivity.resetNetwork(MenuActivity.this);
                             HintDialog.ShowHintDialog(MenuActivity.this, "蓝牙连接已断开", "提示");
-                            mGridView.setAdapter(new imageAdapter(MenuActivity.this));
+                            gvMain.setAdapter(new imageAdapter(MenuActivity.this));
                         }
                         break;
                     /**
@@ -291,36 +320,6 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-
-            /**
-             * exit
-             */
-            case R.id.menuActivity_btn_exit:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MenuActivity.this);
-                dialog.setTitle("请确认是否退出");
-                dialog.setCancelable(false);
-                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MenuActivity.resetNetwork(MenuActivity.this);
-                        finish();
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.show();
-                break;
-            default:
-                break;
-        }
-    }
 
     private class imageAdapter extends BaseAdapter {
         Context mContext;
@@ -421,11 +420,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        btnExit.performClick();
+        menuActivity_btn_exit.performClick();
     }
 
     @Override
     protected void onDestroy() {
+        resetNetwork(this);
         super.onDestroy();
     }
 
@@ -454,10 +454,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                 MenuActivity.resetNetwork(MenuActivity.this);
             } else if (resultCode == BluetoothConnectThread.NETWORK_CONNECTED) {
                 HintDialog.ShowHintDialog(this, "蓝牙连接成功", "提示");
-                mGridView.setAdapter(new imageAdapter(this));
+                gvMain.setAdapter(new imageAdapter(this));
             } else if (resultCode == BluetoothConnectThread.METER) {
                 loadUser();
-                mGridView.setAdapter(new imageAdapter(this));
+                gvMain.setAdapter(new imageAdapter(this));
             }
         }
     }
@@ -493,22 +493,22 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         METER_STYLE = pref.getString("meterStyle", "L");
         CITY_NAME = pref.getString("cityName", "YC");
         if (MenuActivity.METER_STYLE.equals("L")) {
-            tvMeterStyle.setText("当前表类型为:山科LoRa表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:山科LoRa表");
         } else if (MenuActivity.METER_STYLE.equals("W")) {
-            tvMeterStyle.setText("当前表类型为:安美通LoRa表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:安美通LoRa表");
         } else if (MenuActivity.METER_STYLE.equals("F")) {
-            tvMeterStyle.setText("当前表类型为:安美通Fsk表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:安美通Fsk表");
         } else if (MenuActivity.METER_STYLE.equals("P")) {
-            tvMeterStyle.setText("当前表类型为:P型摄像表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
-            tvMeterStyle.setText("当前表类型为:直读表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:直读表");
         }
     }
 
     public static void sendCmd(String sendMsg) {
         Log.d("limbo", "sendCmd函数发送:" + sendMsg);
         if (sendMsg.length() % 2 == 1) {
-            sendMsg = "0" + sendMsg;
+            sendMsg =  sendMsg+"0" ;
         }
         MenuActivity.Cjj_CB_MSG = "";//清空记录
         byte[] bos = HzyUtils.getHexBytes(sendMsg);
@@ -526,6 +526,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 自带解析
+     */
     public static void sendLoRaCmd(String sendMsg) {
         byte[] x = HzyUtils.getHexBytes(sendMsg);
         byte y = HzyUtils.countSum(x, 0, sendMsg.length() / 2);
@@ -614,5 +617,14 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         SharedPreferences settings = uiAct.getSharedPreferences(
                 MenuActivity.PREF_NAME, 0);
         return settings.getInt(name, 500); // 通信延时
+    }
+
+    public static int checkPsw(Activity activity) {
+        Z_PasswordDialog pswdlg = new Z_PasswordDialog(activity, 0);
+        int rtn = pswdlg.showDialog();
+        if (rtn != 1) {
+            HintDialog.ShowHintDialog(activity, "密码输入错误", "错误");
+        }
+        return rtn;
     }
 }

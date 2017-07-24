@@ -12,21 +12,61 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.seck.hzy.lorameterapp.R;
+import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_PasswordDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
+import com.seck.hzy.lorameterapp.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by ssHss on 2016/8/31.
  */
-public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickListener {
+public class LoRa_LoRaSettingActivity extends Activity {
+    @BindView(R.id.LoRaSettingActivity_btn_deleteAllJd)
+    Button btnDeleteAllJd;
+
+    @BindView(R.id.LoRaSettingActivity_btn_GetNetId)
+    Button btnGetNetId;
+
+    @BindView(R.id.LoRaSettingActivity_btn_SendNetId)
+    Button btnSendNetId;
+
+    @BindView(R.id.LoRaSettingActivity_btn_GetNetFreq)
+    Button btnGetNetFreq;
+
+    @BindView(R.id.LoRaSettingActivity_btn_SendNetFreq)
+    Button btnSendNetFreq;
+
+    @BindView(R.id.LoRaSettingActivity_btn_GetCbCount)
+    Button btnGetCbCount;
+
+    @BindView(R.id.LoRaSettingActivity_btn_AddJd)
+    Button btnAddJd;
+
+    @BindView(R.id.LoRaSettingActivity_btn_DeleteJd)
+    Button btnDeleteJd;
+
+    @BindView(R.id.LoRaSettingActivity_btn_ThJd)
+    Button btnThJd;
+
+    @BindView(R.id.LoRaSettingActivity_btn_getJdMsg)
+    Button btnGetJdMsg;
+
+    @BindView(R.id.LoRaSettingActivity_btn_AddLy)
+    Button btnAddLy;
+
+    @BindView(R.id.LoRaSettingActivity_btn_DeleteLy)
+    Button btnDeleteLy;
+
+    @BindView(R.id.LoRaSettingActivity_btn_getLyMsg)
+    Button btnGetLyMsg;
 
     private EditText etNetId, etNetFreq, etCbCount, etAddJd, etAddFc0, etAddFc1, etAddFc2, etAddFc3, etAddFc4,
             etAddFc5, etAddFc6, etAddFc7, etAddFc8, etAddFc9, etAddFc10, etAddFc11, etAddFc12, etAddFc13, etAddFc14,
             etAddFc15, etAddFc16, etAddFc17, etAddFc18, etAddFc19,
             etDeleteJd, etThJd, etBthJd, etAddLy, etDeleteLy;
-    private Button btnGetNetId, btnSendNetId, btnGetNetFreq, btnSendNetFreq, btnGetCbCount, btnAddJd, btnDeleteJd,
-            btnThJd, btnGetJdMsg, btnAddLy, btnDeleteLy, btnGetLyMsg;
     private TextView tvJdMsg;
 
     @Override
@@ -39,7 +79,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_lorasettingactivity);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
-
+        ButterKnife.bind(this);
         etNetId = (EditText) findViewById(R.id.LoRaSettingActivity_et_NetId);
         etNetFreq = (EditText) findViewById(R.id.LoRaSettingActivity_et_NetFreq);
         etCbCount = (EditText) findViewById(R.id.LoRaSettingActivity_et_CbCount);
@@ -72,47 +112,18 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
 
         tvJdMsg = (TextView) findViewById(R.id.LoRaSettingActivity_tv_jdMsg);
 
-        btnGetNetId = (Button) findViewById(R.id.LoRaSettingActivity_btn_GetNetId);
-        btnGetNetId.setOnClickListener(this);
-        btnSendNetId = (Button) findViewById(R.id.LoRaSettingActivity_btn_SendNetId);
-        btnSendNetId.setOnClickListener(this);
-        btnGetNetFreq = (Button) findViewById(R.id.LoRaSettingActivity_btn_GetNetFreq);
-        btnGetNetFreq.setOnClickListener(this);
-        btnSendNetFreq = (Button) findViewById(R.id.LoRaSettingActivity_btn_SendNetFreq);
-        btnSendNetFreq.setOnClickListener(this);
-        btnGetCbCount = (Button) findViewById(R.id.LoRaSettingActivity_btn_GetCbCount);
-        btnGetCbCount.setOnClickListener(this);
-        btnAddJd = (Button) findViewById(R.id.LoRaSettingActivity_btn_AddJd);
-        btnAddJd.setOnClickListener(this);
-        btnDeleteJd = (Button) findViewById(R.id.LoRaSettingActivity_btn_DeleteJd);
-        btnDeleteJd.setOnClickListener(this);
-        btnThJd = (Button) findViewById(R.id.LoRaSettingActivity_btn_ThJd);
-        btnThJd.setOnClickListener(this);
-        btnGetJdMsg = (Button) findViewById(R.id.LoRaSettingActivity_btn_getJdMsg);
-        btnGetJdMsg.setOnClickListener(this);
-        btnAddLy = (Button) findViewById(R.id.LoRaSettingActivity_btn_AddLy);
-        btnAddLy.setOnClickListener(this);
-        btnDeleteLy = (Button) findViewById(R.id.LoRaSettingActivity_btn_DeleteLy);
-        btnDeleteLy.setOnClickListener(this);
-        btnGetLyMsg = (Button) findViewById(R.id.LoRaSettingActivity_btn_getLyMsg);
-        btnGetLyMsg.setOnClickListener(this);
-
-        loadUser();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            /**
-             * 获取网络ID
-             */
-            case R.id.LoRaSettingActivity_btn_GetNetId:
+        /**
+         * 获取网络ID
+         */
+        btnGetNetId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "000300d00001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -147,17 +158,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 设置网络ID
-             */
-            case R.id.LoRaSettingActivity_btn_SendNetId:
+            }
+        });
+        /**
+         * 设置网络ID
+         */
+        btnSendNetId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etNetId.getText().toString().trim();
                     if (userMsg.length() <= 4) {
                         while (userMsg.length() < 4) {
@@ -165,7 +179,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     } else {
                         HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
-                        break;
+                        return;
                     }
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d3006102" + userMsg;
@@ -185,17 +199,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 获取网络频率
-             */
-            case R.id.LoRaSettingActivity_btn_GetNetFreq:
+            }
+        });
+        /**
+         *获取网络频率
+         */
+        btnGetNetFreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "000300d10002";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -230,17 +247,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 设置网络频率
-             */
-            case R.id.LoRaSettingActivity_btn_SendNetFreq:
+            }
+        });
+        /**
+         *设置网络频率
+         */
+        btnSendNetFreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etNetFreq.getText().toString().trim();
                     if (userMsg.length() <= 3) {
                         while (userMsg.length() < 3) {
@@ -249,7 +269,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         userMsg = "00" + userMsg + "000";
                     } else {
                         HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
-                        break;
+                        return;
                     }
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d3006304" + userMsg;
@@ -269,17 +289,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 获取集抄次数
-             */
-            case R.id.LoRaSettingActivity_btn_GetCbCount:
+            }
+        });
+        /**
+         *获取集抄次数
+         */
+        btnGetCbCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "000300d20001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -314,17 +337,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 添加路由
-             */
-            case R.id.LoRaSettingActivity_btn_AddLy:
+            }
+        });
+        /**
+         *添加路由
+         */
+        btnAddLy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String ly = etAddLy.getText().toString().trim();
                     if (ly.length() == 0) {
@@ -367,17 +393,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 删除路由
-             */
-            case R.id.LoRaSettingActivity_btn_DeleteLy:
+            }
+        });
+        /**
+         *删除路由
+         */
+        btnDeleteLy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String ly = etDeleteLy.getText().toString().trim();
                     if (ly.length() == 0) {
@@ -420,11 +449,14 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 添加节点
-             */
-            case R.id.LoRaSettingActivity_btn_AddJd:
+            }
+        });
+        /**
+         *添加节点
+         */
+        btnAddJd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
@@ -554,7 +586,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                 fc19 = Integer.toHexString(Integer.parseInt(fc19));
 
 
-                if (jd.length() > 4) {
+                if (jd.length() > 10) {
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
                 }
                 if (fc0.length() > 2 || fc1.length() > 2 || fc2.length() > 2 || fc3.length() > 2
@@ -564,7 +596,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         || fc16.length() > 2 || fc17.length() > 2 || fc18.length() > 2 || fc19.length() > 2) {
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
                 }
-                while (jd.length() < 4) {
+                while (jd.length() < 10) {
                     jd = "0" + jd;
                 }
                 while (fc0.length() < 2) {
@@ -629,9 +661,9 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                 }
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
-                    String sendMsg = "001600d40010000000" + jd + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7
+                    String sendMsg = "001600d40010" + jd + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7
                             + fc8 + fc9 + fc10 + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19 + "00000000000000";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
@@ -665,12 +697,15 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 删除节点
-             */
-            case R.id.LoRaSettingActivity_btn_DeleteJd:
-                jd = etDeleteJd.getText().toString();
+            }
+        });
+        /**
+         *删除节点
+         */
+        btnDeleteJd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String jd = etDeleteJd.getText().toString();
                 if (jd.length() > 4) {
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
                 }
@@ -679,7 +714,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                 }
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d50001000000" + jd;
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -714,23 +749,25 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-
-            /**
-             * 替换节点
-             */
-            case R.id.LoRaSettingActivity_btn_ThJd:
+            }
+        });
+        /**
+         *替换节点
+         */
+        btnThJd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String thJd = etThJd.getText().toString().trim();
                 String bthJd = etBthJd.getText().toString().trim();
-                if (thJd.length() <= 4) {
-                    while (thJd.length() < 4) {
+                if (thJd.length() <= 10) {
+                    while (thJd.length() < 10) {
                         thJd = "0" + thJd;
                     }
                 } else {
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过大", "错误");
                 }
-                if (bthJd.length() <= 4) {
-                    while (bthJd.length() < 4) {
+                if (bthJd.length() <= 10) {
+                    while (bthJd.length() < 10) {
                         bthJd = "0" + bthJd;
                     }
                 } else {
@@ -741,7 +778,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d60002" + thJd + bthJd;
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -777,17 +814,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 节点信息
-             */
-            case R.id.LoRaSettingActivity_btn_getJdMsg:
+            }
+        });
+        /**
+         *获取节点信息
+         */
+        btnGetJdMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     tvJdMsg.setText("");
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d70001ffff";
@@ -829,17 +869,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
-            /**
-             * 路由信息
-             */
-            case R.id.LoRaSettingActivity_btn_getLyMsg:
+            }
+        });
+        /**
+         *获取路由信息
+         */
+        btnGetLyMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 /**
                  * 根据表类型使用不同的通讯协议
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     tvJdMsg.setText("");
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
                     String sendMsg = "001600d9000301ff9bc9";
@@ -874,11 +917,61 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }).start();
                 }
-                break;
+            }
+        });
 
-            default:
-                break;
-        }
+        /**
+         * 删除所有节点信息
+         */
+        btnDeleteAllJd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkPsw() == 1) {
+                    /**
+                     * 根据表类型使用不同的通讯协议
+                     */
+                    if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
+
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                        HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
+                        String sendMsg = "001600d80001ffff47a9";
+                        Log.d("limbo", "获取:" + sendMsg);
+                        MenuActivity.sendCmd(sendMsg);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+
+                                    Thread.sleep(6000);
+                                    String getMsg = MenuActivity.Cjj_CB_MSG;
+                                    if (getMsg.length() == 0) {
+                                        Message message = new Message();
+                                        message.what = 0x99;
+                                        message.obj = getMsg;
+                                        mHandler.sendMessage(message);
+                                    } else {
+                                        getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                        Log.d("limbo", getMsg);
+
+                                        Message message = new Message();
+                                        message.what = 0x10;
+                                        message.obj = getMsg;
+                                        mHandler.sendMessage(message);
+                                    }
+                                } catch (InterruptedException e) {
+                                    HzyUtils.closeProgressDialog();
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
+
+
+                }
+            }
+        });
+        loadUser();
     }
 
     private Handler mHandler = new Handler() {
@@ -941,7 +1034,7 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                     } else {
                         getMsg = getMsg.substring(8, 72);
                         HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this,
-                                "节点号:" + getMsg.substring(6, 10)
+                                "节点号:" + getMsg.substring(0, 10)
                                         + "\n分采号1:  " + Integer.parseInt(getMsg.substring(10, 12), 16)
                                         + "\n分采号2:  " + Integer.parseInt(getMsg.substring(12, 14), 16)
                                         + "\n分采号3:  " + Integer.parseInt(getMsg.substring(14, 16), 16)
@@ -991,7 +1084,31 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                     if (getMsg.equals("0016000a61e7")) {
                         HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "替换失败", "失败");
                     } else {
-                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "替换成功:" + getMsg.substring(10, 12), "成功");
+//                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "替换成功:" + getMsg.substring(10, 12), "成功");
+                        getMsg = getMsg.substring(8, 72);
+                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this,
+                                "节点号:" + getMsg.substring(0, 10)
+                                        + "\n分采号1:  " + Integer.parseInt(getMsg.substring(10, 12), 16)
+                                        + "\n分采号2:  " + Integer.parseInt(getMsg.substring(12, 14), 16)
+                                        + "\n分采号3:  " + Integer.parseInt(getMsg.substring(14, 16), 16)
+                                        + "\n分采号4:  " + Integer.parseInt(getMsg.substring(16, 18), 16)
+                                        + "\n分采号5:  " + Integer.parseInt(getMsg.substring(18, 20), 16)
+                                        + "\n分采号6:  " + Integer.parseInt(getMsg.substring(20, 22), 16)
+                                        + "\n分采号7:  " + Integer.parseInt(getMsg.substring(22, 24), 16)
+                                        + "\n分采号8:  " + Integer.parseInt(getMsg.substring(24, 26), 16)
+                                        + "\n分采号9:  " + Integer.parseInt(getMsg.substring(26, 28), 16)
+                                        + "\n分采号10:  " + Integer.parseInt(getMsg.substring(28, 30), 16)
+                                        + "\n分采号11:  " + Integer.parseInt(getMsg.substring(30, 32), 16)
+                                        + "\n分采号12:  " + Integer.parseInt(getMsg.substring(32, 34), 16)
+                                        + "\n分采号13:  " + Integer.parseInt(getMsg.substring(34, 36), 16)
+                                        + "\n分采号14:  " + Integer.parseInt(getMsg.substring(36, 38), 16)
+                                        + "\n分采号15:  " + Integer.parseInt(getMsg.substring(38, 40), 16)
+                                        + "\n分采号16:  " + Integer.parseInt(getMsg.substring(40, 42), 16)
+                                        + "\n分采号17:  " + Integer.parseInt(getMsg.substring(42, 44), 16)
+                                        + "\n分采号18:  " + Integer.parseInt(getMsg.substring(44, 46), 16)
+                                        + "\n分采号19:  " + Integer.parseInt(getMsg.substring(46, 48), 16)
+                                        + "\n分采号20:  " + Integer.parseInt(getMsg.substring(48, 50), 16)
+                                , "返回");
                     }
 
                     break;
@@ -1192,9 +1309,9 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                             fc19 = "   " + fc19;
                         }
 
-                        tvJdMsg.append("\n\n节点号:" + getMsg.substring(14 + (i - 1) * 76, 18 + (i - 1) * 76)
-                                        + "  分采号:" + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7 + fc8 + fc9 + fc10
-                                        + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19
+                        tvJdMsg.append("\n\n节点号:" + getMsg.substring(8 + (i - 1) * 76, 18 + (i - 1) * 76)
+                                + "  分采号:" + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7 + fc8 + fc9 + fc10
+                                + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19
                         );
                     }
                     break;
@@ -1244,6 +1361,20 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
                         }
                     }
                     break;
+                /**
+                 * 删除所有节点信息
+                 */
+                case 0x10:
+                    getMsg = msg.obj.toString();
+                    Log.d("limbo", "读到数据:" + getMsg);
+                    HzyUtils.closeProgressDialog();
+                    if (getMsg.equals("001600866042")) {
+                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "成功删除所有节点信息", "成功");
+                    } else {
+                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "删除所有节点信息失败", "错误");
+                    }
+                    break;
+
                 case 0x99:
                     HzyUtils.closeProgressDialog();
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "未接收到数据", "提示");
@@ -1253,6 +1384,15 @@ public class LoRa_LoRaSettingActivity extends Activity implements View.OnClickLi
             }
         }
     };
+
+    private int checkPsw() {
+        P_PasswordDialog pswdlg = new P_PasswordDialog(this, 2);
+        int rtn = pswdlg.showDialog();
+        if (rtn != 1) {
+            HintDialog.ShowHintDialog(this, "密码输入错误", "错误");
+        }
+        return rtn;
+    }
 
     /**
      * 使用SharePreferences保存用户信息

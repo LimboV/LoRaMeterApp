@@ -22,8 +22,9 @@ import java.util.Map;
  */
 
 public class App extends Application {
-    public static final String UPDATE_URL =
-            "http://www.seck.com.cn/AppUpdate/AppUpdate.asmx/checkUpdate";
+    public static final String UPDATE_URL = "http://www.seck.com.cn/AppUpdate/AppUpdate.asmx/checkUpdate";
+    public static final String UPDATE_URL1 = "http://www.seck.com.cn/AppUpdate/AppUpdate.asmx/checkUpdate?appCode=4&versionCode=";
+    private int versionCode= 0 ;
 
     @Override
     public void onCreate() {
@@ -33,17 +34,19 @@ public class App extends Application {
 
     private void initUpdateVersion() {
         Map<String, String> params = new HashMap<>();
+        versionCode = getAppVersionCode(this);
         params.put("appCode", "4");
-        params.put("versionCode", String.valueOf(getAppVersionCode(this)));
+        params.put("versionCode", String.valueOf(versionCode));
         UpdateConfig.getConfig()
+//                .url(UPDATE_URL1+String.valueOf(versionCode))
                 .checkEntity(new CheckEntity()
                         .setUrl(UPDATE_URL)
                         .setMethod(HttpMethod.GET)
                         .setParams(params))
-//                .url("http://www.seck.com.cn/AppUpdate/AppUpdate.asmx/download?appCode=4")
                 .strategy(new UpdateStrategy() {
                     @Override
                     public boolean isShowUpdateDialog(Update update) {
+                        // 有新更新直接展示
                         return true;
                     }
 
@@ -54,13 +57,16 @@ public class App extends Application {
 
                     @Override
                     public boolean isShowDownloadDialog() {
+                        // 展示下载进度
                         return true;
                     }
                 })
                 .jsonParser(new UpdateParser() {
                     @Override
-                    public <T extends Update> T parse(String response) {
-                        Log.d("limbo",response);
+                    public  Update parse(String response) {
+                        /* 此处根据上面url或者checkEntity设置的检查更新接口的返回数据response解析出
+                         * 一个update对象返回即可。更新启动时框架内部即可根据update对象的数据进行处理
+                         */
                         Update update = new Update("seck");
                         response = response.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "");
                         response = response.replace("<string xmlns=\"http://tempuri.org/\">", "");
@@ -68,15 +74,34 @@ public class App extends Application {
                         JSONObject jsonObject;
                         try {
                             jsonObject = new JSONObject(response);
+
+                            Log.d("limbo", jsonObject.getInt("versionCode") + "");
+                            Log.d("limbo", jsonObject.getString("versionName"));
+                            Log.d("limbo", jsonObject.getString("url"));
+
+                            // 此apk包的版本号
                             update.setVersionCode(jsonObject.getInt("versionCode"));
+                            // 此apk包的版本名称
                             update.setVersionName(jsonObject.getString("versionName"));
+                            // 此apk包的下载地址
                             update.setUpdateUrl(jsonObject.getString("url"));
+
+                            if (jsonObject.getInt("versionCode") == versionCode){
+                                Log.d("limbo","当前已是最新版本");
+
+                            }else {
+                                Log.d("limbo","发现新版本:"+jsonObject.getInt("versionCode"));
+
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        return (T) update;
+                        return update;
                     }
-                });
+                })
+
+        ;
     }
 
     private int getAppVersionCode(Context context) {

@@ -44,6 +44,12 @@
                 android:text="安美通FSK表"
                 android:textColor="@color/white"/>
             <Button
+                android:id="@+id/meterStyleActivity_btn_JYMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LoRa隽永表"
+                android:textColor="@color/white"/>
+            <Button
                 android:id="@+id/meterStyleActivity_btn_PMeter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -60,7 +60,7 @@
         android:layout_above="@+id/layout_menu"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="软件版本：20170606"
+        android:text="软件版本：20170704"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
         android:id="@+id/textView"/>

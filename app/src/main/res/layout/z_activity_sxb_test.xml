@@ -30,6 +30,12 @@
             android:text="读取" >
         </Button>
         <Button
+            android:id="@+id/Z_SXBReadActivity_btn_recordMsg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="记录本次表ID" >
+        </Button>
+        <Button
             android:id="@+id/Button_AutoLoad"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -175,6 +181,11 @@
                 android:scaleType="fitCenter" >
             </ImageView>
         </LinearLayout>
+        <Button
+            android:id="@+id/Z_SXBReadActivity_btn_CreateTestFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="导出测试记录文件"/>
     </LinearLayout>
 
 </ScrollView>

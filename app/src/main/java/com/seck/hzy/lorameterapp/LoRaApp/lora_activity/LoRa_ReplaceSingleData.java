@@ -40,7 +40,7 @@ public class LoRa_ReplaceSingleData extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     if (HzyUtils.isEmpty(etJmkxh.getText().toString())||HzyUtils.isEmpty(etXmkxh.getText().toString())){
                         HintDialog.ShowHintDialog(LoRa_ReplaceSingleData.this,"输入信息不可为空","提示");
@@ -102,7 +102,7 @@ public class LoRa_ReplaceSingleData extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     if (HzyUtils.isEmpty(etJjbid.getText().toString())||HzyUtils.isEmpty(etXjbid.getText().toString())){
                         HintDialog.ShowHintDialog(LoRa_ReplaceSingleData.this,"输入信息不可为空","提示");
                         return;
@@ -166,7 +166,7 @@ public class LoRa_ReplaceSingleData extends Activity {
                     String getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                         if (getMsg.contains("00160101") && getMsg.length() >= 40) {
                             HintDialog.ShowHintDialog(LoRa_ReplaceSingleData.this, "模块序号:" + getMsg.substring(8, 16)
                                     + "\n基表ID:" + getMsg.substring(16, 30)
@@ -187,7 +187,7 @@ public class LoRa_ReplaceSingleData extends Activity {
                     getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                         if (getMsg.contains("00160101") && getMsg.length() >= 40) {
                             HintDialog.ShowHintDialog(LoRa_ReplaceSingleData.this, "模块序号:" + getMsg.substring(8, 16)
                                     + "\n基表ID:" + getMsg.substring(16, 30)

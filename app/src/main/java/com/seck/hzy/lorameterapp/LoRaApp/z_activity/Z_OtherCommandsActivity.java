@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -42,7 +43,9 @@ public class Z_OtherCommandsActivity extends ListActivity {
 				"5.服务器测试"};
 
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				R.layout.z_activity_listview, menuItems);
+				R.layout.z_activity_listview, menuItems);this.
+				getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
+
 		setListAdapter(adapter);
 
 		final Z_OtherCommandsActivity thisView = this;

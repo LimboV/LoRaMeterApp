@@ -28,31 +28,52 @@ import com.seck.hzy.lorameterapp.R;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 电阻表读取测试。
  *
  * @author Guhong.
  */
 public class Z_SXBReadActivity extends Activity {
+
+    @BindView(R.id.Z_SXBReadActivity_btn_CreateTestFile)
+    Button Z_SXBReadActivity_btn_CreateTestFile;
+
+    @BindView(R.id.Z_SXBReadActivity_btn_recordMsg)
+    Button Z_SXBReadActivity_btn_recordMsg;
+
+    @BindView(R.id.Button_SendCmd)
+    Button Button_SendCmd;
+
+    @BindView(R.id.Button_AutoLoad)
+    Button Button_AutoLoad;
+
+    @BindView(R.id.Button_ReadAll)
+    Button Button_ReadAll;
+
+    @BindView(R.id.EditText_Addr)
+    EditText EditText_Addr;
+
     String addr_Broad = "";
     private ProgressDialog progressBar = null;
     private Z_SXBReadActivity thisView = null;
     private boolean binaryPic = false;
-    private EditText et_Addr;
-    private Button bn_send, btnAutoLoad, btnReadAll;
     private TextView tv_Flow, tv_Recog, tv_Belief;
     private long timeRef = 0;//用于超时设定
+
+    private String saveMsg, x;//用于保存测试数据
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_activity_sxb_test);
+        ButterKnife.bind(this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//不弹出输入框
         thisView = this;
         progressBar = new ProgressDialog(this);
 
-        et_Addr = (EditText) this
-                .findViewById(R.id.EditText_Addr);
         //final String addr_hand = et_Addr.getText().toString();
         tv_Flow = (TextView) this.findViewById(R.id.TextView_Flow);
         tv_Recog = (TextView) this.findViewById(R.id.TextView_Recog);
@@ -61,15 +82,69 @@ public class Z_SXBReadActivity extends Activity {
         SharedPreferences settings = MenuActivity.uiAct.getSharedPreferences(
                 MenuActivity.PREF_NAME, 0);
         addr_Broad = settings.getString("BADDR", MenuActivity.DEFAULT_BADDR); // 广播地址
-        bn_send = (Button) this.findViewById(R.id.Button_SendCmd);
-        btnAutoLoad = (Button) this.findViewById(R.id.Button_AutoLoad);
 
         final Z_SXBReadActivity thisView = this;
-        bn_send.setOnClickListener(new OnClickListener() {
+
+        /**
+         * 记录本次表ID
+         */
+        Z_SXBReadActivity_btn_recordMsg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(x)){
+                    HintDialog.ShowHintDialog(Z_SXBReadActivity.this,"还未读取表地址","提示");
+                }else {
 
-                String addr_hand = et_Addr.getText().toString();
+                    String sendMsg ="6810AAAAAAAAAAAAAA2306A0F0000E0100";
+                    sendCmd(sendMsg);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    String result = MenuActivity.Cjj_CB_MSG;
+                    if (result.contains("68") && result.contains("16")){
+                        HintDialog.ShowHintDialog(Z_SXBReadActivity.this,"修改成功","提示");
+                    }else{
+                        HintDialog.ShowHintDialog(Z_SXBReadActivity.this,"修改失败","提示");
+                    }
+
+
+                    while (x.length() < 14) {
+                        x = "0" + x;
+                    }
+                    if(HzyUtils.isEmpty(saveMsg)){
+                        saveMsg = x;
+                    }else {
+                        if (saveMsg.contains(x)){
+
+                        }else {
+                            saveMsg = saveMsg + "\n" + x;
+                        }
+                    }
+                    Toast.makeText(Z_SXBReadActivity.this,"表地址已记录",Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+        /**
+         * 保存测试文件
+         */
+        Z_SXBReadActivity_btn_CreateTestFile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HzyUtils.exportTxt(saveMsg, HzyUtils.returenNowTime())) {
+                    HintDialog.ShowHintDialog(Z_SXBReadActivity.this, "测试记录文件导出成功", "成功");
+                    saveMsg = "";
+                }
+            }
+        });
+
+        Button_SendCmd.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String addr_hand = EditText_Addr.getText().toString();
                 String addr = addr_hand.trim();
                 if (addr.equals("")) {
                     addr = addr_Broad.trim();
@@ -96,9 +171,10 @@ public class Z_SXBReadActivity extends Activity {
                     tv_Belief.setText(cBelief);
                     tv_Recog.setText(cRecog);
                     tv_Flow.setText(cflow.cflow + "");
-                    et_Addr.setText(cflow.addr);
+                    EditText_Addr.setText(HzyUtils.changeString(cflow.addr));
+                    x = HzyUtils.changeString(cflow.addr);
                 } catch (NetException e) {
-                    HintDialog.ShowHintDialog(thisView, e.sdesc,"错误");
+                    HintDialog.ShowHintDialog(thisView, e.sdesc, "错误");
                 } catch (IOException e) {
                     finish();
                     MenuActivity.uiAct.resetNetwork(thisView);
@@ -109,13 +185,12 @@ public class Z_SXBReadActivity extends Activity {
         /**
          * 快速读图--一包返回所有的图片
          */
-        btnReadAll = (Button) findViewById(R.id.Button_ReadAll);
-        btnReadAll.setOnClickListener(new OnClickListener() {
+        Button_ReadAll.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 prepareTimeStart();
                 MenuActivity.Cjj_CB_MSG = "";
-                String addr = et_Addr.getText().toString().trim();
+                String addr = EditText_Addr.getText().toString().trim();
                 String sendMsg;
                 if (addr.length() == 0) {
                     sendMsg = "6810aaaaaaaaaaaaaa310490f60000";
@@ -127,10 +202,10 @@ public class Z_SXBReadActivity extends Activity {
                 }
                 sendCmd(sendMsg);
                 String result = MenuActivity.Cjj_CB_MSG;
-//                result = result.replaceAll(" ", "");
-//                result = result.replaceAll("0x", "");
-//                result = result.replace(sendMsg, "");
-                while (!timeRefPassed(5000)&& result.length() <= 1182){
+                //                result = result.replaceAll(" ", "");
+                //                result = result.replaceAll("0x", "");
+                //                result = result.replace(sendMsg, "");
+                while (!timeRefPassed(5000) && result.length() <= 1182) {
                     try {
                         Thread.sleep(100);
                         result = MenuActivity.Cjj_CB_MSG;
@@ -157,7 +232,7 @@ public class Z_SXBReadActivity extends Activity {
                         try {
                             Bitmap bp = null;
                             byte[] picdata = getHexBytes(getMsg[i]);
-                            bp =  BluetoothConnectThread.binaryPicBytesToBitmap(picdata);
+                            bp = BluetoothConnectThread.binaryPicBytesToBitmap(picdata);
                             if (bp == null) {
                                 Log.e("limbo", i + ":图片为空");
                             } else {
@@ -180,22 +255,21 @@ public class Z_SXBReadActivity extends Activity {
                 } else {
                     Log.d("limbo", result);
                     Log.e("limbo", "数据太短");
-                    HintDialog.ShowHintDialog(Z_SXBReadActivity.this,"数据缺失","提示");
+                    HintDialog.ShowHintDialog(Z_SXBReadActivity.this, "数据缺失", "提示");
                 }
-
 
 
             }
         });
 
 
-        btnAutoLoad.setOnClickListener(new OnClickListener() {
+        Button_AutoLoad.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
 
                     MenuActivity.Cjj_CB_MSG = "";
-                    String addr = et_Addr.getText().toString().trim();
+                    String addr = EditText_Addr.getText().toString().trim();
                     if (addr.equals("")) {
                         addr = addr_Broad.trim();
                     }
@@ -213,7 +287,7 @@ public class Z_SXBReadActivity extends Activity {
                         tv_Belief.setText(cBelief);
                         tv_Recog.setText(cRecog);
                         tv_Flow.setText(cflow.cflow + "");
-                        et_Addr.setText(cflow.addr);
+                        EditText_Addr.setText(cflow.addr);
 
                     } catch (Exception e) {
 
@@ -223,6 +297,7 @@ public class Z_SXBReadActivity extends Activity {
                 }
             }
         });
+
     }
 
     private Handler picReadingHandler = new Handler() {
@@ -251,13 +326,13 @@ public class Z_SXBReadActivity extends Activity {
                     //matrix.postScale(2.0F, 2.0F);
                     //iv.setImageMatrix(matrix);
                 } catch (Exception e) {
-                    HintDialog.ShowHintDialog(thisView, "图像异常","错误");
+                    HintDialog.ShowHintDialog(thisView, "图像异常", "错误");
                 }
             } else if (msg.what == -3) {
                 progressBar.hide();
             } else if (msg.what == -1) {
                 //progressBar.hide();
-                HintDialog.ShowHintDialog(thisView, (String) msg.obj,"错误");
+                HintDialog.ShowHintDialog(thisView, (String) msg.obj, "错误");
             }
         }
     };
@@ -365,7 +440,7 @@ public class Z_SXBReadActivity extends Activity {
                     //                    bn_send.performClick();
                     //                    Thread.sleep(5000);
                     MenuActivity.Cjj_CB_MSG = "";
-                    String addr = et_Addr.getText().toString().trim();
+                    String addr = EditText_Addr.getText().toString().trim();
                     if (addr.equals("")) {
                         addr = addr_Broad.trim();
                     }
@@ -383,7 +458,7 @@ public class Z_SXBReadActivity extends Activity {
                         tv_Belief.setText(cBelief);
                         tv_Recog.setText(cRecog);
                         tv_Flow.setText(cflow.cflow + "");
-                        et_Addr.setText(cflow.addr);
+                        EditText_Addr.setText(cflow.addr);
 
                     } catch (Exception e) {
 
@@ -448,7 +523,7 @@ public class Z_SXBReadActivity extends Activity {
     public static byte[] getHexBytes(String message) {
         if (message == null || message.equals("")) {
             return null;
-//            Log.e("limbo","string --> null");
+            //            Log.e("limbo","string --> null");
         }
         message = message.trim();
         int len = message.length() / 2;
@@ -461,19 +536,16 @@ public class Z_SXBReadActivity extends Activity {
         }
         return bytes;
     }
+
     /**
-     *
      * 开始协议设定时间
-     *
      */
     private void prepareTimeStart() {
         timeRef = System.currentTimeMillis();
     }
 
     /**
-     *
      * 判断是否超时
-     *
      */
     private boolean timeRefPassed(long timeThresh) {
         if (System.currentTimeMillis() - timeRef > timeThresh)

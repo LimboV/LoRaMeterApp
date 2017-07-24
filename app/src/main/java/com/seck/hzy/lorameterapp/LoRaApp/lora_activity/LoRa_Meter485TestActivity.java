@@ -221,6 +221,12 @@ public class LoRa_Meter485TestActivity extends Activity {
                     fc19 = Integer.toHexString(Integer.parseInt(fc19));
                     xxx = xxx + 1;
                 }
+                String strx = "";
+                if (xxx<10){
+                    strx = "0"+xxx;
+                }else {
+                    strx = ""+xxx;
+                }
                 if (freq.length() == 0 || netId.length() == 0 || mkId.length() == 0) {
                     HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据不可为空", "错误");
                 }
@@ -393,7 +399,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
                     HzyUtils.showProgressDialog(LoRa_Meter485TestActivity.this);
-                    String sendMsg = "68" + freq + netId + mkId + "402aa101400" + xxx + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7 + fc8 + fc9 + fc10 + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19 + "000000000000000000000000000000000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
+                    String sendMsg = "68" + freq + netId + mkId + "402aa10140" + strx + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7 + fc8 + fc9 + fc10 + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19 + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
                     //                    sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);
@@ -422,7 +428,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                             }
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                 }
             }
@@ -466,6 +472,21 @@ public class LoRa_Meter485TestActivity extends Activity {
         editor.putString("etfc2", Meter485TestActivity_et_fc2.getText().toString().trim());
         editor.putString("etfc3", Meter485TestActivity_et_fc3.getText().toString().trim());
         editor.putString("etfc4", Meter485TestActivity_et_fc4.getText().toString().trim());
+        editor.putString("etfc5", Meter485TestActivity_et_fc5.getText().toString().trim());
+        editor.putString("etfc6", Meter485TestActivity_et_fc6.getText().toString().trim());
+        editor.putString("etfc7", Meter485TestActivity_et_fc7.getText().toString().trim());
+        editor.putString("etfc8", Meter485TestActivity_et_fc8.getText().toString().trim());
+        editor.putString("etfc9", Meter485TestActivity_et_fc9.getText().toString().trim());
+        editor.putString("etfc10", Meter485TestActivity_et_fc10.getText().toString().trim());
+        editor.putString("etfc11", Meter485TestActivity_et_fc11.getText().toString().trim());
+        editor.putString("etfc12", Meter485TestActivity_et_fc12.getText().toString().trim());
+        editor.putString("etfc13", Meter485TestActivity_et_fc13.getText().toString().trim());
+        editor.putString("etfc14", Meter485TestActivity_et_fc14.getText().toString().trim());
+        editor.putString("etfc15", Meter485TestActivity_et_fc15.getText().toString().trim());
+        editor.putString("etfc16", Meter485TestActivity_et_fc16.getText().toString().trim());
+        editor.putString("etfc17", Meter485TestActivity_et_fc17.getText().toString().trim());
+        editor.putString("etfc18", Meter485TestActivity_et_fc18.getText().toString().trim());
+        editor.putString("etfc19", Meter485TestActivity_et_fc19.getText().toString().trim());
         editor.commit();
     }
 
@@ -483,6 +504,21 @@ public class LoRa_Meter485TestActivity extends Activity {
         Meter485TestActivity_et_fc2.setText(pref.getString("etfc2", ""));
         Meter485TestActivity_et_fc3.setText(pref.getString("etfc3", ""));
         Meter485TestActivity_et_fc4.setText(pref.getString("etfc4", ""));
+        Meter485TestActivity_et_fc5.setText(pref.getString("etfc5", ""));
+        Meter485TestActivity_et_fc6.setText(pref.getString("etfc6", ""));
+        Meter485TestActivity_et_fc7.setText(pref.getString("etfc7", ""));
+        Meter485TestActivity_et_fc8.setText(pref.getString("etfc8", ""));
+        Meter485TestActivity_et_fc9.setText(pref.getString("etfc9", ""));
+        Meter485TestActivity_et_fc10.setText(pref.getString("etfc10", ""));
+        Meter485TestActivity_et_fc11.setText(pref.getString("etfc11", ""));
+        Meter485TestActivity_et_fc12.setText(pref.getString("etfc12", ""));
+        Meter485TestActivity_et_fc13.setText(pref.getString("etfc13", ""));
+        Meter485TestActivity_et_fc14.setText(pref.getString("etfc14", ""));
+        Meter485TestActivity_et_fc15.setText(pref.getString("etfc15", ""));
+        Meter485TestActivity_et_fc16.setText(pref.getString("etfc16", ""));
+        Meter485TestActivity_et_fc17.setText(pref.getString("etfc17", ""));
+        Meter485TestActivity_et_fc18.setText(pref.getString("etfc18", ""));
+        Meter485TestActivity_et_fc19.setText(pref.getString("etfc19", ""));
 
     }
 

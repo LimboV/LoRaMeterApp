@@ -132,7 +132,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300870001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -177,7 +177,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etXqh.getText().toString();
                     if (userMsg.length() <= 4) {
                         while (userMsg.length() < 4) {
@@ -215,7 +215,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300070001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -260,7 +260,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etCjjNum.getText().toString();
                     if (userMsg.length() <= 4) {
                         while (userMsg.length() < 4) {
@@ -298,7 +298,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300360001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -343,7 +343,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etCbjg.getText().toString();
                     if (userMsg.length() <= 2) {
                         while (userMsg.length() < 2) {
@@ -381,7 +381,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "0003000f0002";
                     sendMsg = sendMsg + HzyUtils.CRC16("0003000f0002");
@@ -426,7 +426,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "0003000e0002";
                     sendMsg = sendMsg + HzyUtils.CRC16("0003000e0002");
@@ -471,7 +471,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "0003000a0004";
                     sendMsg = sendMsg + HzyUtils.CRC16("0003000a0004");
@@ -516,7 +516,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "00030080000c";
                     sendMsg = sendMsg + HzyUtils.CRC16("00030080000c");
@@ -562,7 +562,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300010004";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -604,7 +604,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
             case R.id.CjjAboutActivity_btn_SetRTCTime:
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = etRtcTime.getText().toString().trim();
                     if (sendMsg.length()<18){
@@ -661,7 +661,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300d90002";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -706,7 +706,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etDsd.getText().toString().replaceAll(":", "");
                     if (userMsg.length() <= 6) {
                         while (userMsg.length() < 6) {
@@ -744,7 +744,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String sendMsg = "000300d60001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -786,7 +786,7 @@ public class LoRa_CjjAboutActivity extends Activity implements View.OnClickListe
             case R.id.CjjAboutActivity_btn_SetSysConnect:
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_CjjAboutActivity.this);
                     String x = spinnerX + "";
                     while (x.length() < 2) {

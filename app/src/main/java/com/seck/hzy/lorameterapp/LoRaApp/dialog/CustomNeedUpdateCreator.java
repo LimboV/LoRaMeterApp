@@ -9,10 +9,13 @@ import org.lzh.framework.updatepluginlib.creator.DialogCreator;
 import org.lzh.framework.updatepluginlib.model.Update;
 import org.lzh.framework.updatepluginlib.util.SafeDialogOper;
 
+/**
+ * 简单实现：使用通知对用户提示：检查到有更新
+ */
 public class CustomNeedUpdateCreator extends DialogCreator {
 
     @Override
-    public Dialog create(final Update update, final Activity context) {
+    public Dialog create(final Update update, Activity context) {
         return new AlertDialog.Builder(context)
                 .setTitle("升级提示")
                 .setMessage("发现新版本，请及时更新")

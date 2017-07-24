@@ -13,18 +13,51 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.R;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
+import com.seck.hzy.lorameterapp.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by ssHss on 2016/7/29.
  */
 public class LoRa_MeterGetDataActivity extends Activity {
 
-    private Button btnGetData,btnZt,btnBkf,btnGf,btnkf,btnFx;
-    private EditText etMeterAddr, etFreq ,etNetId,etJd;
-    private TextView tvShowMsg;
+    @BindView(R.id.GetDataActivity_btn_getData)
+    Button GetDataActivity_btn_getData;
+
+    @BindView(R.id.GetDataActivity_btn_zt)
+    Button GetDataActivity_btn_zt;
+
+    @BindView(R.id.GetDataActivity_btn_bkf)
+    Button GetDataActivity_btn_bkf;
+
+    @BindView(R.id.GetDataActivity_btn_gf)
+    Button GetDataActivity_btn_gf;
+
+    @BindView(R.id.GetDataActivity_btn_kf)
+    Button GetDataActivity_btn_kf;
+
+    @BindView(R.id.GetDataActivity_btn_fx)
+    Button GetDataActivity_btn_fx;
+
+    @BindView(R.id.GetDataActivity_et_meterAddr)
+    EditText GetDataActivity_et_meterAddr;
+
+    @BindView(R.id.GetDataActivity_et_freq)
+    EditText GetDataActivity_et_freq;
+
+    @BindView(R.id.GetDataActivity_et_netId)
+    EditText GetDataActivity_et_netId;
+
+    @BindView(R.id.GetDataActivity_et_jd)
+    EditText GetDataActivity_et_jd;
+
+    @BindView(R.id.GetDataActivity_tv_showMsg)
+    TextView GetDataActivity_tv_showMsg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +66,19 @@ public class LoRa_MeterGetDataActivity extends Activity {
     }
 
     private void init() {
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
+        //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_get_data);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
+        ButterKnife.bind(this);
 
-        etMeterAddr = (EditText) findViewById(R.id.GetDataActivity_et_meterAddr);
-        etFreq = (EditText) findViewById(R.id.GetDataActivity_et_freq);
-        etNetId = (EditText) findViewById(R.id.GetDataActivity_et_netId);
-        etJd = (EditText) findViewById(R.id.GetDataActivity_et_jd);
-        tvShowMsg = (TextView) findViewById(R.id.GetDataActivity_tv_showMsg);
         loadUser();
-        btnGetData = (Button) findViewById(R.id.GetDataActivity_btn_getData);
-        btnGetData.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//山科LoRa表
                     HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                    tvShowMsg.setText("");
-                    String addr = etMeterAddr.getText().toString().trim();
+                    GetDataActivity_tv_showMsg.setText("");
+                    String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
                     if (addr.length() > 10) {
                         HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                     }
@@ -68,12 +96,12 @@ public class LoRa_MeterGetDataActivity extends Activity {
                             + "00";//数据
 
                     MenuActivity.sendLoRaCmd(sendMsg);
-                    tvShowMsg.setText("发送读取参数指令:\n水表地址:" + addr);
+                    GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n水表地址:" + addr);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(3000);
+                                Thread.sleep(4000);
                                 String getMsg = MenuActivity.Cjj_CB_MSG;
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
@@ -98,14 +126,14 @@ public class LoRa_MeterGetDataActivity extends Activity {
 
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                    tvShowMsg.setText("");
-                    String addr = etMeterAddr.getText().toString().trim();
+                    GetDataActivity_tv_showMsg.setText("");
+                    String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
                     if (addr.length() > 8) {
                         HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                     }
-                    String freq = etFreq.getText().toString().trim();
+                    String freq = GetDataActivity_et_freq.getText().toString().trim();
                     if (freq.length() == 0) {
                         HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "频率不得为空", "提示");
                     } else {
@@ -127,12 +155,12 @@ public class LoRa_MeterGetDataActivity extends Activity {
                             addr;//地址
                     Log.d("limbo", sendMsg);
                     MenuActivity.sendCmd(sendMsg);
-                    tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n水表地址:" + addr);
+                    GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n水表地址:" + addr);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(2000);
+                                Thread.sleep(3000);
                                 String getMsg = MenuActivity.Cjj_CB_MSG;
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
@@ -158,15 +186,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     }).start();
                 } else if (MenuActivity.METER_STYLE.equals("F")) {//WmrnetFsk表
                     HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                    tvShowMsg.setText("");
-                    String addr = etMeterAddr.getText().toString().trim();
-                    String jd = etJd.getText().toString().trim();
+                    GetDataActivity_tv_showMsg.setText("");
+                    String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                    String jd = GetDataActivity_et_jd.getText().toString().trim();
                     if (addr.length() > 8) {
                         HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                     }
-                    String freq = etFreq.getText().toString().trim();
+                    String freq = GetDataActivity_et_freq.getText().toString().trim();
                     freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                    String netId = etNetId.getText().toString().trim();
+                    String netId = GetDataActivity_et_netId.getText().toString().trim();
                     if (jd.length() > 8) {
                         HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "节点过大", "提示");
                     }
@@ -196,12 +224,12 @@ public class LoRa_MeterGetDataActivity extends Activity {
                             jd;//节点
                     Log.d("limbo", sendMsg);
                     MenuActivity.sendCmd(sendMsg);
-                    tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                    GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(2000);
+                                Thread.sleep(3000);
                                 String getMsg = MenuActivity.Cjj_CB_MSG;
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
@@ -233,23 +261,23 @@ public class LoRa_MeterGetDataActivity extends Activity {
         /**
          * 阀控指令
          */
-        btnZt = (Button) findViewById(R.id.GetDataActivity_btn_zt);
-        btnZt.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_zt = (Button) findViewById(R.id.GetDataActivity_btn_zt);
+        GetDataActivity_btn_zt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                tvShowMsg.setText("");
-                String addr = etMeterAddr.getText().toString().trim();
-                String jd = etJd.getText().toString().trim();
+                GetDataActivity_tv_showMsg.setText("");
+                String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                String jd = GetDataActivity_et_jd.getText().toString().trim();
                 if (addr.length() > 8) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                 }
-                String freq = etFreq.getText().toString().trim();
-                if (freq.isEmpty()){
+                String freq = GetDataActivity_et_freq.getText().toString().trim();
+                if (freq.isEmpty()) {
                     freq = "0";
                 }
                 freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                String netId = etNetId.getText().toString().trim();
+                String netId = GetDataActivity_et_netId.getText().toString().trim();
                 if (freq.length() > 6) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
                 }
@@ -263,15 +291,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         freq +//频率
                         "0f" +
                         addr +//地址
-                        "c0" ;
+                        "c0";
                 Log.d("limbo", sendMsg);
                 MenuActivity.sendCmd(sendMsg);
-                tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(2000);
                             String getMsg = MenuActivity.Cjj_CB_MSG;
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", getMsg);
@@ -289,20 +317,20 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 }).start();
             }
         });
-        btnBkf = (Button) findViewById(R.id.GetDataActivity_btn_bkf);
-        btnBkf.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_bkf = (Button) findViewById(R.id.GetDataActivity_btn_bkf);
+        GetDataActivity_btn_bkf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                tvShowMsg.setText("");
-                String addr = etMeterAddr.getText().toString().trim();
-                String jd = etJd.getText().toString().trim();
+                GetDataActivity_tv_showMsg.setText("");
+                String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                String jd = GetDataActivity_et_jd.getText().toString().trim();
                 if (addr.length() > 8) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                 }
-                String freq = etFreq.getText().toString().trim();
+                String freq = GetDataActivity_et_freq.getText().toString().trim();
                 freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                String netId = etNetId.getText().toString().trim();
+                String netId = GetDataActivity_et_netId.getText().toString().trim();
                 if (freq.length() > 6) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
                 }
@@ -316,15 +344,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         freq +//频率
                         "0f" +
                         addr +//地址
-                        "c1" ;
+                        "c1";
                 Log.d("limbo", sendMsg);
                 MenuActivity.sendCmd(sendMsg);
-                tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(2000);
                             String getMsg = MenuActivity.Cjj_CB_MSG;
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", getMsg);
@@ -342,20 +370,20 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 }).start();
             }
         });
-        btnGf = (Button) findViewById(R.id.GetDataActivity_btn_gf);
-        btnGf.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_gf = (Button) findViewById(R.id.GetDataActivity_btn_gf);
+        GetDataActivity_btn_gf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                tvShowMsg.setText("");
-                String addr = etMeterAddr.getText().toString().trim();
-                String jd = etJd.getText().toString().trim();
+                GetDataActivity_tv_showMsg.setText("");
+                String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                String jd = GetDataActivity_et_jd.getText().toString().trim();
                 if (addr.length() > 8) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                 }
-                String freq = etFreq.getText().toString().trim();
+                String freq = GetDataActivity_et_freq.getText().toString().trim();
                 freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                String netId = etNetId.getText().toString().trim();
+                String netId = GetDataActivity_et_netId.getText().toString().trim();
                 if (freq.length() > 6) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
                 }
@@ -369,15 +397,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         freq +//频率
                         "0f" +
                         addr +//地址
-                        "c2" ;
+                        "c2";
                 Log.d("limbo", sendMsg);
                 MenuActivity.sendCmd(sendMsg);
-                tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(2000);
                             String getMsg = MenuActivity.Cjj_CB_MSG;
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", getMsg);
@@ -395,20 +423,20 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 }).start();
             }
         });
-        btnkf = (Button) findViewById(R.id.GetDataActivity_btn_kf);
-        btnkf.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_kf = (Button) findViewById(R.id.GetDataActivity_btn_kf);
+        GetDataActivity_btn_kf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                tvShowMsg.setText("");
-                String addr = etMeterAddr.getText().toString().trim();
-                String jd = etJd.getText().toString().trim();
+                GetDataActivity_tv_showMsg.setText("");
+                String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                String jd = GetDataActivity_et_jd.getText().toString().trim();
                 if (addr.length() > 8) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                 }
-                String freq = etFreq.getText().toString().trim();
+                String freq = GetDataActivity_et_freq.getText().toString().trim();
                 freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                String netId = etNetId.getText().toString().trim();
+                String netId = GetDataActivity_et_netId.getText().toString().trim();
                 if (freq.length() > 6) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
                 }
@@ -422,15 +450,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         freq +//频率
                         "0f" +
                         addr +//地址
-                        "c3" ;
+                        "c3";
                 Log.d("limbo", sendMsg);
                 MenuActivity.sendCmd(sendMsg);
-                tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(2000);
                             String getMsg = MenuActivity.Cjj_CB_MSG;
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", getMsg);
@@ -448,20 +476,20 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 }).start();
             }
         });
-        btnFx = (Button) findViewById(R.id.GetDataActivity_btn_fx);
-        btnFx.setOnClickListener(new View.OnClickListener() {
+        GetDataActivity_btn_fx = (Button) findViewById(R.id.GetDataActivity_btn_fx);
+        GetDataActivity_btn_fx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
-                tvShowMsg.setText("");
-                String addr = etMeterAddr.getText().toString().trim();
-                String jd = etJd.getText().toString().trim();
+                GetDataActivity_tv_showMsg.setText("");
+                String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                String jd = GetDataActivity_et_jd.getText().toString().trim();
                 if (addr.length() > 8) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
                 }
-                String freq = etFreq.getText().toString().trim();
+                String freq = GetDataActivity_et_freq.getText().toString().trim();
                 freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
-                String netId = etNetId.getText().toString().trim();
+                String netId = GetDataActivity_et_netId.getText().toString().trim();
                 if (freq.length() > 6) {
                     HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
                 }
@@ -475,15 +503,15 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         freq +//频率
                         "0f" +
                         addr +//地址
-                        "c4" ;
+                        "c4";
                 Log.d("limbo", sendMsg);
                 MenuActivity.sendCmd(sendMsg);
-                tvShowMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
+                GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n网络ID:" + netId + "\n节点:" + jd);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(800);
+                            Thread.sleep(2000);
                             String getMsg = MenuActivity.Cjj_CB_MSG;
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", getMsg);
@@ -510,16 +538,35 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     String netId;
                     String getMsg = msg.obj.toString();
                     String waterValue = getMsg.substring(10, 18);
-                    waterValue = waterValue.substring(1, 2) +
-                            waterValue.substring(3, 4) +
-                            waterValue.substring(5, 6) + "." +
-                            waterValue.substring(7, 8);
+                    if (MenuActivity.METER_STYLE.equals("W")){
+                        waterValue = waterValue.substring(1, 2) +
+                                waterValue.substring(3, 4) +
+                                waterValue.substring(5, 6) + "." +
+                                waterValue.substring(7, 8);
+                    }else if (MenuActivity.METER_STYLE.equals("JY")){
+                        waterValue = waterValue.substring(3, 6) + "." +
+                                waterValue.substring(7, 8);
+                    }
+
                     String dy = getMsg.substring(20, 22);
-                    dy = (Integer.parseInt(dy, 16) / 100 + 2) + "";
-                    tvShowMsg.append("\n\n接收参数:" +
+                    String cq = getMsg.substring(22, 24);
+                    dy = String.format("%.2f",(float) Integer.parseInt(dy, 16) / 100 + 2);
+                    cq = Integer.parseInt(cq, 16) + "";
+                    String fk = getMsg.substring(18, 20);
+                    if (fk.contains("00") ){
+                        fk = "不明";
+                    } else if (fk.contains("01")) {
+                        fk = "半开";
+                    } else if (fk.contains("02")) {
+                        fk = "关阀";
+                    } else if (fk.contains("03")) {
+                        fk = "开阀";
+                    }
+                    GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
                             "\n水表值:" + waterValue +
-                            "\n阀控:" + getMsg.substring(18, 20) +
-                            "\n电压:" + dy);
+                            "\n阀控:" + fk +
+                            "\n电压:" + dy +
+                            "\n场强:" + cq);
 
                     break;
 
@@ -528,16 +575,16 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     waterValue = getMsg.substring(10, 18);
                     waterValue = waterValue.substring(34, 36) +
                             waterValue.substring(32, 34) +
-                            waterValue.substring(30, 32) ;
-                    dy = getMsg.substring(getMsg.length()-6, getMsg.length()-4);
-                    dy = ((float)Integer.parseInt(dy, 16) / 100 + 2) + "";
-                    tvShowMsg.append("\n\n接收参数:" +
+                            waterValue.substring(30, 32);
+                    dy = getMsg.substring(getMsg.length() - 6, getMsg.length() - 4);
+                    dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
+                    GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
                             "\n水表值:" + waterValue +
                             "\n电压:" + dy);
                     break;
                 case 0x02://安美通fsk表
                     getMsg = msg.obj.toString();
-                    netId =getMsg.substring(0, 4);
+                    netId = getMsg.substring(0, 4);
                     waterValue = getMsg.substring(16, 26);
                     waterValue = waterValue.substring(1, 2) +
                             waterValue.substring(3, 4) +
@@ -545,8 +592,8 @@ public class LoRa_MeterGetDataActivity extends Activity {
                             waterValue.substring(7, 8) +
                             waterValue.substring(9, 10);
                     dy = getMsg.substring(26, 28);
-                    dy = ((float)Integer.parseInt(dy, 16) / 100 + 2) + "";
-                    tvShowMsg.append("\n\n接收参数:" +
+                    dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
+                    GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
                             "\n网络ID:" + netId +
                             "\n水表值:" + waterValue +
                             "\n阀控:" + getMsg.substring(18, 20) +
@@ -555,8 +602,8 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 case 0x98:
                     HzyUtils.closeProgressDialog();
                     getMsg = msg.obj.toString();
-                    tvShowMsg.setText(getMsg);
-                    Toast.makeText(LoRa_MeterGetDataActivity.this,"命令发送完毕",Toast.LENGTH_LONG).show();
+                    GetDataActivity_tv_showMsg.setText(getMsg);
+                    Toast.makeText(LoRa_MeterGetDataActivity.this, "命令发送完毕", Toast.LENGTH_LONG).show();
                     break;
                 case 0x99:
                     HzyUtils.closeProgressDialog();
@@ -574,10 +621,10 @@ public class LoRa_MeterGetDataActivity extends Activity {
     public void saveUser() {
 
         SharedPreferences.Editor editor = getSharedPreferences("MeterGetData", MODE_PRIVATE).edit();
-        editor.putString("netId", etNetId.getText().toString());
-        editor.putString("jd", etJd.getText().toString());
-        editor.putString("freq", etFreq.getText().toString());
-        editor.putString("meterAddr", etMeterAddr.getText().toString());
+        editor.putString("netId", GetDataActivity_et_netId.getText().toString());
+        editor.putString("jd", GetDataActivity_et_netId.getText().toString());
+        editor.putString("freq", GetDataActivity_et_freq.getText().toString());
+        editor.putString("meterAddr", GetDataActivity_et_meterAddr.getText().toString());
         editor.commit();
     }
 
@@ -587,10 +634,10 @@ public class LoRa_MeterGetDataActivity extends Activity {
 
     public void loadUser() {
         SharedPreferences pref = getSharedPreferences("MeterGetData", MODE_PRIVATE);
-        etNetId.setText(pref.getString("netId", ""));
-        etJd.setText(pref.getString("jd", ""));
-        etFreq.setText(pref.getString("freq", ""));
-        etMeterAddr.setText(pref.getString("meterAddr", ""));
+        GetDataActivity_et_netId.setText(pref.getString("netId", ""));
+        GetDataActivity_et_jd.setText(pref.getString("jd", ""));
+        GetDataActivity_et_freq.setText(pref.getString("freq", ""));
+        GetDataActivity_et_meterAddr.setText(pref.getString("meterAddr", ""));
     }
 
     @Override

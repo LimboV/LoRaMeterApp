@@ -36,7 +36,6 @@ public class BluetoothConnectThread extends Thread {
 
     private long timeRef = 0;//用于超时设定
 
-
     private byte[] mmRevbuffer = new byte[1024000];
     private Queue_Index mmRQ = new Queue_Index();
     /**

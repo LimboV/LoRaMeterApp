@@ -37,7 +37,7 @@ public class LoRa_SearchSingleData extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     if (HzyUtils.isEmpty(etMkxh.getText().toString())){
                         HintDialog.ShowHintDialog(LoRa_SearchSingleData.this,"输入信息不可为空","提示");
@@ -97,11 +97,11 @@ public class LoRa_SearchSingleData extends Activity {
                     String getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                         if (getMsg.contains("00160101") && getMsg.length() >= 40) {
                             HintDialog.ShowHintDialog(LoRa_SearchSingleData.this, "模块序号:" + getMsg.substring(8, 16)
                                     + "\n基表ID:" + getMsg.substring(16, 30)
-                                    + "\n当前读数" + getMsg.substring(30, 34) + "." + getMsg.substring(34, 36), "替换成功");
+                                    + "\n当前读数" + getMsg.substring(30, 34) + "." + getMsg.substring(34, 36), "查询成功");
 
                         } else if (getMsg.equals("00160008e026")) {
                             HintDialog.ShowHintDialog(LoRa_SearchSingleData.this, "表信息不存在", "成功");
@@ -118,7 +118,7 @@ public class LoRa_SearchSingleData extends Activity {
                     getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
 

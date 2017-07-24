@@ -60,7 +60,7 @@
                         android:layout_width="40dp"
                         android:layout_height="54dp"
                         android:background="#ffffffff"
-                        android:padding="3dp" >
+                        android:padding="3dp">
 
                         <ImageView
                             android:id="@+id/ib_07"
@@ -69,21 +69,21 @@
                             android:layout_centerInParent="true"
                             android:background="@drawable/ib_center_bg"
                             android:scaleType="fitXY"
-                            android:src="@drawable/meter_box" >
+                            android:src="@drawable/meter_box">
                         </ImageView>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="48dp"
                             android:layout_marginLeft="6dp"
-                            android:background="#e0aa0000" />
+                            android:background="#e0aa0000"/>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="48dp"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="6dp"
-                            android:background="#e0aa0000" />
+                            android:background="#e0aa0000"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -156,10 +156,12 @@
                             android:id="@+id/ib_04"
                             android:layout_width="34dp"
                             android:layout_height="48dp"
-                            android:layout_centerInParent="true"
                             android:background="@drawable/ib_center_bg"
                             android:scaleType="fitXY"
-                            android:src="@drawable/meter_box" >
+                            android:src="@drawable/meter_box"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true">
                         </ImageView>
 
                         <View
@@ -186,10 +188,12 @@
                             android:id="@+id/ib_03"
                             android:layout_width="34dp"
                             android:layout_height="48dp"
-                            android:layout_centerInParent="true"
                             android:background="@drawable/ib_center_bg"
                             android:scaleType="fitXY"
-                            android:src="@drawable/meter_box" >
+                            android:src="@drawable/meter_box"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true">
                         </ImageView>
 
                         <View

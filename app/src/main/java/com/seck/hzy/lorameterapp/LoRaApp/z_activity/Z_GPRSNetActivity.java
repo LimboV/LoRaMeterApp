@@ -27,7 +27,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
     private EditText etIPAddr,etIPPort,etAPN,etTime,etTimeSpace,etTimeSet;
     private TextView tvStateShow,tvStateGPRS;
     private Button btn_on,btn_off,btn_openNet;
-    public static String GET_SMG_BY_BT;//存放数据
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
         tvStateShow = (TextView) findViewById(R.id.textView7);
         tvStateGPRS = (TextView) findViewById(R.id.textView8);
         loadUser();
-
+/*
         btn_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,11 +91,10 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "修改失败", "提示");
                 }
             }
-        });
+        });*/
         btn_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GET_SMG_BY_BT = "";
                 //                btn_on.setVisibility(View.GONE);
                 //                btn_off.setVisibility(View.VISIBLE);
                 String sendMsg = "6810AAAAAAAAAAAAAA2306A0F0000E0101";
@@ -106,7 +104,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String result = GET_SMG_BY_BT;
+                String result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "修改成功", "提示");
                 } else {
@@ -118,7 +116,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
         btn_openNet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GET_SMG_BY_BT = "";
                 String sendMsg = "fefefe6810AAAAAAAAAAAAAA3204A0F000553916";
                 sendCmd(sendMsg);
                 try {
@@ -126,7 +123,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String result = GET_SMG_BY_BT;
+                String result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "开猫成功", "提示");
                 } else {
@@ -138,7 +135,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
         btn_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GET_SMG_BY_BT = "";
 //                btn_off.setVisibility(View.GONE);
 //                btn_on.setVisibility(View.VISIBLE);
                 String sendMsg ="6810AAAAAAAAAAAAAA2306A0F0000E0100";
@@ -148,7 +144,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String result = GET_SMG_BY_BT;
+                String result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                 }else{
@@ -162,7 +158,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.sendIPAddr:
-                GET_SMG_BY_BT = "";
                 String sendMsg,length,lengthx;
                 sendMsg = etIPAddr.getText().toString().trim();
                 length = (sendMsg.length())+"";
@@ -184,7 +179,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String result = GET_SMG_BY_BT;
+                String result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                 }else{
@@ -205,7 +200,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        result = GET_SMG_BY_BT;
+                        result = MenuActivity.Cjj_CB_MSG;
                         if (result.contains("68") && result.contains("16")){
                             HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                         }else{
@@ -216,7 +211,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.sendApn:
-                GET_SMG_BY_BT = "";
                 sendMsg = etAPN.getText().toString().trim();
                 length = (sendMsg.length())+"";
                 lengthx = (sendMsg.length()+5)+"";
@@ -237,7 +231,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                 }else{
@@ -246,7 +240,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case  R.id.sendTime:
-                GET_SMG_BY_BT = "";
                 sendMsg = etTime.getText().toString().trim();
                 if (sendMsg.length() > 2 || sendMsg.length() < 1){
                     Toast.makeText(Z_GPRSNetActivity.this,"日期长度错误", Toast.LENGTH_LONG).show();
@@ -266,7 +259,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        result = GET_SMG_BY_BT;
+                        result = MenuActivity.Cjj_CB_MSG;
                         if (result.contains("68") && result.contains("16")){
                             HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                         }else{
@@ -277,7 +270,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.sendTimeSpace:
-                GET_SMG_BY_BT = "";
                 sendMsg = etTimeSpace.getText().toString().trim();
                 if (sendMsg.length() > 2 || sendMsg.length() < 1){
                     Toast.makeText(Z_GPRSNetActivity.this,"日期长度错误", Toast.LENGTH_LONG).show();
@@ -285,7 +277,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                     if ( Integer.valueOf(sendMsg) >=11 || Integer.valueOf(sendMsg) < 0 ){
                         Toast.makeText(Z_GPRSNetActivity.this,"设置的日期超出范围", Toast.LENGTH_LONG).show();
                     }else{
-                        GET_SMG_BY_BT = "";
+                        MenuActivity.Cjj_CB_MSG = "";
                         if (sendMsg.length()<2){
                             sendMsg = "0" + sendMsg;
                         }
@@ -297,7 +289,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        result = GET_SMG_BY_BT;
+                        result = MenuActivity.Cjj_CB_MSG;
                         if (result.contains("68") && result.contains("16")){
                             HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                         }else{
@@ -308,7 +300,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.sendTimeSet:
-                GET_SMG_BY_BT = "";
                 sendMsg = etTimeSet.getText().toString().trim();
                 if (sendMsg.length() > 2 || sendMsg.length() < 1){
                     Toast.makeText(Z_GPRSNetActivity.this,"定时点长度错误", Toast.LENGTH_LONG).show();
@@ -316,7 +307,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                     if ( Integer.valueOf(sendMsg) >23 || Integer.valueOf(sendMsg) < 0 ){
                         Toast.makeText(Z_GPRSNetActivity.this,"设置的定时点超出范围", Toast.LENGTH_LONG).show();
                     }else{
-                        GET_SMG_BY_BT = "";
+                        MenuActivity.Cjj_CB_MSG = "";
                         if (sendMsg.length()<2){
                             sendMsg = "0" + sendMsg;
                         }
@@ -328,7 +319,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        result = GET_SMG_BY_BT;
+                        result = MenuActivity.Cjj_CB_MSG;
                         if (result.contains("68") && result.contains("16")){
                             HintDialog.ShowHintDialog(Z_GPRSNetActivity.this,"修改成功","提示");
                         }else{
@@ -339,7 +330,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getIPAddr:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0001814";
                 sendCmd(sendMsg);
                 try {
@@ -347,7 +337,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -362,7 +352,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getIPPort:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0002C02";
                 sendCmd(sendMsg);
                 try {
@@ -370,7 +359,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -384,7 +373,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getAPN:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0003810";
                 sendCmd(sendMsg);
                 try {
@@ -392,7 +380,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -406,7 +394,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getTime:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000201";
                 sendCmd(sendMsg);
                 try {
@@ -414,7 +401,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -427,7 +414,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getTimeSpace:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000401";
                 sendCmd(sendMsg);
                 try {
@@ -435,7 +421,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -448,7 +434,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_getTimeSet:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000601";
                 sendCmd(sendMsg);
                 try {
@@ -456,7 +441,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -469,7 +454,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_state:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000E01";
                 sendCmd(sendMsg);
                 try {
@@ -477,7 +461,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -496,7 +480,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_state1:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0005F01";
                 sendCmd(sendMsg);
                 try {
@@ -504,7 +487,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")){//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -523,7 +506,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_off1:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA2306A0F0005F0101";
                 sendCmd(sendMsg);
                 try {
@@ -531,7 +513,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "修改成功", "提示");
                 } else {
@@ -539,7 +521,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 }
                 break;
             case R.id.btn_on1:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA2306A0F0005F0100";
                 sendCmd(sendMsg);
                 try {
@@ -547,7 +528,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "修改成功", "提示");
                 } else {
@@ -556,7 +537,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_error:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000F01";
                 sendCmd(sendMsg);
                 try {
@@ -564,7 +544,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {//判断接收到的信息是否完整
                     result = result.toUpperCase();
                     result = result.replaceAll(" ", "");
@@ -577,7 +557,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 break;
 
             case R.id.btn_read_all:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA220581F0000048";
                 sendCmd(sendMsg);
                 try {
@@ -585,7 +564,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 result = result.toUpperCase();
                 result = result.replaceAll(" ", "");
                 result = result.replaceAll("0X", "");
@@ -653,7 +632,6 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 }
                 break;
             case R.id.btn_restart:
-                GET_SMG_BY_BT = "";
                 sendMsg = "6810AAAAAAAAAAAAAA3004AA050000";
                 sendCmd(sendMsg);
                 try {
@@ -661,7 +639,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = GET_SMG_BY_BT;
+                result = MenuActivity.Cjj_CB_MSG;
                 if (result.contains("68") && result.contains("16")) {//判断接收到的信息是否完整
 
                     HintDialog.ShowHintDialog(Z_GPRSNetActivity.this, "重启成功", "数据");
@@ -672,6 +650,7 @@ public class Z_GPRSNetActivity extends Activity implements View.OnClickListener 
     }
 
     private void sendCmd(String sendMsg){
+        MenuActivity.Cjj_CB_MSG = "";
         byte[] x = HzyUtils.getHexBytes(sendMsg.toUpperCase());
         byte y = HzyUtils.countSum(x, 0, sendMsg.length()/2);
         int vvv = y & 0xFF;

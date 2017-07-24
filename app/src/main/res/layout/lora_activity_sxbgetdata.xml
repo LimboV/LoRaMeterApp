@@ -5,33 +5,168 @@
               android:background="@drawable/pic_menu"
               android:orientation="vertical">
 
-    <TextView
-        android:layout_weight="3"
-        android:id="@+id/SxbGetDataActivity_tv_showMsg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <LinearLayout
-        android:layout_weight="2"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <EditText
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/SxbGetDataActivity_tv_showMsg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入表地址"
-            android:id="@+id/SxbGetDataActivity_et_meterAddr"/>
-        <EditText
+            android:layout_height="match_parent"/>
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="水表图像："
+        android:textSize="24sp">
+    </TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3.5">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ib_08"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_07"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_06"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_05"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_04"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_03"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_02"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/ib_01"
+                android:layout_width="50dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter">
+            </ImageView>
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入表频率"
-            android:id="@+id/SxbGetDataActivity_et_freq"/>
-        <Button
-            android:id="@+id/SxbGetDataActivity_btn_getData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="读取数据"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/SxbGetDataActivity_et_meterAddr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="请输入表地址"/>
+
+            <EditText
+                android:id="@+id/SxbGetDataActivity_et_freq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="请输入表频率"/>
+
+            <EditText
+                android:id="@+id/SxbGetDataActivity_et_netId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="请输入网络ID"/>
+
+            <Button
+                android:id="@+id/SxbGetDataActivity_btn_getData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="读取数据"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/SxbGetDataActivity_btn_getVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="读取版本号"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/SxbGetDataActivity_btn_AutoLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自动定位"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/SxbGetDataActivity_btn_Ksdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="快速读图"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/SxbGetDataActivity_btn_GetLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="读取坐标"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

@@ -10,10 +10,11 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -26,27 +27,28 @@ public class HzyUtils {
     /**
      * 显示进度条
      */
-    public static void showProgressDialog(Context context){
-        if(progressDialog == null){
+    public static void showProgressDialog(Context context) {
+        if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("请等待...");
             progressDialog.setCanceledOnTouchOutside(false);
             // 设置ProgressDialog 是否可以按退回按键取消
-//            progressDialog.setCancelable(false);
+            //            progressDialog.setCancelable(false);
         }
         progressDialog.show();
     }
+
     /**
      * 显示进度条
      */
-    public static void showProgressDialog1(Context context,String str){
-        if(progressDialog == null){
+    public static void showProgressDialog1(Context context, String str) {
+        if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage(str);
             progressDialog.setCanceledOnTouchOutside(false);
             // 设置ProgressDialog 是否可以按退回按键取消
-//            progressDialog.setCancelable(false);
-        }else {
+            //            progressDialog.setCancelable(false);
+        } else {
             closeProgressDialog();
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage(str);
@@ -58,8 +60,8 @@ public class HzyUtils {
     /**
      * 显示百分比
      */
-    public static void showProgressDialog2(Context context,int size){
-        if(progressDialog == null){
+    public static void showProgressDialog2(Context context, int size) {
+        if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             // 设置进度条风格，风格为长形
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -68,7 +70,7 @@ public class HzyUtils {
             // 设置ProgressDialog 提示信息
             progressDialog.setMessage("正在进行程序升级......");
             // 设置ProgressDialog 进度条进度
-            progressDialog.setMax(size) ;
+            progressDialog.setMax(size);
             // 设置ProgressDialog 的进度条是否不明确
             progressDialog.setIndeterminate(false);
             // 设置ProgressDialog 是否可以按退回按键取消
@@ -82,7 +84,7 @@ public class HzyUtils {
     /**
      * 关闭进度条
      */
-    public static void closeProgressDialog(){
+    public static void closeProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
@@ -110,7 +112,6 @@ public class HzyUtils {
     }
 
     /**
-     *
      * 计算指定位置的校验和
      *
      * @param desSTR
@@ -159,23 +160,23 @@ public class HzyUtils {
         if (hv.length() < 2) {
             hv = "0" + hv;
         }
-        Log.d("limbo","校验和:"+hv);
+        Log.d("limbo", "校验和:" + hv);
         return hv;
     }
 
     /**
      * CRC16校验码
      */
-    public static String CRC16(String crc){
+    public static String CRC16(String crc) {
         int crc16 = LoRa_CRCUtils.calcCrc16(HzyUtils.getHexBytes(crc));
         String crc16Result = Integer.toHexString(crc16);
-        while (crc16Result.length() != 4){
-            crc16Result = "0" + crc16Result ;
+        while (crc16Result.length() != 4) {
+            crc16Result = "0" + crc16Result;
         }
         StringBuilder ssb = new StringBuilder("");
-        for (int ii = 0; ii<4;ii+=2){
-            ssb.append(crc16Result.substring(ii+1,ii+2));
-            ssb.append(crc16Result.substring(ii,ii+1));
+        for (int ii = 0; ii < 4; ii += 2) {
+            ssb.append(crc16Result.substring(ii + 1, ii + 2));
+            ssb.append(crc16Result.substring(ii, ii + 1));
         }
         crc16Result = ssb.toString();
         StringBuilder sb = new StringBuilder(crc16Result);
@@ -183,6 +184,7 @@ public class HzyUtils {
         crc16Result = sb.toString();
         return crc16Result;
     }
+
     public static byte[] GetCRC16(byte[] buf, int len) {
         int uiCRC = 0x0000ffff;
         byte[] crc16 = new byte[2];
@@ -202,6 +204,7 @@ public class HzyUtils {
         crc16[1] = (byte) (uiCRC >> 8);
         return crc16;
     }
+
     /**
      * 从字符串到16进制byte数组转换
      * String to HEX
@@ -233,7 +236,7 @@ public class HzyUtils {
         StringBuilder ret = new StringBuilder("");
         for (int i = 0; i < b.length; i++) {
             String hex = Integer.toHexString(b[i] & 0xFF);
-            if (hex.length() <2) {
+            if (hex.length() < 2) {
                 hex = '0' + hex;
             }
             ret.append(hex.toUpperCase());
@@ -244,14 +247,14 @@ public class HzyUtils {
     /**
      * 将字符串调换
      */
-    public static String changeString(String newID){
-        while (newID.length() != 14){
-            newID = "0" + newID ;
+    public static String changeString(String newID) {
+        while (newID.length() != 14) {
+            newID = "0" + newID;
         }
         StringBuilder ssb = new StringBuilder("");
-        for (int ii = 0; ii<14;ii+=2){
-            ssb.append(newID.substring(ii+1,ii+2));
-            ssb.append(newID.substring(ii,ii+1));
+        for (int ii = 0; ii < 14; ii += 2) {
+            ssb.append(newID.substring(ii + 1, ii + 2));
+            ssb.append(newID.substring(ii, ii + 1));
         }
         newID = ssb.toString();
         StringBuilder sb = new StringBuilder(newID);
@@ -264,22 +267,22 @@ public class HzyUtils {
     /**
      * 字符串变为16位进制字符串
      */
-    public static String convertStringToHex(String str){
+    public static String convertStringToHex(String str) {
         char[] chars;
         StringBuffer hex;
-        if (HzyUtils.isEmpty(str)){
+        if (HzyUtils.isEmpty(str)) {
             str = "0";
 
         }
         chars = str.toCharArray();
         hex = new StringBuffer();
-        for(int i = 0; i < chars.length; i++){
+        for (int i = 0; i < chars.length; i++) {
             hex.append(Integer.toHexString((int) chars[i]));
         }
         return hex.toString();
     }
+
     /**
-     *
      * 判断网络是否开启
      *
      * @return
@@ -294,7 +297,6 @@ public class HzyUtils {
     }
 
     /**
-     *
      * 获得当前的系统时间
      *
      * @return
@@ -310,90 +312,78 @@ public class HzyUtils {
      * from byte to int, because of byte in java is signed
      */
     public static int[] toIntArray(byte[] bytes) {
-        if(bytes == null) {
+        if (bytes == null) {
             return null;
         }
         int[] data = new int[bytes.length];
-        for(int i=0; i<bytes.length; i++) {
-            data[i] = bytes[i] >= 0 ? (int)bytes[i] : (int)(bytes[i] + 256);
+        for (int i = 0; i < bytes.length; i++) {
+            data[i] = bytes[i] >= 0 ? (int) bytes[i] : (int) (bytes[i] + 256);
         }
         return data;
     }
+
     /**
      * 10进制转16进制
      * Integer.toHexString()
      */
-    public static String toHexString(String str){
-        if (HzyUtils.isEmpty(str)){
-            return  "0";
-        }else {
+    public static String toHexString(String str) {
+        if (HzyUtils.isEmpty(str)) {
+            return "0";
+        } else {
             return Integer.toHexString(Integer.parseInt(str));
         }
     }
+
     /**
      * 16进制转10进制
      * Integer.parseInt("8C",16);
      */
-    public static String HextoString(String str){
-        if (HzyUtils.isEmpty(str)){
-            return  "0";
-        }else {
-            return Integer.parseInt(str, 16)+"";
+    public static String HextoString(String str) {
+        if (HzyUtils.isEmpty(str)) {
+            return "0";
+        } else {
+            return Integer.parseInt(str, 16) + "";
         }
 
     }
+
     /**
      * 16位进制字符串转字符串
      */
-    public static String toStringHex(String s)
-    {
-        byte[] baKeyword = new byte[s.length()/2];
-        for(int i = 0; i < baKeyword.length; i++)
-        {
-            try
-            {
-                baKeyword[i] = (byte)(0xff & Integer.parseInt(s.substring(i * 2, i * 2 + 2), 16));
-            }
-            catch(Exception e)
-            {
+    public static String toStringHex(String s) {
+        byte[] baKeyword = new byte[s.length() / 2];
+        for (int i = 0; i < baKeyword.length; i++) {
+            try {
+                baKeyword[i] = (byte) (0xff & Integer.parseInt(s.substring(i * 2, i * 2 + 2), 16));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        try
-        {
+        try {
             s = new String(baKeyword, "utf-8");//UTF-16le:Not
-//            s = new String(baKeyword, "GB2312");//UTF-16le:Not
-        }
-        catch (Exception e1)
-        {
+            //            s = new String(baKeyword, "GB2312");//UTF-16le:Not
+        } catch (Exception e1) {
             e1.printStackTrace();
         }
         return s;
     }
+
     /**
      * 16位进制字符串转汉字字符串
      */
-    public static String toStringHex1(String s)
-    {
-        byte[] baKeyword = new byte[s.length()/2];
-        for(int i = 0; i < baKeyword.length; i++)
-        {
-            try
-            {
-                baKeyword[i] = (byte)(0xff & Integer.parseInt(s.substring(i * 2, i * 2 + 2), 16));
-            }
-            catch(Exception e)
-            {
+    public static String toStringHex1(String s) {
+        byte[] baKeyword = new byte[s.length() / 2];
+        for (int i = 0; i < baKeyword.length; i++) {
+            try {
+                baKeyword[i] = (byte) (0xff & Integer.parseInt(s.substring(i * 2, i * 2 + 2), 16));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        try
-        {
-//            s = new String(baKeyword, "utf-8");//UTF-16le:Not
-              s = new String(baKeyword, "GB2312");//UTF-16le:Not
-        }
-        catch (Exception e1)
-        {
+        try {
+            //            s = new String(baKeyword, "utf-8");//UTF-16le:Not
+            s = new String(baKeyword, "GB2312");//UTF-16le:Not
+        } catch (Exception e1) {
             e1.printStackTrace();
         }
         return s;
@@ -402,45 +392,59 @@ public class HzyUtils {
     /**
      * 字符串，每两位之间加空格
      */
-    public static String addPlace ( String input )
-    {
+    public static String addPlace(String input) {
         String regex = "(.{2})";
         input = input.replaceAll(regex, "$1 ");
         return input;
     }
 
     /**
-     * 保存信息到SD卡中
+     * SD卡中创建文件
+     * 返回: false --创建失败
+     * true--成功
      */
-    public static void exportTxt(String s,String name)
-    {
-        try
-        {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckTest";
-            String filePath = path + name+".txt";
+    public static boolean exportTxt(String s, String name) {
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Seck";
+            Log.d("limbo", "创建文件夹" + path);
             File file = new File(path);
-            if (!file.exists()){
-                file.mkdir();
+            if (!file.exists()) {
+                try {
+                    file.mkdirs();
+                } catch (Exception e) {
+                    Log.d("limbo", "file create error");
+                }
+
             }
+
+            String filePath = path + "/" + name + ".txt";
+            Log.d("limbo", "创建文件" + filePath);
             File f = new File(filePath);
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                Log.d("limbo", "file create error");
+            if (!f.exists()) {
+                try {
+                    f.createNewFile();
+                    Log.d("limbo", "file create success:" + name);
+                } catch (Exception e) {
+                    Log.d("limbo", "file create error");
+                    return false;
+                }
             }
+
             FileOutputStream outStream = new FileOutputStream(f);
-            OutputStreamWriter writer = new OutputStreamWriter(outStream,"gb2312");
+            OutputStreamWriter writer = new OutputStreamWriter(outStream, "gb2312");
             writer.write(s);
             writer.flush();
             writer.close();//记得关闭
 
             outStream.close();
             Log.d("limbo", "file write success");
-        }
-        catch (Exception e) {
+            return true;
+        } catch (Exception e) {
             Log.d("limbo", "file write error");
+            return false;
         }
     }
+
     /**
      * 判断字符是否为空
      */
@@ -450,6 +454,7 @@ public class HzyUtils {
         else
             return false;
     }
+
     /**
      * 得到所有的存储路径（内部存储+外部存储）
      *
@@ -461,7 +466,7 @@ public class HzyUtils {
         String[] paths = null;
         //通过调用类的实例mStorageManager的getClass()获取StorageManager类对应的Class对象
         //getMethod("getVolumePaths")返回StorageManager类对应的Class对象的getVolumePaths方法，这里不带参数
-        StorageManager mStorageManager = (StorageManager)context
+        StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(context.STORAGE_SERVICE);//storage
         try {
             mMethodGetPaths = mStorageManager.getClass().getMethod("getVolumePaths");
@@ -471,5 +476,16 @@ public class HzyUtils {
             e.printStackTrace();
         }
         return paths;
+    }
+
+    /**
+     * 返回当前时间
+     */
+    public static String returenNowTime() {
+        Calendar c = Calendar.getInstance();
+        Date date = c.getTime();
+        DateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH点mm分ss秒");
+        String s = df.format(date);
+        return s;
     }
 }

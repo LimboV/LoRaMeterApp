@@ -242,6 +242,7 @@ public class LoRa_DataHelper {
 //                sdDir = new File("/mnt/shell/emulated/0/SeckLoRaDB");// 获取SD卡的path
             }
             Log.e("limbo","return sdPath:"+sdDir.toString());
+//            return sdDir.toString().replace("/storage/emulated/0", "/sdcard");//将path转化为string类型返回
             return sdDir.toString().replace("/storage/emulated/0", "/sdcard");//将path转化为string类型返回
         } else {
             return null;

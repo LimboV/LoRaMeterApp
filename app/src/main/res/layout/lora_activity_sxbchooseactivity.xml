@@ -6,7 +6,17 @@
 <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="点抄数据"
+    android:text="读取表数据"
     android:id="@+id/SxbChooseActivity_btn_getData"/>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="摄像表参数"
+    android:id="@+id/SxbChooseActivity_btn_CsSetting"/>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="摄像头位置"
+    android:id="@+id/SxbChooseActivity_btn_Sxtwz"/>
 
 </LinearLayout>

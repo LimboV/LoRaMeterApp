@@ -9,12 +9,29 @@ import android.widget.Button;
 
 import com.seck.hzy.lorameterapp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by ssHss on 2016/7/18.
  */
 public class LoRa_MeterChooseActivity extends Activity implements View.OnClickListener {
 
-    private Button btnData,btnPic,btnSetting,btnLocation,btn485Test;
+    @BindView(R.id.meterChooseActivity_btn_getData)
+    Button meterChooseActivity_btn_getData;
+
+    @BindView(R.id.meterChooseActivity_btn_yc485Test)
+    Button meterChooseActivity_btn_yc485Test;
+
+    @BindView(R.id.meterChooseActivity_btn_getPic)
+    Button meterChooseActivity_btn_getPic;
+
+    @BindView(R.id.meterChooseActivity_btn_setting)
+    Button meterChooseActivity_btn_setting;
+
+    @BindView(R.id.meterChooseActivity_btn_location)
+    Button meterChooseActivity_btn_location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,22 +42,18 @@ public class LoRa_MeterChooseActivity extends Activity implements View.OnClickLi
     private void init(){
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_meterchooseactivity);
+        ButterKnife.bind(this);
 
-        btnData = (Button) findViewById(R.id.meterChooseActivity_btn_getData);
-        btnData.setOnClickListener(this);
-        btn485Test = (Button) findViewById(R.id.meterChooseActivity_btn_yc485Test);
-        btn485Test.setOnClickListener(this);
-        btnPic = (Button) findViewById(R.id.meterChooseActivity_btn_getPic);
-        btnPic.setOnClickListener(this);
-        btnSetting = (Button) findViewById(R.id.meterChooseActivity_btn_setting);
-        btnSetting.setOnClickListener(this);
-        btnLocation = (Button) findViewById(R.id.meterChooseActivity_btn_location);
-        btnLocation.setOnClickListener(this);
+        meterChooseActivity_btn_getData.setOnClickListener(this);
+        meterChooseActivity_btn_yc485Test.setOnClickListener(this);
+        meterChooseActivity_btn_getPic.setOnClickListener(this);
+        meterChooseActivity_btn_setting.setOnClickListener(this);
+        meterChooseActivity_btn_location.setOnClickListener(this);
         if (MenuActivity.METER_STYLE.equals("L")){
 
         }else {
-            btnPic.setVisibility(View.GONE);
-            btnLocation.setVisibility(View.GONE);
+            meterChooseActivity_btn_getPic.setVisibility(View.GONE);
+            meterChooseActivity_btn_location.setVisibility(View.GONE);
         }
     }
 

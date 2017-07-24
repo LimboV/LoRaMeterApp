@@ -29,7 +29,7 @@ public class LoRa_DActrlActivity extends Activity {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_XqListActivity.class);
                     startActivity(i);
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_XqListActivity.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -47,7 +47,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_AddSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -64,7 +64,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_SearchSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -80,7 +80,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_DeleteSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -96,7 +96,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_ReplaceSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -112,7 +112,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_ReadSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
@@ -128,7 +128,7 @@ public class LoRa_DActrlActivity extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     Intent i = new Intent(LoRa_DActrlActivity.this, LoRa_SetSingleData.class);
                     startActivity(i);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表

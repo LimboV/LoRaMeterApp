@@ -37,7 +37,7 @@ public class LoRa_DeleteSingleData extends Activity {
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     if (HzyUtils.isEmpty(etMkxh.getText().toString())){
                         HintDialog.ShowHintDialog(LoRa_DeleteSingleData.this,"输入信息不可为空","提示");
@@ -97,7 +97,7 @@ public class LoRa_DeleteSingleData extends Activity {
                     String getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                         if (getMsg.equals("001600852043")) {
                             HintDialog.ShowHintDialog(LoRa_DeleteSingleData.this, "删除成功", "成功");
                         } else if (getMsg.equals("00160008e026")) {
@@ -115,7 +115,7 @@ public class LoRa_DeleteSingleData extends Activity {
                     getMsg = msg.obj.toString();
                     if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     } else if (MenuActivity.METER_STYLE.equals("P")) {//P型表
 

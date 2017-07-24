@@ -21,6 +21,9 @@ import com.seck.hzy.lorameterapp.R;
 
 import java.io.IOException;
 
+import static com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity.METER_STYLE;
+import static com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity.uiAct;
+
 /**
  * 摄像表参数设置界面，使用定制的List显示。
  *
@@ -120,7 +123,7 @@ public class Z_SXBParamSetting extends ListActivity {
 
         et_Addr = (EditText) listView.findViewById(R.id.EditText_Addr);
 
-        SharedPreferences settings = MenuActivity.uiAct.getSharedPreferences(MenuActivity.PREF_NAME, 0);
+        SharedPreferences settings = uiAct.getSharedPreferences(MenuActivity.PREF_NAME, 0);
         addr_Broad = settings.getString("BADDR", MenuActivity.DEFAULT_BADDR);    // 广播地址
 
         listView.setAdapter(new MySetAdapter(this));
@@ -187,24 +190,30 @@ public class Z_SXBParamSetting extends ListActivity {
             holder.bt_Read.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
+                    if (METER_STYLE.equals("P")) {//P型表采集机抄表
+                    } else if (METER_STYLE.equals("Z")) {//直读表查询
+                        String addr = et_Addr.getText().toString().trim();
+                        if (addr.equals("")) {
+                            addr = addr_Broad.trim();
+                        }
 
-                    String addr = et_Addr.getText().toString().trim();
-                    if (addr.equals("")) {
-                        addr = addr_Broad.trim();
+                        byte[] baddr = MenuActivity.netThread.getSBAddr(addr);
+
+                        try {
+                            int paramVal = MenuActivity.netThread.readParam(baddr, paramPos, paLen);
+                            fholder.et_Param.setText(paramVal + "");
+                            paramStr[viewPos] = paramVal + "";
+                        } catch (NetException e) {
+                            HintDialog.ShowHintDialog(thisView, e.sdesc, "错误");
+                        } catch (IOException e) {
+                            finish();
+                            uiAct.resetNetwork(thisView);
+                        }
+
+                    } else {//LoRa表对摄像表操作
+
                     }
 
-                    byte[] baddr = MenuActivity.netThread.getSBAddr(addr);
-
-                    try {
-                        int paramVal = MenuActivity.netThread.readParam(baddr, paramPos, paLen);
-                        fholder.et_Param.setText(paramVal + "");
-                        paramStr[viewPos] = paramVal + "";
-                    } catch (NetException e) {
-                        HintDialog.ShowHintDialog(thisView, e.sdesc, "错误");
-                    } catch (IOException e) {
-                        finish();
-                        MenuActivity.uiAct.resetNetwork(thisView);
-                    }
 
                 }
             });
@@ -254,7 +263,7 @@ public class Z_SXBParamSetting extends ListActivity {
                             HintDialog.ShowHintDialog(thisView, e.sdesc, "错误");
                         } catch (IOException e) {
                             finish();
-                            MenuActivity.uiAct.resetNetwork(thisView);
+                            uiAct.resetNetwork(thisView);
                         }
                     }
                     //else {

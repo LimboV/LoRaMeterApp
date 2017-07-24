@@ -39,7 +39,7 @@ public class LoRa_AddSingleData extends Activity {
             @Override
             public void onClick(View v) {
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                     if (HzyUtils.isEmpty(etMkxh.getText().toString())||HzyUtils.isEmpty(etJbid.getText().toString())||HzyUtils.isEmpty(etDqds.getText().toString())){
                         HintDialog.ShowHintDialog(LoRa_AddSingleData.this,"输入信息不可为空","提示");

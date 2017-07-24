@@ -78,7 +78,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300c80008";
                     sendMsg = sendMsg + HzyUtils.CRC16("000300c80008");
@@ -124,7 +124,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etGprsApn.getText().toString().trim();
                     userMsg = HzyUtils.convertStringToHex(userMsg);
                     if (userMsg.length() <= 10) {
@@ -163,7 +163,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300900001";
                     sendMsg = sendMsg + HzyUtils.CRC16("000300900001");
@@ -208,7 +208,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = Integer.toHexString(Integer.valueOf(etGprsDkh.getText().toString().trim()));
                     if (userMsg.length() <= 4) {
                         while (userMsg.length() < 4) {
@@ -246,7 +246,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "00030091000a";
                     sendMsg = sendMsg + HzyUtils.CRC16("00030091000a");
@@ -291,7 +291,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     String userMsg = etGprsIp.getText().toString().trim();
                     userMsg = HzyUtils.convertStringToHex(userMsg);
                     if (userMsg.length() <= 40) {
@@ -330,7 +330,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300d3000a";
                     sendMsg = sendMsg + HzyUtils.CRC16("000300d3000a");
@@ -375,7 +375,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300c40004";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -420,7 +420,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300c00004";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
@@ -466,7 +466,7 @@ public class LoRa_GprsSettingActivity extends Activity implements View.OnClickLi
                  */
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_GprsSettingActivity.this);
                     String sendMsg = "000300d50001";
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);

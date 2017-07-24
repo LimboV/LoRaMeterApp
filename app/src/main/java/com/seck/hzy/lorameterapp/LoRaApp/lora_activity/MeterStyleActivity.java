@@ -9,11 +9,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.BluetoothConnectThread;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by ssHss on 2016/7/19.
@@ -23,7 +24,24 @@ public class MeterStyleActivity extends Activity {
     /**
      * 表类型
      */
-    private Button btnLoRa, btnWmrnet, btnWmrnetFsk, btnP,btnZD;
+    @BindView(R.id.meterStyleActivity_btn_JYMeter)
+    Button meterStyleActivity_btn_JYMeter;
+
+    @BindView(R.id.meterStyleActivity_btn_loRaMeter)
+    Button meterStyleActivity_btn_loRaMeter;
+
+    @BindView(R.id.meterStyleActivity_btn_wmrnetMeter)
+    Button meterStyleActivity_btn_wmrnetMeter;
+
+    @BindView(R.id.meterStyleActivity_btn_wmrnetFSKMeter)
+    Button meterStyleActivity_btn_wmrnetFSKMeter;
+
+    @BindView(R.id.meterStyleActivity_btn_PMeter)
+    Button meterStyleActivity_btn_PMeter;
+
+    @BindView(R.id.meterStyleActivity_btn_ZDMeter)
+    Button meterStyleActivity_btn_ZDMeter;
+
     /**
      * 地区
      */
@@ -34,82 +52,56 @@ public class MeterStyleActivity extends Activity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void init() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_meterstyleactivity);
+        ButterKnife.bind(this);
+
 
         tv0 = (TextView) findViewById(R.id.meterStyleActivity_tv_tip0);
         tv1 = (TextView) findViewById(R.id.meterStyleActivity_tv_tip1);
 
-        btnLoRa = (Button) findViewById(R.id.meterStyleActivity_btn_loRaMeter);
-        btnLoRa.setOnClickListener(new View.OnClickListener() {
+        meterStyleActivity_btn_loRaMeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveUser("L");//山科LoRa表
-                loadUser();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
-                finish();
+                saveMeter("L");
             }
         });
-        btnWmrnet = (Button) findViewById(R.id.meterStyleActivity_btn_wmrnetMeter);
-        btnWmrnet.setOnClickListener(new View.OnClickListener() {
+        meterStyleActivity_btn_wmrnetMeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveUser("W");//安美通LoRa表
-                loadUser();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
-                finish();
+                saveMeter("W");
             }
         });
-        btnWmrnetFsk = (Button) findViewById(R.id.meterStyleActivity_btn_wmrnetFSKMeter);
-        btnWmrnetFsk.setOnClickListener(new View.OnClickListener() {
+        meterStyleActivity_btn_wmrnetFSKMeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUser("F");//安美通Fsk表
-                loadUser();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
-                finish();
+                saveMeter("F");
             }
         });
-        btnP = (Button) findViewById(R.id.meterStyleActivity_btn_PMeter);
-        btnP.setOnClickListener(new View.OnClickListener() {
+        meterStyleActivity_btn_PMeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUser("P");//P型摄像表
-                loadUser();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
-                finish();
+                saveMeter("P");
             }
         });
-        btnZD = (Button) findViewById(R.id.meterStyleActivity_btn_ZDMeter);
-        btnZD.setOnClickListener(new View.OnClickListener() {
+        meterStyleActivity_btn_ZDMeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUser("Z");//直读表
-                loadUser();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
-                finish();
+                saveMeter("Z");
+            }
+        });
+        meterStyleActivity_btn_JYMeter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveMeter("JY");
             }
         });
 
@@ -136,6 +128,15 @@ public class MeterStyleActivity extends Activity {
         });
         loadUser();
         loadUser0();
+    }
+
+    private void saveMeter(String s){
+        saveUser(s);//直读表
+        loadUser();
+        HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
+        Intent data = new Intent();
+        setResult(BluetoothConnectThread.METER, data);//设置返回结果-->表类型更新
+        finish();
     }
 
     /**
@@ -165,6 +166,8 @@ public class MeterStyleActivity extends Activity {
             tv0.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
             tv0.setText("当前表类型为:直读表");
+        }else if (MenuActivity.METER_STYLE.equals("JY")) {
+            tv0.setText("当前表类型为:LoRa隽永表");
         }
 
     }
