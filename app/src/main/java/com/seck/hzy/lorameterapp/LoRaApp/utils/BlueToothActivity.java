@@ -60,21 +60,6 @@ public class BlueToothActivity extends ListActivity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(8000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        if (MenuActivity.netThread == null) {
-                            Intent data = new Intent();
-                            setResult(BluetoothConnectThread.NETWORK_FAILED, data);//设置返回结果-->失败
-                            finish();
-                        }
-                    }
-                }.start();
                 NetworkLayer.adapter.cancelDiscovery();// 停止搜索
 
                 // 创建新连接

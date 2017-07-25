@@ -2,7 +2,7 @@
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="2"
-    android:versionName="1.20170724">
+    android:versionName="1.20170725">
 
     <uses-sdk
         android:installLocation="internalOnly"

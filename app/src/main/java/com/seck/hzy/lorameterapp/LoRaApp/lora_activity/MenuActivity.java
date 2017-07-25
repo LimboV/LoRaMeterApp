@@ -353,7 +353,7 @@ public class MenuActivity extends Activity {
 
         @Override
         public int getCount() {
-            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F")) {
+            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F")|| MenuActivity.METER_STYLE.equals("JY")) {
                 return 7;
             } else if (MenuActivity.METER_STYLE.equals("P")) {
                 return 9;
@@ -383,7 +383,7 @@ public class MenuActivity extends Activity {
                 TextView tv = (TextView) v.findViewById(R.id.icon_text);
                 ImageView iv = (ImageView) v.findViewById(R.id.icon_image);
                 if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W")
-                        || MenuActivity.METER_STYLE.equals("F")) {
+                        || MenuActivity.METER_STYLE.equals("F")|| MenuActivity.METER_STYLE.equals("JY")) {
 
                     if (MenuActivity.netThread == null) {
                         tv.setText(LoRa_Titls[position]);
@@ -502,6 +502,8 @@ public class MenuActivity extends Activity {
             menuActivity_tv_meterStyle.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:直读表");
+        }else if (MenuActivity.METER_STYLE.equals("JY")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
         }
     }
 

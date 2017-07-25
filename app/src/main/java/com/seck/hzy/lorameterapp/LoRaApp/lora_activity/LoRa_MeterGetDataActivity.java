@@ -544,7 +544,7 @@ public class LoRa_MeterGetDataActivity extends Activity {
                                 waterValue.substring(5, 6) + "." +
                                 waterValue.substring(7, 8);
                     }else if (MenuActivity.METER_STYLE.equals("JY")){
-                        waterValue = waterValue.substring(3, 6) + "." +
+                        waterValue = waterValue.substring(1, 6) + "." +
                                 waterValue.substring(7, 8);
                     }
 
