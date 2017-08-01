@@ -21,9 +21,11 @@ public class LoRa_DataHelper {
             String fileName = getSDPath() + "/" + dbName;
             db = SQLiteDatabase.openOrCreateDatabase(fileName, null);
         } catch (Exception e) {
+            Log.d("limbo",e.toString());
         }
         return db;
     }
+
 
     public static List<LoRa_Cjj> getCjj(int xqid) {
 
@@ -233,19 +235,22 @@ public class LoRa_DataHelper {
         File sdDir;
         boolean sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED); // 判断SD卡是否存在,及是否具有读写的权利
         if (sdCardExist) {
+            Log.d("limbo","exist");
+//            sdDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");// 获取SD卡的path
             sdDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");// 获取SD卡的path
-//            sdDir = new File("/mnt/shell/emulated/0/SeckLoRaDB");// 获取SD卡的path
+
             if (!sdDir.exists()) {
                 sdDir.mkdir();
             } else {
-                sdDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");// 获取SD卡的path
-//                sdDir = new File("/mnt/shell/emulated/0/SeckLoRaDB");// 获取SD卡的path
+//                sdDir = new File(Environment.getExternalStorageDirectory().getPath() + "/SeckLoRaDB");// 获取SD卡的path
             }
-            Log.e("limbo","return sdPath:"+sdDir.toString());
-//            return sdDir.toString().replace("/storage/emulated/0", "/sdcard");//将path转化为string类型返回
-            return sdDir.toString().replace("/storage/emulated/0", "/sdcard");//将path转化为string类型返回
+            Log.d("limbo","return sdPath:" + sdDir.toString());
+//            return "/storage/sdcard0/SeckLoRaDB";//将path转化为string类型返回
+            return sdDir.toString();//将path转化为string类型返回
         } else {
-            return null;
+            Log.d("limbo","no exist");
+//            return "/mnt/sdcard2/SeckLoRaDB";
+            return "/storage/sdcard0" + "/SeckLoRaDB";
         }
 
     }

@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -110,10 +109,6 @@ public class MenuActivity extends Activity {
 
         uiAct = this;
         strAllPath = HzyUtils.getAllSdPaths(this);
-        for (int i = 0; i < strAllPath.length; i++) {
-            Log.e("limbo", strAllPath[i]);
-        }
-        Log.e("limbo", Environment.getExternalStorageDirectory().getAbsolutePath());
         dataSource = new SkDataSource(this);
         /**
          * 按键设置
@@ -242,7 +237,7 @@ public class MenuActivity extends Activity {
                             } else if (METER_STYLE.equals("Z")) {//测试
                                 i = new Intent(uiAct, Z_OtherCommandsActivity.class);
                                 startActivity(i);
-                            } else {
+                            } else {//Lora表蓝牙工具
                                 i = new Intent(MenuActivity.this, LoRa_BluetoothUtilsActivity.class);
                                 startActivity(i);
                             }
@@ -261,7 +256,7 @@ public class MenuActivity extends Activity {
                             } else if (METER_STYLE.equals("Z")) {//设置
                                 i = new Intent(uiAct, Z_Setting1Activity.class);
                                 startActivity(i);
-                            } else {
+                            } else {//lora表数据库文件
                                 i = new Intent(MenuActivity.this, LoRa_XqListActivity.class);
                                 startActivity(i);
                             }
@@ -629,4 +624,5 @@ public class MenuActivity extends Activity {
         }
         return rtn;
     }
+
 }

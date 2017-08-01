@@ -126,7 +126,7 @@ public class LoRa_MeterGetDataActivity extends Activity {
 
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                     GetDataActivity_tv_showMsg.setText("");
                     String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
@@ -538,22 +538,22 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     String netId;
                     String getMsg = msg.obj.toString();
                     String waterValue = getMsg.substring(10, 18);
-                    if (MenuActivity.METER_STYLE.equals("W")){
+                    if (MenuActivity.METER_STYLE.equals("W")) {
                         waterValue = waterValue.substring(1, 2) +
                                 waterValue.substring(3, 4) +
                                 waterValue.substring(5, 6) + "." +
                                 waterValue.substring(7, 8);
-                    }else if (MenuActivity.METER_STYLE.equals("JY")){
+                    } else if (MenuActivity.METER_STYLE.equals("JY")) {
                         waterValue = waterValue.substring(1, 6) + "." +
-                                waterValue.substring(7, 8);
+                                waterValue.substring(6, 7);
                     }
 
                     String dy = getMsg.substring(20, 22);
                     String cq = getMsg.substring(22, 24);
-                    dy = String.format("%.2f",(float) Integer.parseInt(dy, 16) / 100 + 2);
+                    dy = String.format("%.2f", (float) Integer.parseInt(dy, 16) / 100 + 2);
                     cq = Integer.parseInt(cq, 16) + "";
                     String fk = getMsg.substring(18, 20);
-                    if (fk.contains("00") ){
+                    if (fk.contains("00")) {
                         fk = "不明";
                     } else if (fk.contains("01")) {
                         fk = "半开";

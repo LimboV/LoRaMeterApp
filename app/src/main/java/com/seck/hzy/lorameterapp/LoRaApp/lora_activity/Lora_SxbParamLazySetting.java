@@ -11,7 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_SXBParamShiftSetting;
 import com.seck.hzy.lorameterapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,6 +84,7 @@ public class Lora_SxbParamLazySetting extends Activity{
     @BindView(R.id.y_value)
     TextView y_value;
 
+    private List<TextView> mShiftView = new ArrayList<TextView>();
     private boolean binaryPic = true;
     private boolean isCoorValid = false;
     private double coorX;
@@ -126,6 +131,28 @@ public class Lora_SxbParamLazySetting extends Activity{
 
         SharedPreferences settings = MenuActivity.uiAct.getSharedPreferences(MenuActivity.PREF_NAME, 0);
         addr_Broad = settings.getString("BADDR", MenuActivity.DEFAULT_BADDR); // 广播地址
+        int resIds[] = {
+                R.id.shift_01,
+                R.id.shift_02,
+                R.id.shift_03,
+                R.id.shift_04,
+                R.id.shift_05,
+                R.id.shift_06,
+                R.id.shift_07,
+                R.id.shift_08
+        };
+        for(int i=0; i< mShift.length; i++) {
+            mShift[i] = settings.getInt("SHIFT" + i, Z_SXBParamShiftSetting.DEFAULT_SHIFT[i]);
+            TextView tv = (TextView) findViewById(resIds[i]);
+            tv.setText(String.valueOf(mShift[i]));
+            mShiftView.add(tv);
+        }
+        for(int i=0; i< mShift.length; i++) {
+            if (mShift[i] == 0) {
+                mCenterIndex = i;
+                break;
+            }
+        }
 
     }
 }

@@ -471,6 +471,10 @@ public class HzyUtils {
         try {
             mMethodGetPaths = mStorageManager.getClass().getMethod("getVolumePaths");
             paths = (String[]) mMethodGetPaths.invoke(mStorageManager);
+            for (int i = 0;i<paths.length;i++){
+                Log.d("limbo","x:   "+paths[i]);
+            }
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

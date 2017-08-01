@@ -65,7 +65,8 @@ public class LoRa_UploadActivity extends Activity {
                 /**
                  * 查找SeckUpdate文件夹，如果没有，创建并提醒
                  */
-                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckUpdate");
+//                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckUpdate");
+                File file = new File("/sdcard" + "/SeckUpdate");
                 read0();
                 if (!file.exists()) {
                     file.mkdir();
