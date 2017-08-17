@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.LoRa_SxbParamShiftSetting;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.BluetoothConnectThread;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
@@ -59,10 +60,16 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
 
     private boolean isNeedMove = false;
 
+    /**
+     * 上下左右数据
+     */
     private enum MoveType {
         LEFT, RIGHT, UP, DOWN
     }
 
+    /**
+     * 移动模式
+     */
     private MoveType mMoveType;
 
     private Bitmap mPicCenter;
@@ -70,6 +77,9 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
 
     private Thread taskThread = null;
 
+    /**
+     * 存放各坐标单片机地址
+     */
     private int[] paramXYAddr = {
             0x8E,    // Y
             0x90,    // X1
@@ -89,11 +99,14 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_activity_sxb_lazy_set);
 
-        et_Addr = (EditText) findViewById(R.id.EditText_Addr);
+        et_Addr = (EditText) findViewById(R.id.EditText_Addr);//地址输入框
 
         SharedPreferences settings = MenuActivity.uiAct.getSharedPreferences(MenuActivity.PREF_NAME, 0);
         addr_Broad = settings.getString("BADDR", MenuActivity.DEFAULT_BADDR); // 广播地址
 
+        /**
+         * 存放8位坐标值textview
+         */
         int resIds[] = {
                 R.id.shift_01,
                 R.id.shift_02,
@@ -104,13 +117,18 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
                 R.id.shift_07,
                 R.id.shift_08
         };
+        /**
+         * 获取保存值，如果没有就将固定值填入
+         */
         for (int i = 0; i < mShift.length; i++) {
             mShift[i] = settings.getInt("SHIFT" + i, Z_SXBParamShiftSetting.DEFAULT_SHIFT[i]);
             TextView tv = (TextView) findViewById(resIds[i]);
             tv.setText(String.valueOf(mShift[i]));
             mShiftView.add(tv);
         }
-
+        /**
+         * mCenterIndex设置为坐标为0的位
+         */
         for (int i = 0; i < mShift.length; i++) {
             if (mShift[i] == 0) {
                 mCenterIndex = i;
@@ -118,23 +136,22 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
             }
         }
 
-        tvCoorX = (TextView) findViewById(R.id.x_value);
-        tvCoorY = (TextView) findViewById(R.id.y_value);
-        ivCenter = (ImageView) findViewById(R.id.ib_center);
+        tvCoorX = (TextView) findViewById(R.id.x_value);//X坐标值
+        tvCoorY = (TextView) findViewById(R.id.y_value);//Y坐标值
+        ivCenter = (ImageView) findViewById(R.id.ib_center);//中心图片
 
-        ImageButton btnUp = (ImageButton) findViewById(R.id.up_btn);
+        ImageButton btnUp = (ImageButton) findViewById(R.id.up_btn);//上移
         btnUp.setOnTouchListener(onTouchListener);
 
-        ImageButton btnDown = (ImageButton) findViewById(R.id.down_btn);
+        ImageButton btnDown = (ImageButton) findViewById(R.id.down_btn);//下移
         btnDown.setOnTouchListener(onTouchListener);
 
-        ImageButton btnLeft = (ImageButton) findViewById(R.id.left_btn);
+        ImageButton btnLeft = (ImageButton) findViewById(R.id.left_btn);//左移
         btnLeft.setOnTouchListener(onTouchListener);
 
-        ImageButton btnRight = (ImageButton) findViewById(R.id.right_btn);
+        ImageButton btnRight = (ImageButton) findViewById(R.id.right_btn);//右移
         btnRight.setOnTouchListener(onTouchListener);
 
-        //ImageView iv = (ImageView) findViewById(R.id.ib_center);
     }
 
     private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -144,7 +161,7 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
                 return true;
             }
 
-            // 按下按钮时候，启动线程，线程没200毫秒发一次消息。如果在主线程操作，UI就卡死了，所以要另起一个线程
+            // 按下按钮时候，启动线程，线程每200毫秒发一次消息。如果在主线程操作，UI就卡死了，所以要另起一个线程
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 switch (v.getId()) {
                     case R.id.up_btn:
@@ -223,6 +240,9 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
                 updateCoorText();
             } else if (msg.what == -5) {
                 int dx = 0, dy = 0;
+                /**
+                 * 调整坐标
+                 */
                 switch (mMoveType) {
                     case UP:
                         dy = -COOR_MOVE_INTERVAL;
@@ -507,7 +527,7 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
 
                 if (binaryPic) {
                     /*try {
-						MeterReader.netThread.readBinaryPic_Parse1(baddr);
+                        MeterReader.netThread.readBinaryPic_Parse1(baddr);
 					} catch (NetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -572,9 +592,12 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
         return false;
     }
 
+    /**
+     * 按顺序读取图片
+     */
     private boolean loadPic(int picNo) {
 
-        int retrytimes = 2;
+        int retrytimes = 2;//重试次数
         try {
             while (retrytimes > 0) {
                 Bitmap bp = null;
@@ -598,7 +621,7 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
             }
         } catch (NetException e) {
             try {
-                MenuActivity.netThread.scmdCloseDsp(baddr);
+                MenuActivity.netThread.scmdCloseDsp(baddr);//关闭DSP
             } catch (IOException e1) {
             }
 
@@ -612,12 +635,15 @@ public class Z_SXBParamLazySetting extends Activity implements Runnable {
         return false;
     }
 
+    /**
+     * 返回各项坐标值并显示
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             SharedPreferences settings = MenuActivity.uiAct.getSharedPreferences(MenuActivity.PREF_NAME, 0);
             for (int i = 0; i < mShift.length; i++) {
-                mShift[i] = settings.getInt("SHIFT" + i, Z_SXBParamShiftSetting.DEFAULT_SHIFT[i]);
+                mShift[i] = settings.getInt("SHIFT" + i, LoRa_SxbParamShiftSetting.DEFAULT_SHIFT[i]);
                 mShiftView.get(i).setText(String.valueOf(mShift[i]));
             }
             mCenterIndex = data.getIntExtra("center", -1);

@@ -557,6 +557,7 @@
         </activity>
         <activity
             android:name=".LoRaApp.z_activity.Z_SXBParamSetting"
+            android:windowSoftInputMode="stateHidden"
             android:label="摄像表表参数"
             android:configChanges="keyboardHidden|orientation"
             android:parentActivityName=".LoRaApp.z_activity.Z_MeterTestActivity"
@@ -568,6 +569,7 @@
         <activity
             android:name=".LoRaApp.z_activity.Z_SXBParamLazySetting"
             android:label="摄像头位置"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="keyboardHidden|orientation"
             android:parentActivityName=".LoRaApp.z_activity.Z_MeterTestActivity"
             android:screenOrientation="portrait">
@@ -675,6 +677,50 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoRaApp.lora_activity.MenuActivity"/>
+        </activity>
+
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_AddFcXqListActivity"
+            android:label="分采小区列表"
+            android:configChanges="keyboardHidden|orientation"
+            android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_AddFcCjjListActivity"
+            android:label="分采小区列表"
+            android:configChanges="keyboardHidden|orientation"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_AddFcXqListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_AddFcMsgActivity"
+            android:label="分采列表"
+            android:configChanges="keyboardHidden|orientation"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_AddFcCjjListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_AddFcParamMsgActivity"
+            android:label="分采添加"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_AddFcMsgActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_SxbParamShiftSetting"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.Lora_SxbParamLazySetting"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.Lora_SxbParamLazySetting"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_SxbChooseActivity"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

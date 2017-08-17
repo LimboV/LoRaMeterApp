@@ -277,8 +277,9 @@ public class MenuActivity extends Activity {
                         } else if (METER_STYLE.equals("Z")) {//数据同步
                             i = new Intent(uiAct, Z_DataSyncActivity.class);
                             startActivity(i);
-                        } else {//山科表--检查更新
-
+                        } else {//lora分采数据库文件创建及导入
+                            i = new Intent(MenuActivity.this, LoRa_AddFcXqListActivity.class);
+                            startActivity(i);
                         }
 
 
@@ -321,8 +322,8 @@ public class MenuActivity extends Activity {
         /**
          * LoRa表
          */
-        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "检查更新"};
-        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "检查更新"};
+        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息","分采导入", "检查更新"};
+        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息","分采导入", "检查更新"};
         /**
          * P型表
          */
@@ -335,7 +336,7 @@ public class MenuActivity extends Activity {
         private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "检查更新"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
-                R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.updater};
+                R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon};
         private int P_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_cjjcb, R.drawable.pic_meter,
                 R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download, R.drawable.updater};
         private int Z_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_save, R.drawable.pic_meter,
@@ -349,13 +350,13 @@ public class MenuActivity extends Activity {
         @Override
         public int getCount() {
             if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F")|| MenuActivity.METER_STYLE.equals("JY")) {
-                return 7;
+                return 8;
             } else if (MenuActivity.METER_STYLE.equals("P")) {
                 return 9;
             } else if (MenuActivity.METER_STYLE.equals("Z")) {
                 return 9;
             } else {
-                return 7;
+                return 8;
             }
         }
 

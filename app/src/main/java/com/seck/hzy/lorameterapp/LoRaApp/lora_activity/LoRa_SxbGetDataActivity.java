@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.seck.hzy.lorameterapp.LoRaApp.utils.BluetoothConnectThread;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
@@ -41,6 +42,30 @@ public class LoRa_SxbGetDataActivity extends Activity {
     @BindView(R.id.SxbGetDataActivity_et_netId)
     EditText SxbGetDataActivity_et_netId;
 
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_y)
+    EditText LoRa_SxbGetDataActivity_et_y;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_x1)
+    EditText LoRa_SxbGetDataActivity_et_x1;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_x2)
+    EditText LoRa_SxbGetDataActivity_et_x2;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_x3)
+    EditText LoRa_SxbGetDataActivity_et_x3;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_x4)
+    EditText LoRa_SxbGetDataActivity_et_x4;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_et_x5)
+    EditText LoRa_SxbGetDataActivity_et_x5;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_btn_getLocation)
+    Button LoRa_SxbGetDataActivity_btn_getLocation;
+
+    @BindView(R.id.LoRa_SxbGetDataActivity_btn_setLocation)
+    Button LoRa_SxbGetDataActivity_btn_setLocation;
+
     @BindView(R.id.SxbGetDataActivity_btn_getData)
     Button SxbGetDataActivity_btn_getData;
 
@@ -50,8 +75,8 @@ public class LoRa_SxbGetDataActivity extends Activity {
     @BindView(R.id.SxbGetDataActivity_btn_AutoLocation)
     Button SxbGetDataActivity_btn_AutoLocation;
 
-    @BindView(R.id.SxbGetDataActivity_btn_GetLocation)
-    Button SxbGetDataActivity_btn_GetLocation;
+    @BindView(R.id.SxbGetDataActivity_btn_reBack)
+    Button SxbGetDataActivity_btn_reBack;
 
     @BindView(R.id.SxbGetDataActivity_tv_meterSbds)
     TextView SxbGetDataActivity_tv_meterSbds;
@@ -116,7 +141,18 @@ public class LoRa_SxbGetDataActivity extends Activity {
             }
         }).start();
 
-
+        /**
+         * 复位
+         * 68 00 00 00 00 00 00 00 00 00 30 03 A5 05 00
+         */
+        SxbGetDataActivity_btn_reBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sendMsg = "680000000000000000003003A50500";
+                MenuActivity.sendCmd(sendMsg);
+                Toast.makeText(LoRa_SxbGetDataActivity.this, "已复位", Toast.LENGTH_LONG).show();
+            }
+        });
         /**
          * 读版本号
          */
@@ -169,46 +205,94 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     SxbGetDataActivity_tv_showMsg.setText("发送读取参数指令:\n水表地址:" + addr
                             + "\n频率:" + freq
                             + "\n网络ID:" + netId);
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                prepareTimeStart();
-                                Thread.sleep(6000);
-                                while (!timeOut) {
-                                    int msgLength = MenuActivity.Cjj_CB_MSG.length();
-                                    Thread.sleep(500);
-
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength) {
-                                        timeOut = true;
-                                    }
-                                }
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
-                                if (!MenuActivity.Cjj_CB_MSG.contains("0a")) {
-                                    Message message = new Message();
-                                    message.what = 0x99;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                } else {
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-                                    Log.d("limbo", getMsg);
-
-                                    Message message = new Message();
-                                    message.what = 0x01;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                }
-                                HzyUtils.closeProgressDialog();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                HzyUtils.closeProgressDialog();
-                            }
-
-                        }
-                    }).start();*/
                 } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                 }
+            }
+        });
+        LoRa_SxbGetDataActivity_btn_setLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String y = LoRa_SxbGetDataActivity_et_y.getText().toString().trim();
+                String x1 = LoRa_SxbGetDataActivity_et_x1.getText().toString().trim();
+                String x2 = LoRa_SxbGetDataActivity_et_x2.getText().toString().trim();
+                String x3 = LoRa_SxbGetDataActivity_et_x3.getText().toString().trim();
+                String x4 = LoRa_SxbGetDataActivity_et_x4.getText().toString().trim();
+                String x5 = LoRa_SxbGetDataActivity_et_x5.getText().toString().trim();
+                String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
+                String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
+                String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
+                if (addr.length() > 10) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                }
+                if (netId.length() > 4) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                }
+                if (HzyUtils.isEmpty(freq)) {
+                    freq = "0";
+                }
+                freq = Integer.toHexString(Integer.parseInt(freq));
+                //                    freq = Integer.parseInt(freq, 16) + "";
+                if (freq.length() > 4) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                }
+                while (freq.length() < 4) {
+                    freq = "0" + freq;
+                }
+                while (netId.length() < 4) {
+                    netId = "0" + netId;
+                }
+                if (addr.length() == 0) {
+                    addr = "aaaaaaaaaa";
+                }
+                while (addr.length() < 10) {
+                    addr = "0" + addr;
+                }
+                if (HzyUtils.isEmpty(y) || HzyUtils.isEmpty(x1) || HzyUtils.isEmpty(x2)
+                        || HzyUtils.isEmpty(x3) || HzyUtils.isEmpty(x4) || HzyUtils.isEmpty(x5)) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "坐标不得为空", "错误");
+                    return;
+                } else {
+                    y = Integer.toHexString(Integer.parseInt(y));
+                    while (y.length() < 4) {
+                        y = "0" + y;
+                    }
+                    y = HzyUtils.changeString1(y);
+                    x1 = Integer.toHexString(Integer.parseInt(x1));
+                    while (x1.length() < 4) {
+                        x1 = "0" + x1;
+                    }
+                    x1 = HzyUtils.changeString1(x1);
+                    x2 = Integer.toHexString(Integer.parseInt(x2));
+                    while (x2.length() < 4) {
+                        x2 = "0" + x2;
+                    }
+                    x2 = HzyUtils.changeString1(x2);
+                    x3 = Integer.toHexString(Integer.parseInt(x3));
+                    while (x3.length() < 4) {
+                        x3 = "0" + x3;
+                    }
+                    x3 = HzyUtils.changeString1(x3);
+                    x4 = Integer.toHexString(Integer.parseInt(x4));
+                    while (x4.length() < 4) {
+                        x4 = "0" + x4;
+                    }
+                    x4 = HzyUtils.changeString1(x4);
+                    x5 = Integer.toHexString(Integer.parseInt(x5));
+                    while (x5.length() < 4) {
+                        x5 = "0" + x5;
+                    }
+                    x5 = HzyUtils.changeString1(x5);
+
+
+                    sendMsg = "68" + freq + netId + addr + "2311a0f000" + "8e0c" + y + x1 + x2 + x3 + x4 + x5;
+                    MenuActivity.sendCmd(sendMsg);
+                    Log.d("limbo", sendMsg);
+
+
+                }
+
+
             }
         });
         /**
@@ -264,43 +348,6 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     SxbGetDataActivity_tv_showMsg.setText("发送读取参数指令:\n水表地址:" + addr
                             + "\n频率:" + freq
                             + "\n网络ID:" + netId);
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                prepareTimeStart();
-                                Thread.sleep(6000);
-                                while (!timeOut) {
-                                    int msgLength = MenuActivity.Cjj_CB_MSG.length();
-                                    Thread.sleep(500);
-
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength) {
-                                        timeOut = true;
-                                    }
-                                }
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
-                                if (!MenuActivity.Cjj_CB_MSG.contains("0a")) {
-                                    Message message = new Message();
-                                    message.what = 0x99;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                } else {
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-                                    Log.d("limbo", getMsg);
-
-                                    Message message = new Message();
-                                    message.what = 0x01;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                }
-                                HzyUtils.closeProgressDialog();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                HzyUtils.closeProgressDialog();
-                            }
-
-                        }
-                    }).start();*/
                 } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                 }
@@ -352,154 +399,61 @@ public class LoRa_SxbGetDataActivity extends Activity {
                             "30" +//控制码
                             "04" +//数据长度
                             "aa04" +//数据标志
-                            "00"//序号
+                            "0000"//序号
                     ;
                     Log.d("limbo", sendMsg);
                     MenuActivity.sendCmd(sendMsg);
                     SxbGetDataActivity_tv_showMsg.setText("发送读取参数指令:\n水表地址:" + addr
                             + "\n频率:" + freq
                             + "\n网络ID:" + netId);
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                prepareTimeStart();
-                                Thread.sleep(6000);
-                                while (!timeOut) {
-                                    int msgLength = MenuActivity.Cjj_CB_MSG.length();
-                                    Thread.sleep(500);
-
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength) {
-                                        timeOut = true;
-                                    }
-                                }
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
-                                if (!MenuActivity.Cjj_CB_MSG.contains("0a")) {
-                                    Message message = new Message();
-                                    message.what = 0x99;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                } else {
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-                                    Log.d("limbo", getMsg);
-
-                                    Message message = new Message();
-                                    message.what = 0x01;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                }
-                                HzyUtils.closeProgressDialog();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                HzyUtils.closeProgressDialog();
-                            }
-
-                        }
-                    }).start();*/
                 } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
 
                 }
             }
         });
-        /**
-         * 读取坐标
-         */
-        SxbGetDataActivity_btn_GetLocation.setOnClickListener(new View.OnClickListener() {
+        LoRa_SxbGetDataActivity_btn_getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
-                    HzyUtils.showProgressDialog(LoRa_SxbGetDataActivity.this);
-                    //                    SxbGetDataActivity_tv_showMsg.setText("");
-                    String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
-                    String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
-                    String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
-                    if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
-                    }
-                    if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
-                    }
-                    if (HzyUtils.isEmpty(freq)) {
-                        freq = "0";
-                    }
-                    freq = Integer.toHexString(Integer.parseInt(freq));
-                    //                    freq = Integer.parseInt(netId, 16) + "";
-                    if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
-                    }
-                    while (freq.length() < 4) {
-                        freq = "0" + freq;
-                    }
-                    while (netId.length() < 4) {
-                        netId = "0" + netId;
-                    }
-                    if (addr.length() == 0) {
-                        addr = "aaaaaaaaaa";
-                    }
-                    while (addr.length() < 10) {
-                        addr = "0" + addr;
-                    }
-
-                    sendMsg = "68" +
-                            freq +//频率
-                            netId +//网络ID
-                            addr +
-                            "22" +//控制码
-                            "05" +//数据长度
-                            "81f0" +//数据标志
-                            "00" + //序号
-                            "8e0c"//数据
-                    ;
-                    Log.d("limbo", sendMsg);
-                    MenuActivity.sendCmd(sendMsg);
-                    SxbGetDataActivity_tv_showMsg.setText("发送读取参数指令:\n水表地址:" + addr
-                            + "\n频率:" + freq
-                            + "\n网络ID:" + netId);
-                    /*new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                prepareTimeStart();
-                                Thread.sleep(6000);
-                                while (!timeOut) {
-                                    int msgLength = MenuActivity.Cjj_CB_MSG.length();
-                                    Thread.sleep(500);
-
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength) {
-                                        timeOut = true;
-                                    }
-
-                                    //                                    if (method1(MenuActivity.Cjj_CB_MSG, "0a") == 7) {
-                                    //
-                                    //                                        timeOut = true;
-                                    //                                    }
-                                }
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
-                                if (!MenuActivity.Cjj_CB_MSG.contains("0a")) {
-                                    Message message = new Message();
-                                    message.what = 0x99;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                } else {
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-                                    Log.d("limbo", getMsg);
-
-                                    Message message = new Message();
-                                    message.what = 0x01;
-                                    message.obj = getMsg;
-                                    mHandler.sendMessage(message);
-                                }
-                                HzyUtils.closeProgressDialog();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                HzyUtils.closeProgressDialog();
-                            }
-
-                        }
-                    }).start();*/
-                } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
-
+                String y = LoRa_SxbGetDataActivity_et_y.getText().toString().trim();
+                String x1 = LoRa_SxbGetDataActivity_et_x1.getText().toString().trim();
+                String x2 = LoRa_SxbGetDataActivity_et_x2.getText().toString().trim();
+                String x3 = LoRa_SxbGetDataActivity_et_x3.getText().toString().trim();
+                String x4 = LoRa_SxbGetDataActivity_et_x4.getText().toString().trim();
+                String x5 = LoRa_SxbGetDataActivity_et_x5.getText().toString().trim();
+                String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
+                String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
+                String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
+                if (addr.length() > 10) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
                 }
+                if (netId.length() > 4) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                }
+                if (HzyUtils.isEmpty(freq)) {
+                    freq = "0";
+                }
+                freq = Integer.toHexString(Integer.parseInt(freq));
+                //                    freq = Integer.parseInt(freq, 16) + "";
+                if (freq.length() > 4) {
+                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                }
+                while (freq.length() < 4) {
+                    freq = "0" + freq;
+                }
+                while (netId.length() < 4) {
+                    netId = "0" + netId;
+                }
+                if (addr.length() == 0) {
+                    addr = "aaaaaaaaaa";
+                }
+                while (addr.length() < 10) {
+                    addr = "0" + addr;
+                }
+                sendMsg = "68" + freq + netId + addr + "220581f000" + "8e0c";
+                MenuActivity.sendCmd(sendMsg);
+                Log.d("limbo", sendMsg);
+
+
             }
         });
         /**
@@ -625,7 +579,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     getMsg = msg.obj.toString();
                     show = HzyUtils.toStringHex1(getMsg).replaceAll("�", "").replaceAll("\n", "");
                     String flag = show.substring(0, 2);
-
+                    Log.d("limbo", show);
 
                     if (flag.contains("00")) {//磁铁
                         String dataMsg = show.substring(6, 42);
@@ -641,10 +595,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                         SxbGetDataActivity_et_meterAddr.setText(addr);
                         SxbGetDataActivity_et_netId.setText(netid);
                         SxbGetDataActivity_et_freq.setText(freq);
-                    } else if (flag.contains("21")) {//读数
+                    } else if (flag.contains("21") || flag.contains("30")) {//读数
                         SxbGetDataActivity_tv_showMsg.append("\n" + show);
                         show = show.substring(6);
-                        String data = Integer.parseInt(show.substring(5, 6) + show.substring(2, 4) + show.substring(0, 2))+"."+show.substring(16, 17);
+                        String data = Integer.parseInt(show.substring(5, 6) + show.substring(2, 4) + show.substring(0, 2)) + "." + show.substring(16, 17);
                         String sxsbds = show.substring(14, 15) + "." + show.substring(23, 24) + "     " +
                                 show.substring(15, 16) + "." + show.substring(22, 23) + "     " +
                                 show.substring(12, 13) + "." + show.substring(21, 22) + "     " +
@@ -665,6 +619,33 @@ public class LoRa_SxbGetDataActivity extends Activity {
                         SxbGetDataActivity_tv_meterSxsbds.setText(sxsbds);
                         SxbGetDataActivity_tv_meterZxd.setText(zxd);
 
+                    } else if ( flag.contains("23")) {
+                        show = show.substring(6, 30);
+                        HintDialog.ShowHintDialog2(LoRa_SxbGetDataActivity.this,
+                                "Y坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(0, 4)), 16) +
+                                        "\nX1坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(4, 8)), 16) +
+                                        "\nX2坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(8, 12)), 16) +
+                                        "\nX3坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(12, 16)), 16) +
+                                        "\nX4坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(16, 20)), 16) +
+                                        "\nX5坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(20, 24)), 16)
+                                , "接收数据");
+                    } else if(flag.contains("22")){
+                        show = show.substring(6, 30);
+                        /*HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this,
+                                "Y坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(0, 4)), 16) +
+                                        "\nX1坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(4, 8)), 16) +
+                                        "\nX2坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(8, 12)), 16) +
+                                        "\nX3坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(12, 16)), 16) +
+                                        "\nX4坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(16, 20)), 16) +
+                                        "\nX5坐标:" + Integer.parseInt(HzyUtils.changeString1(show.substring(20, 24)), 16)
+                                , "接收数据");*/
+                        LoRa_SxbGetDataActivity_et_y.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(0, 4)), 16)+"");
+                        LoRa_SxbGetDataActivity_et_x1.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(4, 8)), 16)+"");
+                        LoRa_SxbGetDataActivity_et_x2.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(8, 12)), 16)+"");
+                        LoRa_SxbGetDataActivity_et_x3.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(12, 16)), 16)+"");
+                        LoRa_SxbGetDataActivity_et_x4.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(16, 20)), 16)+"");
+                        LoRa_SxbGetDataActivity_et_x5.setText(Integer.parseInt(HzyUtils.changeString1(show.substring(20, 24)), 16)+"");
+
                     }
 
 
@@ -672,12 +653,12 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 case 0x02:
                     getMsg = msg.obj.toString();
                     String msgx;
-                    show = HzyUtils.toStringHex1(getMsg).replaceAll("�", "").replaceAll("\n","");
+                    show = HzyUtils.toStringHex1(getMsg).replaceAll("�", "").replaceAll("\n", "");
                     Log.d("limbo", show);
                     int Hlength = Integer.parseInt(show.substring(2, 4), 16);
                     int Llength = Integer.parseInt(show.substring(4, 6), 16);
-                    int CountLength = Integer.parseInt(show.substring(2,6),16);
-                    Log.d("limbo",CountLength+"");
+                    int CountLength = Integer.parseInt(show.substring(2, 6), 16);
+                    Log.d("limbo", CountLength + "");
                     if (CountLength >= 575) {
                         msgx = show.substring(6 + CountLength * 2);
                         show = show.substring(6, 6 + CountLength * 2);

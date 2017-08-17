@@ -14,30 +14,59 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.R;
 import com.seck.hzy.lorameterapp.LoRaApp.barcode.CaptureActivity;
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
+import com.seck.hzy.lorameterapp.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by limbo on 2016/12/6.
  */
 public class LoRa_UserMsgLoadActivity extends Activity {
+
+    @BindView(R.id.UserMsgLoadActivity_btn_setBds)
+    Button UserMsgLoadActivity_btn_setBds;
+
+    @BindView(R.id.UserMsgLoadActivity_et_meterId)
+    EditText UserMsgLoadActivity_et_meterId;
+
+    @BindView(R.id.UserMsgLoadActivity_et_meterNumber)
+    EditText UserMsgLoadActivity_et_meterNumber;
+
+    @BindView(R.id.UserMsgLoadActivity_et_userAddr)
+    EditText UserMsgLoadActivity_et_userAddr;
+
+    @BindView(R.id.UserMsgLoadActivity_et_xqId)
+    EditText UserMsgLoadActivity_et_xqId;
+
+    @BindView(R.id.UserMsgLoadActivity_et_cjjID)
+    EditText UserMsgLoadActivity_et_cjjID;
+
+    @BindView(R.id.UserMsgLoadActivity_et_meterFreq)
+    EditText UserMsgLoadActivity_et_meterFreq;
+
+    @BindView(R.id.UserMsgLoadActivity_et_bds)
+    EditText UserMsgLoadActivity_et_bds;
+
+    @BindView(R.id.UserMsgLoadActivity_cb_error)
+    CheckBox UserMsgLoadActivity_cb_error;
+
+
     private int xqid, cjjid, meternum;
-    private CheckBox mCheckBox;
     long meternumber;
-    private EditText edId, edNum, etUserAddr, etXqId, etCjjId;
     private Button btnId, btnNum, btnSave, btnGetData;
     private int X_FLAG = 0;
-    private String useraddr, date, meterid, sendMsg, getMsg, afnetID, num, waterValue;
+    private String useraddr, date, meterid, sendMsg, getMsg, afnetID, num, waterValue, Newfreq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +78,11 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         setContentView(R.layout.lora_acivity_usermsgload);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
+        ButterKnife.bind(this);
+        if (!MenuActivity.METER_STYLE.equals("JY")) {
+            UserMsgLoadActivity_btn_setBds.setVisibility(View.GONE);
+            UserMsgLoadActivity_et_bds.setVisibility(View.GONE);
+        }
         /*Bundle bundle = getIntent().getExtras();
         xqid = bundle.getInt("xqid");
         cjjid = bundle.getInt("cjjid");
@@ -57,18 +91,11 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         date = bundle.getString("date");
         meternumber = Integer.parseInt(bundle.getString("meternumber"));*/
 
-        edId = (EditText) findViewById(R.id.UserMsgLoadActivity_et_meterId);
-        edNum = (EditText) findViewById(R.id.UserMsgLoadActivity_et_meterNumber);
-        etUserAddr = (EditText) findViewById(R.id.UserMsgLoadActivity_et_userAddr);
-        etXqId = (EditText) findViewById(R.id.UserMsgLoadActivity_et_xqId);
-        etCjjId = (EditText) findViewById(R.id.UserMsgLoadActivity_et_cjjID);
 
-        mCheckBox = (CheckBox) findViewById(R.id.UserMsgLoadActivity_cb_error);
-
-        mCheckBox.setOnClickListener(new View.OnClickListener() {
+        UserMsgLoadActivity_cb_error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCheckBox.isChecked()) {
+                if (UserMsgLoadActivity_cb_error.isChecked()) {
                     btnGetData.setTextColor(0x87CEEB);
                 } else {
                     btnGetData.setTextColor(0xFFFFFFFF);
@@ -76,8 +103,8 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             }
         });
         loadUser();
-        etCjjId.setText("10101");
-        etCjjId.setKeyListener(null);//不可编辑
+        UserMsgLoadActivity_et_cjjID.setText("10101");
+        UserMsgLoadActivity_et_cjjID.setKeyListener(null);//不可编辑
         /**
          * id
          */
@@ -105,24 +132,123 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             }
         });
         /**
-         * getdata
+         * 设置表底数
          */
-        btnGetData = (Button) findViewById(R.id.UserMsgLoadActivity_btn_getdata);
-        btnGetData.setOnClickListener(new View.OnClickListener() {
+        UserMsgLoadActivity_btn_setBds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCheckBox.isChecked()) {
+                if (
+                        HzyUtils.isEmpty(UserMsgLoadActivity_et_meterFreq.getText().toString()) ||
+                                HzyUtils.isEmpty(UserMsgLoadActivity_et_bds.getText().toString()) ||
+                                HzyUtils.isEmpty(UserMsgLoadActivity_et_meterId.getText().toString())
+                        ) {
+                    HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "输入信息不得为空", "提示");
+                    return;
+                } else {
+                    HzyUtils.showProgressDialog(LoRa_UserMsgLoadActivity.this);
+                    Newfreq = UserMsgLoadActivity_et_meterFreq.getText().toString().trim();
+                    if (!HzyUtils.isEmpty(Newfreq)) {
+                        Newfreq = Integer.toHexString(Integer.parseInt(Newfreq));
+                    }
+                    while (Newfreq.length() < 6) {
+                        Newfreq = "0" + Newfreq;
+                    }
+                    String bds = UserMsgLoadActivity_et_bds.getText().toString().trim();
+                    String Hbds, Lbds;
+                    if (bds.contains(".")) {
+                        Hbds = bds.substring(0, bds.indexOf("."));
+                        Lbds = bds.substring(bds.indexOf(".") + 1);
+                        while (Hbds.length() < 6) {
+                            Hbds = "0" + Hbds;
+                        }
+                        while (Lbds.length() < 2) {
+                            Lbds = Lbds + "0";
+                        }
+                        bds = Hbds + Lbds;
+                    } else {
+                        while (bds.length() < 8) {
+                            bds = "0" + bds;
+                        }
+                    }
+
+                    String id = UserMsgLoadActivity_et_meterId.getText().toString().trim();
+                    meterid = id;
+                    while (meterid.length() < 8) {
+                        meterid = "0" + meterid;
+                    }
+                    if (HzyUtils.isEmpty(id) || HzyUtils.isEmpty(Newfreq)) {
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "频率，表ID皆不可为空。", "提示");
+                    } else if (id.length() > 14 || Newfreq.length() > 6) {
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "数据过长", "提示");
+                    } else {
+
+                    }
+                    String sendMsg = "ff" +
+                            Newfreq +
+                            "02" +
+                            meterid +
+                            bds//表初值
+                            ;
+                    MenuActivity.sendCmd(sendMsg);
+                    Log.d("limbo", sendMsg);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MenuActivity.btAuto = true;
+                            MenuActivity.Cjj_CB_MSG = "";
+                            String getMsg = "";
+                            try {
+                                Thread.sleep(4000);
+                                getMsg = getMsg + MenuActivity.Cjj_CB_MSG;
+                                MenuActivity.Cjj_CB_MSG = "";
+                                getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                Log.d("limbo", "get : " + getMsg);
+                                if (getMsg.length() == 0) {
+                                    Message message = new Message();
+                                    message.what = 0x99;
+                                    message.obj = getMsg;
+                                    mHandler.sendMessage(message);
+                                } else {
+                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    Log.d("limbo", getMsg);
+
+                                    Message message = new Message();
+                                    message.what = 0x04;
+                                    message.obj = getMsg;
+                                    mHandler.sendMessage(message);
+                                }
+                            } catch (Exception e) {
+                                Log.d("limbo", e.toString());
+                            }
+
+                        }
+                    }).start();
+
+                }
+
+
+                /**
+                 * 点抄功能，已弃用
+                 */
+                /*if (mCheckBox.isChecked()) {
                     Toast.makeText(LoRa_UserMsgLoadActivity.this, "异常表无法点抄数据", Toast.LENGTH_LONG).show();
                 } else {
-                    /**
-                     * 读取数据
-                     */
+                    *//**
+                 * 读取数据
+                 *//*
                     HzyUtils.showProgressDialog1(LoRa_UserMsgLoadActivity.this, "正在读取水表数据");
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
+                                Newfreq = etFreq.getText().toString().trim();
                                 String mkid = edNum.getText().toString().trim();
+                                if (!HzyUtils.isEmpty(Newfreq)) {
+                                    Newfreq = Integer.toHexString(Integer.parseInt(Newfreq));
+                                }
+                                while (Newfreq.length() < 6) {
+                                    Newfreq = "0" + Newfreq;
+                                }
                                 if (mkid.length() > 8) {
                                     HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "表序号不可为空", "提示");
                                     return;
@@ -130,7 +256,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 while (mkid.length() < 8) {
                                     mkid = "0" + mkid;
                                 }
-                                sendMsg = "ff" + "078d98" + "1f" + mkid;
+                                sendMsg = "ff" + Newfreq + "1f" + mkid;
                                 MenuActivity.sendCmd(sendMsg);
                                 Log.d("limbo", sendMsg);
                                 Thread.sleep(3000);
@@ -155,29 +281,37 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             }
                         }
                     }).start();
-                }
+                }*/
 
             }
         });
         /**
-         * save
+         * 表数据保存及表端设置
          */
         btnSave = (Button) findViewById(R.id.UserMsgLoadActivity_btn_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = edId.getText().toString().trim();
-                num = edNum.getText().toString().trim();
-                String xqId = etXqId.getText().toString().trim();
-                String cjjId = etCjjId.getText().toString().trim();
-                useraddr = etUserAddr.getText().toString().trim();
+                Newfreq = UserMsgLoadActivity_et_meterFreq.getText().toString().trim();
+                if (!HzyUtils.isEmpty(Newfreq)) {
+                    Newfreq = Integer.toHexString(Integer.parseInt(Newfreq));
+                }
+                while (Newfreq.length() < 6) {
+                    Newfreq = "0" + Newfreq;
+                }
+                String id = UserMsgLoadActivity_et_meterId.getText().toString().trim();
+                num = UserMsgLoadActivity_et_meterNumber.getText().toString().trim();
+                String xqId = UserMsgLoadActivity_et_xqId.getText().toString().trim();
+                String cjjId = UserMsgLoadActivity_et_cjjID.getText().toString().trim();
+                useraddr = UserMsgLoadActivity_et_userAddr.getText().toString().trim();
                 xqid = Integer.parseInt(xqId);
                 cjjid = Integer.parseInt(cjjId);
                 meterid = id;
-                if (mCheckBox.isChecked()) {
-                    if (HzyUtils.isEmpty(id) || HzyUtils.isEmpty(cjjId) || HzyUtils.isEmpty(xqId) || useraddr.length() == 0) {
-                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "小区ID，采集机ID，户号，表ID皆不可为空。", "提示");
-                    } else if (id.length() > 14) {
+                if (UserMsgLoadActivity_cb_error.isChecked()) {
+                    if (HzyUtils.isEmpty(id) || HzyUtils.isEmpty(cjjId) ||
+                            HzyUtils.isEmpty(xqId) || useraddr.length() == 0 || HzyUtils.isEmpty(Newfreq)) {
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "小区ID，采集机ID，户号，频率，表ID皆不可为空。", "提示");
+                    } else if (id.length() > 14 || Newfreq.length() > 6) {
                         HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "数据过长", "提示");
                     } else {
                         HzyUtils.showProgressDialog1(LoRa_UserMsgLoadActivity.this, "请激活表端");
@@ -217,9 +351,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                     }
                 } else {
                     if (HzyUtils.isEmpty(id) || HzyUtils.isEmpty(cjjId) || HzyUtils.isEmpty(xqId) || HzyUtils.isEmpty(num) ||
-                            useraddr.length() == 0) {
-                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "小区ID，采集机ID，户号，表ID与序列号皆不可为空。", "提示");
-                    } else if (id.length() > 14 || num.length() > 8) {
+                            useraddr.length() == 0 || HzyUtils.isEmpty(Newfreq)) {
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "小区ID，采集机ID，户号，表ID，频率与序列号皆不可为空。", "提示");
+                    } else if (id.length() > 14 || num.length() > 8 || Newfreq.length() > 6) {
                         HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "数据过长", "提示");
                     } else {
                         HzyUtils.showProgressDialog1(LoRa_UserMsgLoadActivity.this, "请激活表端");
@@ -293,14 +427,15 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         mkId = getMsg.substring(16, 24);//模块ID
                         bds = getMsg.substring(26, 34);//表底数
                         wlmoID = getMsg.substring(34, 42);//物理模块ID
-                        Log.d("limbo", "频率" + freq +
+                        Log.d("limbo", "原频率" + freq +
                                 "\n网络ID" + netId +
                                 "\n模块ID" + mkId +
                                 "\n表底数" + bds +
                                 "\n物理模块ID" + wlmoID);
 
 
-                        LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId), meterid, useraddr, date);
+                        LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId),
+                                meterid, useraddr, date, Newfreq);
 
                         afnetID = xqid + "";
                         while (afnetID.length() < 4) {
@@ -311,7 +446,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 freq +
                                 "01" +
                                 wlmoID +
-                                freq +
+                                Newfreq +
                                 afnetID;
                         MenuActivity.sendCmd(sendMsg);
                         HzyUtils.closeProgressDialog();
@@ -366,7 +501,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             waterValue.substring(5, 6) + "." +
                             waterValue.substring(7, 8);
                     String dy = getMsg.substring(20, 22);
-                    dy = ((float)Integer.parseInt(dy, 16) / 100 + 2) + "";
+                    dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
                     Log.d("limbo", "\n\n接收参数:" +
                             "\n水表值:" + waterValue +
                             "\n阀控:" + getMsg.substring(18, 20) +
@@ -376,7 +511,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
                     Intent resultIntent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("result", "LoRa网络:" + afnetID + "\nLoRa频率:49500Hz\n表序号:"
+                    bundle.putString("result", "LoRa网络:" + afnetID + "\nLoRa频率:" + Integer.parseInt(Newfreq, 16) + "\n表序号:"
                             + mkId + "\n表ID:" + meterid + "\n\n水表值:" + waterValue);
                     resultIntent.putExtras(bundle);
                     LoRa_UserMsgLoadActivity.this.setResult(RESULT_OK, resultIntent);
@@ -390,9 +525,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             waterValue.substring(5, 6) + "." +
                             waterValue.substring(7, 8);
                     dy = getMsg.substring(20, 22);
-                    dy = ((float)Integer.parseInt(dy, 16) / 100 + 2) + "";
-                    while (dy.length()>5){
-                        dy = dy.substring(0,dy.length()-1);
+                    dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
+                    while (dy.length() > 5) {
+                        dy = dy.substring(0, dy.length() - 1);
                     }
                     Log.d("limbo", "\n\n接收参数:" +
                             "\n水表读数:" + waterValue +
@@ -421,16 +556,22 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         mkId = getMsg.substring(16, 24);//模块ID
                         bds = getMsg.substring(26, 34);//表底数
                         wlmoID = getMsg.substring(34, 42);//物理模块ID
-                        Log.d("limbo", "频率" + freq +
+                        Log.d("limbo", "原频率" + freq +
                                 "\n网络ID" + netId +
                                 "\n模块ID" + mkId +
                                 "\n表底数" + bds +
                                 "\n物理模块ID" + wlmoID);
+                        waterValue = bds;
+                        waterValue = waterValue.substring(1, 2) +
+                                waterValue.substring(3, 4) +
+                                waterValue.substring(5, 6) + "." +
+                                waterValue.substring(7, 8);
                         while (num.length() < 8) {
                             num = "0" + num;
                         }
                         if (mkId.equals(num)) {
-                            LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId), meterid, useraddr, date);
+                            LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId), meterid,
+                                    useraddr, date, Newfreq);
 
                             afnetID = xqid + "";
                             while (afnetID.length() < 4) {
@@ -438,10 +579,10 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             }
 
                             sendMsg = "ff" +
-                                    freq +
+                                    freq +//原频率
                                     "01" +
                                     wlmoID +
-                                    freq +
+                                    Newfreq +
                                     afnetID;
                             MenuActivity.sendCmd(sendMsg);
 
@@ -449,7 +590,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
                             AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_UserMsgLoadActivity.this);
                             dialog.setTitle("水表信息正常");
-                            dialog.setMessage("\n户号:" + useraddr + "\n\n写入LoRa网络ID:" + afnetID + "\n写入LoRa网络频率:49500Hz" +
+                            dialog.setMessage("\n户号:" + useraddr + "\n\n写入LoRa网络ID:" + afnetID + "\n写入LoRa网络频率:" + Integer.parseInt(Newfreq, 16) +
                                     "\n\n绑定水表ID:" + meterid + "\n绑定模块序号:" + num + "\n读取模块序号:" + mkId + "\n\n当前水表读数:" + waterValue);
                             dialog.setCancelable(false);
                             dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -493,6 +634,40 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
                     }
                     break;
+                case 0x04:
+                    getMsg = msg.obj.toString();
+                    if (getMsg.contains("a0")) {
+                        String mkxh = getMsg.substring(2, 4);//型号
+                        String bb = getMsg.substring(4, 6);//版本
+                        String freq = Integer.parseInt(getMsg.substring(6, 12),16)  + "";
+                        String netid = getMsg.substring(12, 16);
+                        String mkid = getMsg.substring(16, 24);
+                        String zt = getMsg.substring(24, 26);
+                        String bds = getMsg.substring(26, 34);
+                        bds = Integer.parseInt(bds.substring(0, 6)) + "." + bds.substring(6, 8);
+                        String wlid = getMsg.substring(34, 42);
+
+
+                        String result = "模块型号:" + mkxh +
+                                "\n版本:" + bb +
+                                "\n频率:" + freq +
+                                "\n网络ID:" + netid +
+                                "\n模块ID:" + mkid +
+                                "\n状态:" + zt +
+                                "\n表底数:" + bds +
+                                "\n物理ID:" + wlid;
+                        Log.d("limbo", result);
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this,result,"返回");
+
+
+                        HzyUtils.closeProgressDialog();
+                    } else {
+                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "未接收到完整返回", "错误");
+                        HzyUtils.closeProgressDialog();
+                    }
+
+
+                    break;
                 case 0x99:
                     HzyUtils.closeProgressDialog();
                     HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "未接收到数据,请重试或检查表线路。", "提示");
@@ -513,7 +688,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         Bundle bundle = data.getExtras();
                         String scanResult = bundle.getString("result");
                         //                        scanResult = scanResult.substring(0, scanResult.length() - 1);
-                        edId.setText(scanResult);
+                        UserMsgLoadActivity_et_meterId.setText(scanResult);
                         meterid = scanResult;
                     } catch (Exception e) {
                         Log.d("limbo", e.toString());
@@ -525,7 +700,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         Bundle bundle = data.getExtras();
                         String scanResult = bundle.getString("result");
                         //scanResult = scanResult.substring(0,scanResult.length()-1);
-                        edNum.setText(scanResult);
+                        UserMsgLoadActivity_et_meterNumber.setText(scanResult);
                         meternumber = Integer.parseInt(scanResult);
                     } catch (Exception e) {
                         Log.d("limbo", e.toString());
@@ -545,9 +720,10 @@ public class LoRa_UserMsgLoadActivity extends Activity {
     public void saveUser() {
 
         SharedPreferences.Editor editor = getSharedPreferences("UserMsgLoadActivity", MODE_PRIVATE).edit();
-        editor.putString("etXqId", etXqId.getText().toString());
-        editor.putString("etCjjId", etCjjId.getText().toString());
-        editor.putString("etUserAddr", etUserAddr.getText().toString());
+        editor.putString("etXqId", UserMsgLoadActivity_et_xqId.getText().toString());
+        editor.putString("etCjjId", UserMsgLoadActivity_et_cjjID.getText().toString());
+        editor.putString("etUserAddr", UserMsgLoadActivity_et_userAddr.getText().toString());
+        editor.putString("etFreq", UserMsgLoadActivity_et_meterFreq.getText().toString());
         editor.commit();
     }
 
@@ -557,9 +733,10 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
     public void loadUser() {
         SharedPreferences pref = getSharedPreferences("UserMsgLoadActivity", MODE_PRIVATE);
-        etXqId.setText(pref.getString("etXqId", ""));
-        etCjjId.setText(pref.getString("etCjjId", ""));
-        etUserAddr.setText(pref.getString("etUserAddr", ""));
+        UserMsgLoadActivity_et_xqId.setText(pref.getString("etXqId", ""));
+        UserMsgLoadActivity_et_cjjID.setText(pref.getString("etCjjId", ""));
+        UserMsgLoadActivity_et_userAddr.setText(pref.getString("etUserAddr", ""));
+        UserMsgLoadActivity_et_meterFreq.setText(pref.getString("etFreq", ""));
     }
 
     @Override

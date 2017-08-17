@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3">
+        android:layout_weight="4">
 
         <TextView
             android:id="@+id/SxbGetDataActivity_tv_showMsg"
@@ -108,6 +108,84 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="坐标设置"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_y"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:hint="Y"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_x1"
+                        android:hint="X1"
+                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_x2"
+                        android:hint="X2"
+                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_x3"
+                        android:hint="X3"
+                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:hint="X4"
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_x4"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:hint="X5"
+                        android:id="@+id/LoRa_SxbGetDataActivity_et_x5"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/LoRa_SxbGetDataActivity_btn_getLocation"
+                        android:text="读取"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/LoRa_SxbGetDataActivity_btn_setLocation"
+                        android:text="设置"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="水表读数"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -193,13 +271,12 @@
                 android:layout_height="wrap_content"
                 android:text="快速读图"
                 android:textColor="@color/white"/>
-
             <Button
-                android:id="@+id/SxbGetDataActivity_btn_GetLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="读取坐标"
-                android:textColor="@color/white"/>
+                android:text="复位"
+                android:id="@+id/SxbGetDataActivity_btn_reBack"/>
+
         </LinearLayout>
     </ScrollView>
 

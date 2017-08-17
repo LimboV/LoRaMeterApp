@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_SXBParamLazySetting;
 import com.seck.hzy.lorameterapp.R;
 
 import butterknife.BindView;
@@ -67,7 +66,7 @@ public class LoRa_SxbChooseActivity extends Activity {
         btnSxtwz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoRa_SxbChooseActivity.this, Z_SXBParamLazySetting.class);
+                Intent intent = new Intent(LoRa_SxbChooseActivity.this, Lora_SxbParamLazySetting.class);
                 startActivity(intent);
             }
         });

@@ -262,6 +262,17 @@ public class HzyUtils {
         newID = sb.toString();
         return newID;
     }
+    /**
+     * 将字符串两两调换
+     */
+    public static String changeString1(String newID) {
+        while (newID.length() %2 != 0) {
+            newID = "0" + newID;
+        }
+        String x = newID.substring(0,2);
+        String y = newID.substring(2,4);
+        return y+x;
+    }
 
 
     /**
@@ -492,4 +503,14 @@ public class HzyUtils {
         String s = df.format(date);
         return s;
     }
+
+    /**
+     * 用以判断当前表设置表频率是否超过了当前表类型的设置范围
+     */
+    public static boolean isConformToRange(){
+
+
+        return true;
+    }
+
 }

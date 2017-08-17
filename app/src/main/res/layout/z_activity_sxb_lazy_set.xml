@@ -361,7 +361,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="X坐标: "
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
 
             <TextView
                 android:id="@+id/y_value"
@@ -369,7 +369,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Y坐标: "
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
         </LinearLayout>
 
         <RelativeLayout

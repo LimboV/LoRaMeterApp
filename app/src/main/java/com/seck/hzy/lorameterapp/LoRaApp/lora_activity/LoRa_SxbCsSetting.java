@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
@@ -42,10 +41,6 @@ public class LoRa_SxbCsSetting extends ListActivity {
 
     @BindView(R.id.EditText_Freq)
     EditText EditText_Freq;
-
-    @BindView(R.id.LoRa_SxbCsSet_Activity_btn_reBack)
-    Button LoRa_SxbCsSet_Activity_btn_reBack;
-
 
     private String addr_Broad;
     private LoRa_SxbCsSetting thisView = null;
@@ -123,7 +118,7 @@ public class LoRa_SxbCsSetting extends ListActivity {
         HintDialog.ShowHintDialog(this, "谨慎设置！如您不确定参数的用途，请勿改动原设置！", "提示");
 
         final ListView listView = getListView();
-        View header = LayoutInflater.from(this).inflate(R.layout.lora_activity_sxbcsset, null);
+        View header = LayoutInflater.from(this).inflate(R.layout.z_activity_sxbsetheader, null);
         listView.addHeaderView(header, null, false);
         listView.setDividerHeight(3);
         ButterKnife.bind(this);
@@ -137,18 +132,7 @@ public class LoRa_SxbCsSetting extends ListActivity {
         listView.setAdapter(new MySetAdapter(this));
 
         thisView = this;
-        /**
-         * 复位
-         * 68 00 00 00 00 00 00 00 00 00 30 03 A5 05 00
-         */
-        LoRa_SxbCsSet_Activity_btn_reBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String sendMsg = "680000000000000000003003A50500";
-                MenuActivity.sendCmd(sendMsg);
-                Toast.makeText(LoRa_SxbCsSetting.this,"已复位",Toast.LENGTH_LONG).show();
-            }
-        });
+
     }
 
     private class MySetAdapter extends BaseAdapter {

@@ -613,17 +613,24 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             }
 
 
-                        } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                        } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                             if (getMsg.length() >= 42) {
                                 getMsg = getMsg.substring(getMsg.indexOf("a0"));
                                 //                        String freq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";//频率-16进制
                                 String sfreq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";//频率-16进制
                                 String netId = getMsg.substring(12, 16);//网络ID
                                 String mkId = getMsg.substring(16, 24);//模块ID
-                                String bds = getMsg.substring(27, 28) +
-                                        getMsg.substring(29, 30) +
-                                        getMsg.substring(31, 32) +
-                                        "." + getMsg.substring(33, 34);//表底数
+                                String bds;
+                                if (MenuActivity.METER_STYLE.equals("W")){
+                                    bds = getMsg.substring(27, 28) +
+                                            getMsg.substring(29, 30) +
+                                            getMsg.substring(31, 32) +
+                                            "." + getMsg.substring(33, 34);//表底数
+                                }else{
+                                    bds = Integer.parseInt(getMsg.substring(26, 32))+"."+getMsg.substring(32,34) ;//表底数
+
+                                }
+
                                 String wlmoID = getMsg.substring(34, 42);//物理模块ID
                                 oldFreq = sfreq;
                                 Log.d("limbo", "频率" + sfreq +

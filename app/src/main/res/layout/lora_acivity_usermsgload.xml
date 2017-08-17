@@ -27,6 +27,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="表频率"/>
+    <EditText
+        android:id="@+id/UserMsgLoadActivity_et_meterFreq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="表频率"
+        android:inputType="number"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="户号"/>
     <EditText
         android:id="@+id/UserMsgLoadActivity_et_userAddr"
@@ -34,6 +44,16 @@
         android:layout_height="wrap_content"
         android:hint="户号"
         android:inputType="text"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="表初值"/>
+    <EditText
+        android:id="@+id/UserMsgLoadActivity_et_bds"
+        android:layout_width="match_parent"
+        android:inputType="numberDecimal"
+        android:layout_height="wrap_content"
+        android:hint="表初值"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,11 +116,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/UserMsgLoadActivity_btn_getdata"
+            android:id="@+id/UserMsgLoadActivity_btn_setBds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="点抄"/>
+            android:text="设置表底度"/>
 
         <Button
             android:id="@+id/UserMsgLoadActivity_btn_save"
