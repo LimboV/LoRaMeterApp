@@ -1,4 +1,4 @@
-package com.seck.hzy.lorameterapp.LoRaApp.model;
+package com.seck.hzy.lorameterapp.LoRaApp.utils;
 
 /**
  * Created by limbo on 2017/8/1.

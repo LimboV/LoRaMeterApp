@@ -42,6 +42,9 @@ public class LoRa_SxbCsSetting extends ListActivity {
     @BindView(R.id.EditText_Freq)
     EditText EditText_Freq;
 
+    @BindView(R.id.EditText_X)
+    EditText EditText_X;
+
     private String addr_Broad;
     private LoRa_SxbCsSetting thisView = null;
 
@@ -118,7 +121,7 @@ public class LoRa_SxbCsSetting extends ListActivity {
         HintDialog.ShowHintDialog(this, "谨慎设置！如您不确定参数的用途，请勿改动原设置！", "提示");
 
         final ListView listView = getListView();
-        View header = LayoutInflater.from(this).inflate(R.layout.z_activity_sxbsetheader, null);
+        View header = LayoutInflater.from(this).inflate(R.layout.lorasxbsettheader, null);
         listView.addHeaderView(header, null, false);
         listView.setDividerHeight(3);
         ButterKnife.bind(this);
@@ -381,6 +384,7 @@ public class LoRa_SxbCsSetting extends ListActivity {
         editor.putString("EditText_Addr", EditText_Addr.getText().toString());
         editor.putString("EditText_Freq", EditText_Freq.getText().toString());
         editor.putString("EditText_NetID", EditText_NetID.getText().toString());
+        editor.putString("EditText_X", EditText_X.getText().toString());
         editor.commit();
     }
 
@@ -393,6 +397,8 @@ public class LoRa_SxbCsSetting extends ListActivity {
         EditText_Addr.setText(pref.getString("EditText_Addr", ""));
         EditText_Freq.setText(pref.getString("EditText_Freq", ""));
         EditText_NetID.setText(pref.getString("EditText_NetID", ""));
+        EditText_X.setText(pref.getString("EditText_X", "0"));
+
     }
 
     @Override

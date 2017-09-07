@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.LoRaFc;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,12 @@ public class LoRa_DataHelper {
     public static SQLiteDatabase getdb() {
         try {
             String fileName = getSDPath() + "/" + dbName;
+            File x = new File(fileName.toString());
+            if (x.exists()){
+                Log.d("limbo","数据库文件存在");
+            }else {
+                Log.d("limbo","数据库文件不存在");
+            }
             db = SQLiteDatabase.openOrCreateDatabase(fileName, null);
         } catch (Exception e) {
             Log.d("limbo", e.toString());
@@ -320,10 +324,12 @@ public class LoRa_DataHelper {
             if (!sdDir.exists()) {
                 sdDir.mkdir();
             } else {
-                //                sdDir = new File(Environment.getExternalStorageDirectory().getPath() + "/SeckLoRaDB");// 获取SD卡的path
+//                sdDir = new File(Environment.getExternalStorageDirectory().getPath() + "/SeckLoRaDB");// 获取SD卡的path
             }
             Log.d("limbo", "return sdPath:" + sdDir.toString());
-            //            return "/storage/sdcard0/SeckLoRaDB";//将path转化为string类型返回
+
+//            return "/storage/sdcard0/SeckLoRaDB";//将path转化为string类型返回
+//            return "/mnt/sdcard/SeckLoRaDB";//将path转化为string类型返回
             return sdDir.toString();//将path转化为string类型返回
         } else {
             Log.d("limbo", "no exist");

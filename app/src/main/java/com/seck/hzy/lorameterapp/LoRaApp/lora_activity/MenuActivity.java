@@ -58,6 +58,7 @@ public class MenuActivity extends Activity {
     /**
      * 全局变量
      */
+    static public String SECK_PARAM = "0";
     static public BluetoothConnectThread netThread = null;
     public static boolean blutoothEnabled = false;
     public static String METER_STYLE;
@@ -500,6 +501,11 @@ public class MenuActivity extends Activity {
             menuActivity_tv_meterStyle.setText("当前表类型为:直读表");
         }else if (MenuActivity.METER_STYLE.equals("JY")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
+        }
+        pref = getSharedPreferences("user_msg1", MODE_PRIVATE);
+        SECK_PARAM = pref.getString("EditText_X", "0");
+        if (SECK_PARAM.length()>1){
+            SECK_PARAM = SECK_PARAM.substring(0,1);
         }
     }
 

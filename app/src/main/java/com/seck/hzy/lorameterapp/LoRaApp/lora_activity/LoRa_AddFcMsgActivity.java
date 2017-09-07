@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.LoRaFc;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRaFc;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 

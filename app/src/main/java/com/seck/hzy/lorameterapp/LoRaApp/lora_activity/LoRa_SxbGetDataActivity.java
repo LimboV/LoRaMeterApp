@@ -598,15 +598,15 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     } else if (flag.contains("21") || flag.contains("30")) {//读数
                         SxbGetDataActivity_tv_showMsg.append("\n" + show);
                         show = show.substring(6);
-                        String data = Integer.parseInt(show.substring(5, 6) + show.substring(2, 4) + show.substring(0, 2)) + "." + show.substring(16, 17);
+                        String data = Integer.parseInt(show.substring(5, 6) + show.substring(2, 4) + show.substring(0, 2)) + "." + show.substring(17, 18)+MenuActivity.SECK_PARAM;
                         String sxsbds = show.substring(14, 15) + "." + show.substring(23, 24) + "     " +
                                 show.substring(15, 16) + "." + show.substring(22, 23) + "     " +
                                 show.substring(12, 13) + "." + show.substring(21, 22) + "     " +
                                 show.substring(13, 14) + "." + show.substring(20, 21) + "     " +
                                 show.substring(10, 11) + "." + show.substring(19, 20) + "     " +
                                 show.substring(11, 12) + "." + show.substring(18, 19) + "     " +
-                                show.substring(8, 9) + "." + show.substring(17, 18) + "     " +
-                                show.substring(9, 10) + "." + show.substring(16, 17) + "     ";
+                                show.substring(8, 9) + "." + show.substring(16, 17) + "     " +
+                                show.substring(9, 10) + "." + show.substring(17, 18) + "     ";
                         String zxd = Integer.parseInt(show.substring(38, 40), 16) + "   " +
                                 Integer.parseInt(show.substring(36, 38), 16) + "   " +
                                 Integer.parseInt(show.substring(34, 36), 16) + "   " +

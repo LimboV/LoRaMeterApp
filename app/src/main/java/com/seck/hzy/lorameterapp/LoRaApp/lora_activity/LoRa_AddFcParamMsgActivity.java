@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.LoRaFc;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRaFc;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
