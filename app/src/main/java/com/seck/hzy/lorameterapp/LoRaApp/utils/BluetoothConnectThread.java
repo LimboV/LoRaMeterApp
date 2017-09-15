@@ -144,7 +144,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 读取图片
      *
-     * @param addr
      * @return
      * @throws InterruptedException
      * @throws IOException
@@ -433,7 +432,6 @@ public class BluetoothConnectThread extends Thread {
     /**
      * 通信测试
      *
-     * @param addr
      * @return
      * @throws InterruptedException
      * @throws IOException

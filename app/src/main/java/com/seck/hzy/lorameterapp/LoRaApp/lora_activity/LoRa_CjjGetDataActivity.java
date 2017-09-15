@@ -116,143 +116,103 @@ public class LoRa_CjjGetDataActivity extends Activity {
 
                 }
                 if (fc0.length() <= 2) {
-                    while (fc0.length() < 2) {
-                        fc0 = "0" + fc0;
-                    }
+                    fc0 = HzyUtils.isLength(fc0,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                     Log.d("limbo", "数据过大：" + fc0);
                 }
                 if (fc1.length() <= 2) {
-                    while (fc1.length() < 2) {
-                        fc1 = "0" + fc1;
-                    }
+                    fc1 = HzyUtils.isLength(fc1,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc2.length() <= 2) {
-                    while (fc2.length() < 2) {
-                        fc2 = "0" + fc2;
-                    }
+                    fc2 = HzyUtils.isLength(fc2,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc3.length() <= 2) {
-                    while (fc3.length() < 2) {
-                        fc3 = "0" + fc3;
-                    }
+                    fc3 = HzyUtils.isLength(fc3,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc4.length() <= 2) {
-                    while (fc4.length() < 2) {
-                        fc4 = "0" + fc4;
-                    }
+                    fc4 = HzyUtils.isLength(fc4,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc5.length() <= 2) {
-                    while (fc5.length() < 2) {
-                        fc5 = "0" + fc5;
-                    }
+                    fc5 = HzyUtils.isLength(fc5,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc6.length() <= 2) {
-                    while (fc6.length() < 2) {
-                        fc6 = "0" + fc6;
-                    }
+                    fc6 = HzyUtils.isLength(fc6,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc7.length() <= 2) {
-                    while (fc7.length() < 2) {
-                        fc7 = "0" + fc7;
-                    }
+                    fc7 = HzyUtils.isLength(fc7,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc8.length() <= 2) {
-                    while (fc8.length() < 2) {
-                        fc8 = "0" + fc8;
-                    }
+                    fc8 = HzyUtils.isLength(fc8,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc9.length() <= 2) {
-                    while (fc9.length() < 2) {
-                        fc9 = "0" + fc9;
-                    }
+                    fc9 = HzyUtils.isLength(fc9,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc10.length() <= 2) {
-                    while (fc10.length() < 2) {
-                        fc10 = "0" + fc10;
-                    }
+                    fc10 = HzyUtils.isLength(fc10,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc11.length() <= 2) {
-                    while (fc11.length() < 2) {
-                        fc11 = "0" + fc11;
-                    }
+                    fc11 = HzyUtils.isLength(fc11,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc12.length() <= 2) {
-                    while (fc12.length() < 2) {
-                        fc12 = "0" + fc12;
-                    }
+                    fc12 = HzyUtils.isLength(fc12,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc13.length() <= 2) {
-                    while (fc13.length() < 2) {
-                        fc13 = "0" + fc13;
-                    }
+                    fc13 = HzyUtils.isLength(fc13,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc14.length() <= 2) {
-                    while (fc14.length() < 2) {
-                        fc14 = "0" + fc14;
-                    }
+                    fc14 = HzyUtils.isLength(fc14,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc15.length() <= 2) {
-                    while (fc15.length() < 2) {
-                        fc15 = "0" + fc15;
-                    }
+                    fc15 = HzyUtils.isLength(fc15,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc16.length() <= 2) {
-                    while (fc16.length() < 2) {
-                        fc16 = "0" + fc16;
-                    }
+                    fc16 = HzyUtils.isLength(fc16,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc17.length() <= 2) {
-                    while (fc17.length() < 2) {
-                        fc17 = "0" + fc17;
-                    }
+                    fc17 = HzyUtils.isLength(fc17,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc18.length() <= 2) {
-                    while (fc18.length() < 2) {
-                        fc18 = "0" + fc18;
-                    }
+                    fc18 = HzyUtils.isLength(fc18,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
                 if (fc19.length() <= 2) {
-                    while (fc19.length() < 2) {
-                        fc19 = "0" + fc19;
-                    }
+                    fc19 = HzyUtils.isLength(fc19,2);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_CjjGetDataActivity.this, "数据过大", "错误");
                 }
@@ -316,14 +276,6 @@ public class LoRa_CjjGetDataActivity extends Activity {
                     String getMsg = msg.obj.toString();
                     Log.d("limbo", "读到数据:" + getMsg);
                     HzyUtils.closeProgressDialog();
-                    //                    if (getMsg.trim().length()!=0) {
-                    //                        tv.append(getMsg+"\n");
-                    //                    }
-
-                    //                    if (getMsg.trim().length()!=0){
-                    //                        getMsg = HzyUtils.toStringHex(getMsg).replaceAll("�","");
-                    //                        tv.append(getMsg+"\n");
-                    //                    }
                     if (getMsg.trim().length() != 0) {
 
                         if (cb.isChecked()) {

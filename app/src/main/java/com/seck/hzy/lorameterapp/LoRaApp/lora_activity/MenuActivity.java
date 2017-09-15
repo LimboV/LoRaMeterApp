@@ -102,7 +102,7 @@ public class MenuActivity extends Activity {
     }
 
     private void init() {
-        //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
         ButterKnife.bind(this);
         progressBar = new ProgressDialog(this);

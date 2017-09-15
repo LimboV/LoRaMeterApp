@@ -722,6 +722,13 @@
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_SxbChooseActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_CjjGetPicActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

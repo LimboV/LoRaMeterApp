@@ -35,6 +35,8 @@ public class LoRa_CjjChooseActivity extends Activity{
         btnGetPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(LoRa_CjjChooseActivity.this, LoRa_CjjGetPicActivity.class);
+                startActivity(i);
 
             }
         });

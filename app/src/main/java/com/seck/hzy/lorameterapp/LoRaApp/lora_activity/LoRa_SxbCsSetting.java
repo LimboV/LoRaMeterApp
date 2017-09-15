@@ -403,6 +403,7 @@ public class LoRa_SxbCsSetting extends ListActivity {
 
     @Override
     protected void onDestroy() {
+        MenuActivity.SECK_PARAM = EditText_X.getText().toString();
         saveUser();
         super.onDestroy();
     }

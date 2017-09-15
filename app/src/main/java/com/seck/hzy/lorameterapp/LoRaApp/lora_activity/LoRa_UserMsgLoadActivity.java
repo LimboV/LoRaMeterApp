@@ -171,7 +171,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         }
                     }
 
-                    String id = UserMsgLoadActivity_et_meterId.getText().toString().trim();
+                    String id = UserMsgLoadActivity_et_meterNumber.getText().toString().trim();
                     meterid = id;
                     while (meterid.length() < 8) {
                         meterid = "0" + meterid;
@@ -562,10 +562,15 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 "\n表底数" + bds +
                                 "\n物理模块ID" + wlmoID);
                         waterValue = bds;
-                        waterValue = waterValue.substring(1, 2) +
-                                waterValue.substring(3, 4) +
-                                waterValue.substring(5, 6) + "." +
-                                waterValue.substring(7, 8);
+                        if (MenuActivity.METER_STYLE.equals("W")) {
+                            waterValue = waterValue.substring(1, 2) +
+                                    waterValue.substring(3, 4) +
+                                    waterValue.substring(5, 6) + "." +
+                                    waterValue.substring(7, 8);
+                        } else if (MenuActivity.METER_STYLE.equals("JY")) {
+                            waterValue = waterValue.substring(0, 6) + "." +
+                                    waterValue.substring(6, 8);
+                        }
                         while (num.length() < 8) {
                             num = "0" + num;
                         }

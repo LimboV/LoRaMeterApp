@@ -262,16 +262,17 @@ public class HzyUtils {
         newID = sb.toString();
         return newID;
     }
+
     /**
      * 将字符串两两调换
      */
     public static String changeString1(String newID) {
-        while (newID.length() %2 != 0) {
+        while (newID.length() % 2 != 0) {
             newID = "0" + newID;
         }
-        String x = newID.substring(0,2);
-        String y = newID.substring(2,4);
-        return y+x;
+        String x = newID.substring(0, 2);
+        String y = newID.substring(2, 4);
+        return y + x;
     }
 
 
@@ -482,8 +483,8 @@ public class HzyUtils {
         try {
             mMethodGetPaths = mStorageManager.getClass().getMethod("getVolumePaths");
             paths = (String[]) mMethodGetPaths.invoke(mStorageManager);
-            for (int i = 0;i<paths.length;i++){
-                Log.d("limbo","x:   "+paths[i]);
+            for (int i = 0; i < paths.length; i++) {
+                Log.d("limbo", "x:   " + paths[i]);
             }
 
         } catch (Exception e) {
@@ -507,10 +508,19 @@ public class HzyUtils {
     /**
      * 用以判断当前表设置表频率是否超过了当前表类型的设置范围
      */
-    public static boolean isConformToRange(){
+    public static boolean isConformToRange() {
 
 
         return true;
     }
 
+    /**
+     * 判断字符串长度是否足够
+     */
+    public static String isLength(String str, int len) {
+        while (str.length() < len) {
+            str = "0" + str;
+        }
+        return str;
+    }
 }
