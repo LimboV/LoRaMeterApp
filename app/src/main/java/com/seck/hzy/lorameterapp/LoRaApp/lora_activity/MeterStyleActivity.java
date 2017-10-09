@@ -42,6 +42,9 @@ public class MeterStyleActivity extends Activity {
     @BindView(R.id.meterStyleActivity_btn_ZDMeter)
     Button meterStyleActivity_btn_ZDMeter;
 
+    @BindView(R.id.meterStyleActivity_btn_CSMeter)
+    Button meterStyleActivity_btn_CSMeter;
+
     /**
      * 地区
      */
@@ -102,6 +105,12 @@ public class MeterStyleActivity extends Activity {
             @Override
             public void onClick(View v) {
                 saveMeter("JY");
+            }
+        });
+        meterStyleActivity_btn_CSMeter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveMeter("CS");
             }
         });
 
@@ -168,6 +177,8 @@ public class MeterStyleActivity extends Activity {
             tv0.setText("当前表类型为:直读表");
         }else if (MenuActivity.METER_STYLE.equals("JY")) {
             tv0.setText("当前表类型为:LoRa隽永表");
+        }else if (MenuActivity.METER_STYLE.equals("CS")) {
+            tv0.setText("当前表类型为:超声水表");
         }
 
     }

@@ -24,7 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.model.PmeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.BlueToothActivity;
@@ -79,7 +79,7 @@ public class P_MeterActivity extends Activity {
             MainActivity.netThread.start();
             MainActivity.isStarted = true;
         }*/
-        meterList = PdataHelper.getMeters(xqid, cjjid);//从数据库中获取列表
+        meterList = P_DataHelper.getMeters(xqid, cjjid);//从数据库中获取列表
         init();
         getList();
         listItemAdapter = new SimpleAdapter(this, listItem, R.layout.list_item, from, to);
@@ -102,7 +102,7 @@ public class P_MeterActivity extends Activity {
 
     public void getList() {
         listItem.clear();
-        meterList = PdataHelper.getMeters(xqid, cjjid);
+        meterList = P_DataHelper.getMeters(xqid, cjjid);
         for (int i = 0; i < meterList.size(); i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("meterid", "表ID:" + meterList.get(i).MeterNumber + "\n抄表时间:" + meterList.get(i).Date);
@@ -163,7 +163,7 @@ public class P_MeterActivity extends Activity {
 
                     }
                     map.put("iamge", pic);
-                    PdataHelper.saveMeter(xqid, cjjid, meterList.get(position).MeterId, pic, null, sdf.format(curDateTime));
+                    P_DataHelper.saveMeter(xqid, cjjid, meterList.get(position).MeterId, pic, null, sdf.format(curDateTime));
                     listItemAdapter.notifyDataSetChanged();
                 }
             }
@@ -217,7 +217,7 @@ public class P_MeterActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             listItem.clear();
-            meterList = PdataHelper.getMeters(xqid, cjjid);
+            meterList = P_DataHelper.getMeters(xqid, cjjid);
             for (int i = 0; (i < meterList.size()) && !isBreak; i++) {
                 //				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -239,7 +239,7 @@ public class P_MeterActivity extends Activity {
 
                 }
                 map.put("iamge", pic);
-                PdataHelper.saveMeter(xqid, cjjid, meterList.get(i).MeterId, pic, null, sdf.format(curDateTime));
+                P_DataHelper.saveMeter(xqid, cjjid, meterList.get(i).MeterId, pic, null, sdf.format(curDateTime));
                 publishProgress(map);
             }
             Message message = new Message();

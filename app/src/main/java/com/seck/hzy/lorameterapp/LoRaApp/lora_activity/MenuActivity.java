@@ -25,9 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seck.hzy.lorameterapp.LoRaApp.cs_activity.CS_SettingActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_CameraTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_ChooseActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_GPRSNetActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_LoadMeterIdXqListActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_PxqActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_UploadActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_XqActivity;
@@ -39,6 +41,7 @@ import com.seck.hzy.lorameterapp.LoRaApp.utils.NetworkLayer;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.SkDataSource;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_DataSyncActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_GPRSNetActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_LoadXqListActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_MeterTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_OtherCommandsActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_PasswordDialog;
@@ -94,7 +97,6 @@ public class MenuActivity extends Activity {
     static public MenuActivity uiAct = null;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +104,7 @@ public class MenuActivity extends Activity {
     }
 
     private void init() {
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
+        //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
         ButterKnife.bind(this);
         progressBar = new ProgressDialog(this);
@@ -185,9 +187,14 @@ public class MenuActivity extends Activity {
                                 i = new Intent(uiAct, Z_XQListActivity.class);
                                 i.putExtra("CB", true);
                                 startActivity(i);
-                            } else {//LoRa表对表端操作
+                            } else if (METER_STYLE.equals("L")||METER_STYLE.equals("W")||METER_STYLE.equals("F")||METER_STYLE.equals("JY")){//LoRa表对表端操作
                                 i = new Intent(MenuActivity.this, LoRa_MeterChooseActivity.class);
                                 startActivity(i);
+                            }else if (METER_STYLE.equals("CS")) {//超声波表
+                                i = new Intent(uiAct, CS_SettingActivity.class);
+                                startActivity(i);
+                            }else {
+
                             }
                         }
 
@@ -302,11 +309,17 @@ public class MenuActivity extends Activity {
                         }
                         break;
                     /**
-                     * 检查更新
+                     *
                      */
                     case 9:
-                        if (METER_STYLE.equals("P")) {//P型表--检查更新
-                        } else if (METER_STYLE.equals("Z")) {//直读表--检查更新
+                        if (METER_STYLE.equals("P")) {//P型表--现场表ID导入
+                            i = new Intent(MenuActivity.this, P_LoadMeterIdXqListActivity.class);
+                            startActivity(i);
+
+
+                        } else if (METER_STYLE.equals("Z")) {//直读表--现场表ID导入
+                            i = new Intent(MenuActivity.this, Z_LoadXqListActivity.class);
+                            startActivity(i);
                         } else {
 
                         }
@@ -323,25 +336,31 @@ public class MenuActivity extends Activity {
         /**
          * LoRa表
          */
-        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息","分采导入", "检查更新"};
-        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息","分采导入", "检查更新"};
+        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "检查更新"};
+        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "检查更新"};
         /**
          * P型表
          */
-        private String P_Titls[] = {"未连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "检查更新"};
-        private String P_Titls2[] = {"已连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "检查更新"};
+        private String P_Titls[] = {"未连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "表ID导入", "检查更新"};
+        private String P_Titls2[] = {"已连接", "表类型选择", "单元盒抄表", "采集机抄表", "查询", "测试", "参数管理", "物联网设置", "采集机升级", "表ID导入", "检查更新"};
         /**
          * 直读表
          */
-        private String Z_Titls[] = {"未连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "检查更新"};
-        private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "检查更新"};
+        private String Z_Titls[] = {"未连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "表ID导入", "检查更新"};
+        private String Z_Titls2[] = {"已连接", "表类型选择", "抄表", "查询", "表参数", "测试", "设置", "数据同步", "物联网设置", "表ID导入", "检查更新"};
+        /**
+         * 超声水表
+         */
+        private String CS_Titls[] = {"未连接", "表类型选择", "测试"};
+        private String CS_Titls2[] = {"已连接", "表类型选择", "测试"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
                 R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon};
         private int P_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_cjjcb, R.drawable.pic_meter,
-                R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download, R.drawable.updater};
+                R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download, R.drawable.pic_meter, R.drawable.updater};
         private int Z_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_save, R.drawable.pic_meter,
-                R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet, R.drawable.updater};
+                R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet, R.drawable.pic_meter, R.drawable.updater};
+        private int CS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_set};
 
 
         public imageAdapter(Context c) {
@@ -350,13 +369,15 @@ public class MenuActivity extends Activity {
 
         @Override
         public int getCount() {
-            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F")|| MenuActivity.METER_STYLE.equals("JY")) {
+            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F") || MenuActivity.METER_STYLE.equals("JY")) {
                 return 8;
             } else if (MenuActivity.METER_STYLE.equals("P")) {
-                return 9;
+                return 10;
             } else if (MenuActivity.METER_STYLE.equals("Z")) {
-                return 9;
-            } else {
+                return 10;
+            } else if (MenuActivity.METER_STYLE.equals("CS")) {
+                return 3;
+            }else {
                 return 8;
             }
         }
@@ -380,7 +401,7 @@ public class MenuActivity extends Activity {
                 TextView tv = (TextView) v.findViewById(R.id.icon_text);
                 ImageView iv = (ImageView) v.findViewById(R.id.icon_image);
                 if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W")
-                        || MenuActivity.METER_STYLE.equals("F")|| MenuActivity.METER_STYLE.equals("JY")) {
+                        || MenuActivity.METER_STYLE.equals("F") || MenuActivity.METER_STYLE.equals("JY")) {
 
                     if (MenuActivity.netThread == null) {
                         tv.setText(LoRa_Titls[position]);
@@ -404,6 +425,14 @@ public class MenuActivity extends Activity {
                     }
 
                     iv.setImageResource(Z_Imgs[position]);
+                }else if (MenuActivity.METER_STYLE.equals("CS")) {
+                    if (MenuActivity.netThread == null) {
+                        tv.setText(CS_Titls[position]);
+                    } else {
+                        tv.setText(CS_Titls2[position]);
+                    }
+
+                    iv.setImageResource(CS_Imgs[position]);
                 }
 
                 if (MenuActivity.netThread != null && position == 0)
@@ -499,20 +528,22 @@ public class MenuActivity extends Activity {
             menuActivity_tv_meterStyle.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:直读表");
-        }else if (MenuActivity.METER_STYLE.equals("JY")) {
+        } else if (MenuActivity.METER_STYLE.equals("JY")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
+        }else if (MenuActivity.METER_STYLE.equals("CS")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:超声水表");
         }
         pref = getSharedPreferences("user_msg1", MODE_PRIVATE);
         SECK_PARAM = pref.getString("EditText_X", "0");
-        if (SECK_PARAM.length()>1){
-            SECK_PARAM = SECK_PARAM.substring(0,1);
+        if (SECK_PARAM.length() > 1) {
+            SECK_PARAM = SECK_PARAM.substring(0, 1);
         }
     }
 
     public static void sendCmd(String sendMsg) {
         Log.d("limbo", "sendCmd函数发送:" + sendMsg);
         if (sendMsg.length() % 2 == 1) {
-            sendMsg =  sendMsg+"0" ;
+            sendMsg = sendMsg + "0";
         }
         MenuActivity.Cjj_CB_MSG = "";//清空记录
         byte[] bos = HzyUtils.getHexBytes(sendMsg);
@@ -589,7 +620,7 @@ public class MenuActivity extends Activity {
     public void showAbout() {
 
         String aboutText = "版本号 : " + this.getAppVersionName(this) + "\r\n" +
-                "Copyright (C) 1999 - 2014\r\nSeck (Hangzhou)";
+                "Copyright (C) 1999 - 2017\r\nSeck (Hangzhou)";
 
         new AlertDialog.Builder(this).setTitle(R.string.app_name).setMessage(aboutText)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {

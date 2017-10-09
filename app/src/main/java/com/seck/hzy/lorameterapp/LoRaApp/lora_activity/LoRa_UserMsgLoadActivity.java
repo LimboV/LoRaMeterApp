@@ -96,9 +96,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (UserMsgLoadActivity_cb_error.isChecked()) {
-                    btnGetData.setTextColor(0x87CEEB);
+//                    btnGetData.setTextColor(0x87CEEB);
                 } else {
-                    btnGetData.setTextColor(0xFFFFFFFF);
+//                    btnGetData.setTextColor(0xFFFFFFFF);
                 }
             }
         });

@@ -15,7 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.seck.hzy.lorameterapp.LoRaApp.model.Pcjj;
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.R;
 
@@ -39,7 +39,7 @@ public class P_PxqActivity extends Activity {
     private void init(){
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.p_activity_p_xq);
-        PdataHelper.getdb();//获取数据库实例
+        P_DataHelper.getdb();//获取数据库实例
 //        setupActionBar();//在左上角显示回退按钮
 
         lvPXq = (ListView) findViewById(R.id.lvPXq);
@@ -65,7 +65,7 @@ public class P_PxqActivity extends Activity {
     private List<String> getXq() {
         List<String> data = new ArrayList<String>();
         try {
-            xqList = PdataHelper.getXq();//从数据库提取出
+            xqList = P_DataHelper.getXq();//从数据库提取出
             for (Pcjj cjj : xqList) {
                 data.add(cjj.XqName + "(" + cjj.XqId + ")");
             }

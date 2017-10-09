@@ -20,7 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.seck.hzy.lorameterapp.LoRaApp.model.Pcjj;
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.BluetoothConnectThread;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
@@ -84,7 +84,7 @@ public class P_XqActivity extends Activity {
 	private List<String> getXq() {
 		List<String> data = new ArrayList<String>();
 		try {
-			xqList = PdataHelper.getXq();//从数据库提取出
+			xqList = P_DataHelper.getXq();//从数据库提取出
 			for (Pcjj cjj : xqList) {
 				data.add(cjj.XqName + "(" + cjj.XqId + ")");
 			}
@@ -96,7 +96,7 @@ public class P_XqActivity extends Activity {
 
 	private void init() {
 		getIdThread.start();
-		PdataHelper.getdb();//获取数据库实例
+		P_DataHelper.getdb();//获取数据库实例
 //		setupActionBar();//在左上角显示回退按钮
 		cb = (CheckBox) findViewById(R.id.cbIsZNDYH);
 		loadUser();
@@ -155,7 +155,7 @@ public class P_XqActivity extends Activity {
 						}.start();
 						isOver = true;
 						IsRunning2 = true;
-						cjjList = PdataHelper.getPcjj(xqList.get(position).XqId); //根据小区ID加载采集机信息列表
+						cjjList = P_DataHelper.getPcjj(xqList.get(position).XqId); //根据小区ID加载采集机信息列表
 						xqid = xqList.get(position).XqId;
 						smsg ="";
 						int i,n;

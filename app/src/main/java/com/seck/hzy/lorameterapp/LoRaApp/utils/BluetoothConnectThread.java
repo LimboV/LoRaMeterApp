@@ -1162,9 +1162,9 @@ public class BluetoothConnectThread extends Thread {
                 int bitindex = bindex % 8;
                 int color = ((picdata[byteindex] & 0xff) >> bitindex) & 0x01;
                 if (color == 1)
-                    a.setPixel(i, j, 0xffffffff);
-                else
                     a.setPixel(i, j, Color.BLACK);
+                else
+                    a.setPixel(i, j, 0xffffffff);
                 bindex++;
             }
 

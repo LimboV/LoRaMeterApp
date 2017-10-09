@@ -94,13 +94,724 @@
             android:text=""
             android:textColor="#000000"
             android:textSize="15sp"/>
+
         <EditText
             android:id="@+id/EditText_X"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:hint="版本号(默认为0)"
+            android:inputType="number"
             android:textSize="15sp"></EditText>
 
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="网络ID"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="水表ID"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="序号"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="频率"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="字轮宽度"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="高度"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="半高度"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="Y坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="X1坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName10"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="X2坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue10"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam10"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam10"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName11"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="X3坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue11"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam11"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam11"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName12"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="X4坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue12"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam12"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam12"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName13"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="X5坐标"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue13"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam13"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam13"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName14"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="字轮个数"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue14"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam14"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam14"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="置信度阈值"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName16"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="二值化系数"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue16"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam16"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam16"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ParamName17"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="使用代码段"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/ParamValue17"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numeric="integer"
+                    android:textSize="15sp">
+                </EditText>
+
+                <Button
+                    android:id="@+id/ReadParam17"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="读取">
+                </Button>
+
+                <Button
+                    android:id="@+id/WriteParam17"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="写入">
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

@@ -38,6 +38,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_08"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -46,6 +47,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_07"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -54,6 +56,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_06"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -62,6 +65,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_05"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -70,6 +74,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_04"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -78,6 +83,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_03"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -86,6 +92,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_02"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -94,6 +101,7 @@
                     </ImageView>
 
                     <ImageView
+                        android:background="@drawable/shape_textview_cart"
                         android:id="@+id/ib_01"
                         android:layout_width="50dp"
                         android:layout_height="72dp"
@@ -207,6 +215,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Y  :"/>
+
                         <EditText
                             android:id="@+id/LoRa_SxbGetDataActivity_et_y"
                             android:layout_width="match_parent"
@@ -214,37 +227,21 @@
                             android:layout_weight="1"
                             android:hint="Y"
                             android:inputType="number"/>
-
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X5:"/>
                         <EditText
-                            android:id="@+id/LoRa_SxbGetDataActivity_et_x1"
+                            android:id="@+id/LoRa_SxbGetDataActivity_et_x5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="X1"
+                            android:hint="X5"
                             android:inputType="number"/>
-
-                        <EditText
-                            android:id="@+id/LoRa_SxbGetDataActivity_et_x2"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="X2"
-                            android:inputType="number"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/LoRa_SxbGetDataActivity_et_x3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="X3"
-                            android:inputType="number"/>
-
+                            android:text="X4:"/>
                         <EditText
                             android:id="@+id/LoRa_SxbGetDataActivity_et_x4"
                             android:layout_width="match_parent"
@@ -252,13 +249,44 @@
                             android:layout_weight="1"
                             android:hint="X4"
                             android:inputType="number"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X3:"/>
                         <EditText
-                            android:id="@+id/LoRa_SxbGetDataActivity_et_x5"
+                            android:id="@+id/LoRa_SxbGetDataActivity_et_x3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="X5"
+                            android:hint="X3"
+                            android:inputType="number"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X2:"/>
+                        <EditText
+                            android:id="@+id/LoRa_SxbGetDataActivity_et_x2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="X2"
+                            android:inputType="number"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X1:"/>
+                        <EditText
+                            android:id="@+id/LoRa_SxbGetDataActivity_et_x1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="X1"
                             android:inputType="number"/>
                     </LinearLayout>
 

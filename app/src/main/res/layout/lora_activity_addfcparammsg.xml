@@ -34,11 +34,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="分采频率"/>
+
             <EditText
-                android:layout_width="match_parent"
                 android:id="@+id/Lora_AddFcParamMsgActivity_et_fcFreq"
-                android:inputType="number"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

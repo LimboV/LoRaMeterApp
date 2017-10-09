@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.model.PmeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
@@ -113,7 +113,7 @@ public class P_AddrLoadActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                case 0x00:
-                    meterList = PdataHelper.getMeters(xqid, cjjid);//从数据库中获取列表
+                    meterList = P_DataHelper.getMeters(xqid, cjjid);//从数据库中获取列表
                     tvMsg.setText("小区号:"+xqid +"    通讯机号:"+cjjid);
 //                    getList();
 //                    listItemAdapter = new SimpleAdapter(AddrLoadActivity.this, listItem, R.layout.list_item, from, to);

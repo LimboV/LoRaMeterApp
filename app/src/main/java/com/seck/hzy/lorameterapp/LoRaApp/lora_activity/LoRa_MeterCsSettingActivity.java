@@ -69,6 +69,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
         if (MenuActivity.METER_STYLE.equals("L")) {//山科LoRa表
             btnGet.setText("超级写");
             tvWlAddr.setText("编号");
+            btnSend.setVisibility(View.GONE);
         } else {
             etWlAddr.setKeyListener(null);//不可编辑
             btnGetdata.setVisibility(View.GONE);
@@ -96,6 +97,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             } catch (Exception e) {
                                 Log.d("limbo", e.toString());
                             }
+//                            MenuActivity.sendCmd("ff");
                         } else {
                             z++;
                         }

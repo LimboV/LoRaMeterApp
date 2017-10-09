@@ -1,6 +1,7 @@
 package com.seck.hzy.lorameterapp.LoRaApp.lora_activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,8 +108,9 @@ public class LoRa_SxbGetDataActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.lora_activity_sxbgetdata);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
-
         ButterKnife.bind(this);
+        loadUser();
+
         /**
          * 自动
          */
@@ -182,12 +184,12 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     if (freq.length() > 4) {
                         HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
                     }
-                    freq = HzyUtils.isLength(freq,4);
-                    netId = HzyUtils.isLength(netId,4);
+                    freq = HzyUtils.isLength(freq, 4);
+                    netId = HzyUtils.isLength(netId, 4);
                     if (addr.length() == 0) {
                         addr = "aaaaaaaaaa";
                     }
-                    addr = HzyUtils.isLength(addr,10);
+                    addr = HzyUtils.isLength(addr, 10);
 
                     sendMsg = "68" +
                             freq +//频率"1356"
@@ -234,34 +236,34 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 if (freq.length() > 4) {
                     HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
                 }
-                freq = HzyUtils.isLength(freq,4);
-                netId = HzyUtils.isLength(netId,4);
+                freq = HzyUtils.isLength(freq, 4);
+                netId = HzyUtils.isLength(netId, 4);
                 if (addr.length() == 0) {
                     addr = "aaaaaaaaaa";
                 }
-                addr = HzyUtils.isLength(addr,10);
+                addr = HzyUtils.isLength(addr, 10);
                 if (HzyUtils.isEmpty(y) || HzyUtils.isEmpty(x1) || HzyUtils.isEmpty(x2)
                         || HzyUtils.isEmpty(x3) || HzyUtils.isEmpty(x4) || HzyUtils.isEmpty(x5)) {
                     HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "坐标不得为空", "错误");
                     return;
                 } else {
                     y = Integer.toHexString(Integer.parseInt(y));
-                    y = HzyUtils.isLength(y,4);
+                    y = HzyUtils.isLength(y, 4);
                     y = HzyUtils.changeString1(y);
                     x1 = Integer.toHexString(Integer.parseInt(x1));
-                    x1 = HzyUtils.isLength(x1,4);
+                    x1 = HzyUtils.isLength(x1, 4);
                     x1 = HzyUtils.changeString1(x1);
                     x2 = Integer.toHexString(Integer.parseInt(x2));
-                    x2 = HzyUtils.isLength(x2,4);
+                    x2 = HzyUtils.isLength(x2, 4);
                     x2 = HzyUtils.changeString1(x2);
                     x3 = Integer.toHexString(Integer.parseInt(x3));
-                    x3 = HzyUtils.isLength(x3,4);
+                    x3 = HzyUtils.isLength(x3, 4);
                     x3 = HzyUtils.changeString1(x3);
                     x4 = Integer.toHexString(Integer.parseInt(x4));
-                    x4 = HzyUtils.isLength(x4,4);
+                    x4 = HzyUtils.isLength(x4, 4);
                     x4 = HzyUtils.changeString1(x4);
                     x5 = Integer.toHexString(Integer.parseInt(x5));
-                    x5 = HzyUtils.isLength(x5,4);
+                    x5 = HzyUtils.isLength(x5, 4);
                     x5 = HzyUtils.changeString1(x5);
 
 
@@ -637,7 +639,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
 
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
 
                 }
             }
@@ -740,9 +742,24 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     int CountLength = Integer.parseInt(show.substring(2, 6), 16);
                     Log.d("limbo", CountLength + "");
                     if (CountLength >= 575) {
+
+
                         msgx = show.substring(6 + CountLength * 2);
                         show = show.substring(6, 6 + CountLength * 2);
 
+                        for (int i=0;i<5;i++){
+                            String x_string = show.substring(0 + i * 230, 230 * (i + 1));
+                            String CRC = x_string.substring(226,230);
+                            String CRC1 = HzyUtils.CRC16(x_string.substring(0,226)).toUpperCase();
+                            if (CRC.equals(CRC1)){
+                                Log.d("limbo","第"+i+"字轮CRC successed");
+                            }else {
+                                Log.d("limbo",x_string.substring(0,230));
+                                Log.d("limbo","第"+i+"字轮CRC failed" + CRC +"---"+CRC1);
+                                HintDialog.ShowHintDialog(thisView,"CRC校验出现错误","错误");
+                                break;
+                            }
+                        }
                         String[] showMsg = new String[5];
                         for (int i = 0; i < 5; i++) {
                             showMsg[i] = show.substring(0 + i * 230, 230 * (i + 1));
@@ -838,7 +855,29 @@ public class LoRa_SxbGetDataActivity extends Activity {
             }
         }
     };
+    /**
+     * 使用SharePreferences保存用户信息
+     */
+    private void saveUser() {
 
+        SharedPreferences.Editor editor = getSharedPreferences("user_msg1", MODE_PRIVATE).edit();
+        editor.putString("SxbGetDataActivity_et_meterAddr", SxbGetDataActivity_et_meterAddr.getText().toString());
+        editor.putString("SxbGetDataActivity_et_freq", SxbGetDataActivity_et_freq.getText().toString());
+        editor.putString("SxbGetDataActivity_et_netId", SxbGetDataActivity_et_netId.getText().toString());
+        editor.commit();
+    }
+
+    /**
+     * 加载用户信息
+     */
+
+    private void loadUser() {
+        SharedPreferences pref = getSharedPreferences("user_msg1", MODE_PRIVATE);
+        SxbGetDataActivity_et_meterAddr.setText(pref.getString("SxbGetDataActivity_et_meterAddr", ""));
+        SxbGetDataActivity_et_freq.setText(pref.getString("SxbGetDataActivity_et_freq", ""));
+        SxbGetDataActivity_et_netId.setText(pref.getString("SxbGetDataActivity_et_netId", ""));
+
+    }
     /**
      * 开始协议设定时间
      */
@@ -856,6 +895,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
             }
         }).start();
     }
+
     /**
      * 开始协议设定时间
      */
@@ -877,6 +917,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        saveUser();
         MenuActivity.btAuto = false;
         super.onDestroy();
     }

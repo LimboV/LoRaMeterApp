@@ -13,7 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.seck.hzy.lorameterapp.LoRaApp.model.Pcjj;
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 import com.seck.hzy.lorameterapp.R;
 
@@ -41,7 +41,7 @@ public class P_PcjjActivity extends Activity {
         Bundle bundle=	getIntent().getExtras();
 
         xqid=bundle.getInt("xqid");
-        cjjList= PdataHelper.getPcjj(xqid); //根据小区ID加载采集机信息列表
+        cjjList= P_DataHelper.getPcjj(xqid); //根据小区ID加载采集机信息列表
         lvPCjj = (ListView) findViewById(R.id.lvPCjj);
         ListAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, getCjj());
         lvPCjj.setAdapter(adapter);

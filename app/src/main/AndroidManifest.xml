@@ -2,7 +2,7 @@
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="2"
-    android:versionName="1.20170725">
+    android:versionName="1.20170901">
 
     <uses-sdk
         android:installLocation="internalOnly"
@@ -203,7 +203,7 @@
                 android:value=".LoRaApp.lora_activity.MenuActivity"/>
         </activity>
         <activity
-            android:name=".LoRaApp.lora_activity.LoRa_LyListActivity"
+            android:name=".LoRaApp.lora_activity.LoRa_CjjListActivity"
             android:label="楼宇列表"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_XqListActivity"
             android:screenOrientation="portrait">
@@ -214,7 +214,7 @@
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_UserActivity"
             android:label="用户列表"
-            android:parentActivityName=".LoRaApp.lora_activity.LoRa_LyListActivity"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_CjjListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -727,6 +727,69 @@
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.p_activity.P_LoadMeterIdXqListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.p_activity.P_LoadMeterIdCjjListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.p_activity.P_LoadMeterIdXqListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.p_activity.P_LoadMeterIdMeterListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.p_activity.P_LoadMeterIdCjjListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.cs_activity.CS_SettingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.z_activity.Z_LoadXqListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.z_activity.Z_LoadCjjListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.z_activity.Z_LoadXqListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.z_activity.Z_LoadMeterListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.z_activity.Z_LoadCjjListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.z_activity.Z_LoadMeterMsgActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.z_activity.Z_LoadMeterListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.z_activity.Z_LoadXqAddXqActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.z_activity.Z_LoadXqListActivity"
             android:screenOrientation="portrait">
         </activity>
 

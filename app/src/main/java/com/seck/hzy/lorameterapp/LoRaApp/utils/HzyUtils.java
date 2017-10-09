@@ -267,12 +267,17 @@ public class HzyUtils {
      * 将字符串两两调换
      */
     public static String changeString1(String newID) {
-        while (newID.length() % 2 != 0) {
-            newID = "0" + newID;
+        if (newID.length() == 4){
+            while (newID.length() % 2 != 0) {
+                newID = "0" + newID;
+            }
+            String x = newID.substring(0, 2);
+            String y = newID.substring(2, 4);
+            return y + x;
+        }else {
+            return newID;
         }
-        String x = newID.substring(0, 2);
-        String y = newID.substring(2, 4);
-        return y + x;
+
     }
 
 

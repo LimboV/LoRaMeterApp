@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="小区ID"/>
+
+            <EditText
+                android:id="@+id/Z_LoadMeterMsgActivity_et_XqId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="小区ID"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="采集机ID"/>
+
+            <EditText
+                android:id="@+id/Z_LoadMeterMsgActivity_et_CjjId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="采集机ID"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="户号"/>
+
+            <EditText
+                android:id="@+id/Z_LoadMeterMsgActivity_et_UserAddr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="户号"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="表ID"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/Z_LoadMeterMsgActivity_et_MeterId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="表ID"/>
+
+                <Button
+                    android:id="@+id/Z_LoadMeterMsgActivity_btn_GetMeterId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="扫描"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/Z_LoadMeterMsgActivity_btn_SaveMeterMsgToDb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="保存修改"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

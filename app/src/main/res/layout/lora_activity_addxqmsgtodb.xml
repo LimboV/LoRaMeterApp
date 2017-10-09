@@ -39,7 +39,10 @@
         android:inputType="number"
         android:hint="采集机号"/>
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="采集机名"/>
     <EditText
         android:id="@+id/AddXqMsgToDbActivity_et_CjjName"
         android:layout_width="match_parent"

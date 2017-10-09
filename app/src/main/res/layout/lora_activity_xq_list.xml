@@ -10,7 +10,7 @@
         android:orientation="horizontal">
         <Button
             android:layout_weight="1"
-            android:text="添加小区"
+            android:text="添加小区及采集机"
             android:id="@+id/XqListActivity_btn_addXq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

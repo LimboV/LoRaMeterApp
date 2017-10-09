@@ -25,7 +25,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.seck.hzy.lorameterapp.LoRaApp.model.PdataHelper;
+import com.seck.hzy.lorameterapp.LoRaApp.utils.P_DataHelper;
 import com.seck.hzy.lorameterapp.LoRaApp.model.PmeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
@@ -116,7 +116,7 @@ public class P_PmeterActivity extends Activity implements View.OnClickListener {
             MainActivity.netThread.start();
             MainActivity.isStarted = true;
         }*/
-        meterList = PdataHelper.getMeters(xqid, getMsgNum);//从数据库中获取列表
+        meterList = P_DataHelper.getMeters(xqid, getMsgNum);//从数据库中获取列表
         getList();
         listItemAdapter = new SimpleAdapter(this, listItem, R.layout.list_item, from, to);
         listItemAdapter.setViewBinder(new ListViewBinder());
@@ -164,7 +164,7 @@ public class P_PmeterActivity extends Activity implements View.OnClickListener {
                 case 0x01:
                     HashMap<String, Object> map = listItem.get(positionListOnClick);
                     map.put("iamge", (Bitmap) msg.obj);
-                    PdataHelper.saveMeter(xqid, getMsgNum, meterList.get(positionListOnClick).MeterId, (Bitmap) msg.obj, null, CBTime);
+                    P_DataHelper.saveMeter(xqid, getMsgNum, meterList.get(positionListOnClick).MeterId, (Bitmap) msg.obj, null, CBTime);
                     listItemAdapter.notifyDataSetChanged();
                     break;
                 default:
@@ -175,7 +175,7 @@ public class P_PmeterActivity extends Activity implements View.OnClickListener {
 
     public void getList() {
         listItem.clear();
-        meterList = PdataHelper.getMeters(xqid, getMsgNum);
+        meterList = P_DataHelper.getMeters(xqid, getMsgNum);
         for (int i = 0; i < meterList.size(); i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("meterid", "表ID:" + meterList.get(i).MeterNumber);
@@ -257,7 +257,7 @@ public class P_PmeterActivity extends Activity implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... params) {
             listItem.clear();
-            meterList = PdataHelper.getMeters(xqid, getMsgNum);
+            meterList = P_DataHelper.getMeters(xqid, getMsgNum);
             for (int i = 0; i < meterList.size(); i++) {
                 String portString = portid + "";
                 if (isNow) {//抄表月份+端口号
@@ -305,7 +305,7 @@ public class P_PmeterActivity extends Activity implements View.OnClickListener {
                 bp = BitmapFactory.decodeByteArray(jpegSource, 0, jpegSource.length);
                 map.put("iamge", bp);
 
-                PdataHelper.saveMeter(xqid, getMsgNum, meterList.get(position_selection).MeterId, bp, null, CBTime);
+                P_DataHelper.saveMeter(xqid, getMsgNum, meterList.get(position_selection).MeterId, bp, null, CBTime);
                 publishProgress(map);
             }
             HzyUtils.closeProgressDialog();
