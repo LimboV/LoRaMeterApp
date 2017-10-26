@@ -433,7 +433,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(1000);
+                                Thread.sleep(1500);
                                 String getMsg = MenuActivity.Cjj_CB_MSG;
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
@@ -450,7 +450,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                                     mHandler.sendMessage(message);
                                 }
                                 HzyUtils.closeProgressDialog();
-                            } catch (InterruptedException e) {
+                            }        catch (InterruptedException e) {
                                 HzyUtils.closeProgressDialog();
                                 e.printStackTrace();
                             }
@@ -714,17 +714,17 @@ public class LoRa_LoRaSettingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String jd = etDeleteJd.getText().toString();
-                if (jd.length() > 4) {
+                if (jd.length() > 10) {
                     HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "数据过长", "错误");
                 }
-                while (jd.length() < 4) {
+                while (jd.length() < 10) {
                     jd = "0" + jd;
                 }
                 if (MenuActivity.METER_STYLE.equals("L")) {//LoRa表
 
                 } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     HzyUtils.showProgressDialog(LoRa_LoRaSettingActivity.this);
-                    String sendMsg = "001600d50001000000" + jd;
+                    String sendMsg = "001600d50001" + jd;
                     sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);

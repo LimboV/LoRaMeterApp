@@ -513,10 +513,16 @@ public class HzyUtils {
     /**
      * 用以判断当前表设置表频率是否超过了当前表类型的设置范围
      */
-    public static boolean isConformToRange() {
-
-
-        return true;
+    public static boolean isConformToRange(String s) {
+        if (HzyUtils.isEmpty(s)){
+            return true;
+        }
+        long i = Long.parseLong(s);
+        if (i>510000 || i<470000 ){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**

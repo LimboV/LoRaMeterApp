@@ -56,6 +56,9 @@ public class Z_LoadCjjListActivity extends Activity {
             }
         });
         LyListActivity_btn_loadMsgToCjj.setVisibility(View.GONE);
+        /**
+         * 导入信息到采集机
+         */
         /*LyListActivity_btn_loadMsgToCjj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

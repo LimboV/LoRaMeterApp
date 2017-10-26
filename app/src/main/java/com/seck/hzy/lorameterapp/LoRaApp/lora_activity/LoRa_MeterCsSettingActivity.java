@@ -97,12 +97,12 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             } catch (Exception e) {
                                 Log.d("limbo", e.toString());
                             }
-//                            MenuActivity.sendCmd("ff");
                         } else {
                             z++;
                         }
                         Thread.sleep(3000);
                         String getMsg = MenuActivity.Cjj_CB_MSG;
+                        MenuActivity.Cjj_CB_MSG = "";
                         if (getMsg.length() == 0) {
                         } else {
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
@@ -138,6 +138,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                 String etContent2 = etNetId.getText().toString().trim();
                 String etContent3 = etNetFreq.getText().toString().trim();
                 String etContent4 = etWlAddr.getText().toString().trim();
+
                 if (etContent1.length() == 0 || etContent3.length() == 0) {
                     HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "输入不可为空", "提示");
                     break;
@@ -195,6 +196,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                 + etContent4//模块编号
                                 + freq;//更改的频率
                     } else {
+
                         while (etContent1.length() < 10) {
                             etContent1 = "0" + etContent1;
                         }
@@ -235,6 +237,10 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     MenuActivity.sendCmd(sendMsg);
 
                 } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                    if (HzyUtils.isConformToRange(etContent3)){
+                        HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率范围为470000hz~510000hz。", "提示");
+                        break;
+                    }
                     while (etContent1.length() < 8) {
                         etContent1 = "0" + etContent1;
                     }

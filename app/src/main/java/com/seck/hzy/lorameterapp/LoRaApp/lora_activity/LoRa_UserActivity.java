@@ -58,14 +58,15 @@ public class LoRa_UserActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(LoRa_UserActivity.this, LoRa_UserMsgLoadActivity.class);
+                Intent i = new Intent(LoRa_UserActivity.this, LoRa_ChangeUserMsg.class);
                 i.putExtra("xqid", meterList.get(position).XqId);
                 i.putExtra("cjjid", meterList.get(position).CjjId);
                 i.putExtra("useraddr", meterList.get(position).UserAddr);
                 i.putExtra("date", meterList.get(position).Date);
                 i.putExtra("meterid", meterList.get(position).MeterId);
                 i.putExtra("meternumber", meterList.get(position).MeterNumber);
-
+                i.putExtra("freq", meterList.get(position).UserName);
+                i.putExtra("flag", 1);
                 startActivityForResult(i, 0);
             }
         });
@@ -151,6 +152,10 @@ public class LoRa_UserActivity extends Activity {
             getList();
             listItemAdapter.notifyDataSetChanged();
             Toast.makeText(LoRa_UserActivity.this, "数据保存成功", Toast.LENGTH_LONG).show();
+        }else if (resultCode == 97) {
+            getList();
+            listItemAdapter.notifyDataSetChanged();
+            Toast.makeText(LoRa_UserActivity.this, "数据修改成功", Toast.LENGTH_LONG).show();
         }
     }
 }

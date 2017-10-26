@@ -535,8 +535,8 @@ public class MenuActivity extends Activity {
         }
         pref = getSharedPreferences("user_msg1", MODE_PRIVATE);
         SECK_PARAM = pref.getString("EditText_X", "0");
-        if (SECK_PARAM.length() > 1) {
-            SECK_PARAM = SECK_PARAM.substring(0, 1);
+        if (SECK_PARAM.length() > 2) {
+            SECK_PARAM = SECK_PARAM.substring(0, 2);
         }
     }
 

@@ -98,6 +98,7 @@ public class LoRa_XqListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoRa_XqListActivity.this, LoRa_UserMsgLoadActivity.class);
+                i.putExtra("flag", 2);
                 startActivityForResult(i,0);
             }
         });

@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="表频率"/>
+                android:text="表频率(Khz)"/>
 
             <EditText
                 android:id="@+id/UserMsgLoadActivity_et_meterFreq"
@@ -62,6 +62,7 @@
                 android:inputType="text"/>
 
             <TextView
+                android:id="@+id/UserMsgLoadActivity_tv_bds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="表初值"/>
@@ -152,6 +153,7 @@
                     android:layout_weight="1"
                     android:text="保存"/>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

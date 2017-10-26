@@ -2,7 +2,7 @@
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="2"
-    android:versionName="1.20170901">
+    android:versionName="1.20171024">
 
     <uses-sdk
         android:installLocation="internalOnly"
@@ -790,6 +790,13 @@
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".LoRaApp.z_activity.Z_LoadXqListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_ChangeUserMsg"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_UserActivity"
             android:screenOrientation="portrait">
         </activity>
 
