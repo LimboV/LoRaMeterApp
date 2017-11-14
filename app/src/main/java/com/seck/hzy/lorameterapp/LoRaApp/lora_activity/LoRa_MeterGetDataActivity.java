@@ -71,6 +71,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
         ButterKnife.bind(this);
 
+        if (MenuActivity.METER_STYLE.equals("CS")) {
+            GetDataActivity_btn_bkf.setVisibility(View.GONE);
+            GetDataActivity_btn_fx.setVisibility(View.GONE);
+            GetDataActivity_btn_gf.setVisibility(View.GONE);
+            GetDataActivity_btn_kf.setVisibility(View.GONE);
+            GetDataActivity_btn_zt.setVisibility(View.GONE);
+        }
         loadUser();
         GetDataActivity_btn_getData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +249,64 @@ public class LoRa_MeterGetDataActivity extends Activity {
 
                                     Message message = new Message();
                                     message.what = 0x02;
+                                    message.obj = getMsg;
+                                    mHandler.sendMessage(message);
+                                }
+                                HzyUtils.closeProgressDialog();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                HzyUtils.closeProgressDialog();
+                            }
+
+                        }
+                    }).start();
+                } else if (MenuActivity.METER_STYLE.equals("CS")) {//超声表
+                    HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
+                    GetDataActivity_tv_showMsg.setText("");
+                    String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
+                    if (addr.length() > 8) {
+                        HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表地址过长", "提示");
+                    }
+                    String freq = GetDataActivity_et_freq.getText().toString().trim();
+                    if (freq.length() == 0) {
+                        HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "频率不得为空", "提示");
+                    } else {
+                        freq = Integer.toHexString(Integer.parseInt(freq));//频率转化成16进制
+                    }
+
+                    if (freq.length() > 6) {
+                        HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "表频率过大", "提示");
+                    }
+                    while (addr.length() < 8) {
+                        addr = "0" + addr;
+                    }
+                    while (freq.length() < 6) {
+                        freq = "0" + freq;
+                    }
+                    String sendMsg = "ff" +
+                            freq +//频率
+                            "13" +
+                            addr;//地址
+                    Log.d("limbo", sendMsg);
+                    MenuActivity.sendCmd(sendMsg);
+                    GetDataActivity_tv_showMsg.setText("发送读取参数指令:\n频率" + freq + "\n水表地址:" + addr);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(3000);
+                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                if (getMsg.length() == 0) {
+                                    Message message = new Message();
+                                    message.what = 0x99;
+                                    message.obj = getMsg;
+                                    mHandler.sendMessage(message);
+                                } else {
+                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    Log.d("limbo", getMsg);
+
+                                    Message message = new Message();
+                                    message.what = 0x00;
                                     message.obj = getMsg;
                                     mHandler.sendMessage(message);
                                 }
@@ -537,6 +602,12 @@ public class LoRa_MeterGetDataActivity extends Activity {
                 case 0x00://安美通表
                     String netId;
                     String getMsg = msg.obj.toString();
+
+                    GetDataActivity_tv_showMsg.append(getMsg + "\n");
+                    if (getMsg.length() < 18) {
+                        HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this, "数据缺失", "提示");
+                        break;
+                    }
                     String waterValue = getMsg.substring(10, 18);
                     if (MenuActivity.METER_STYLE.equals("W")) {
                         waterValue = waterValue.substring(1, 2) +
@@ -545,6 +616,9 @@ public class LoRa_MeterGetDataActivity extends Activity {
                                 waterValue.substring(7, 8);
                     } else if (MenuActivity.METER_STYLE.equals("JY")) {
                         waterValue = waterValue.substring(0, 6) + "." +
+                                waterValue.substring(6, 8);
+                    } else if (MenuActivity.METER_STYLE.equals("CS")) {
+                        waterValue = Integer.parseInt(waterValue.substring(0, 6)) + "." +
                                 waterValue.substring(6, 8);
                     }
 
@@ -562,16 +636,25 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     } else if (fk.contains("03")) {
                         fk = "开阀";
                     }
-                    GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
-                            "\n水表值:" + waterValue +
-                            "\n阀控:" + fk +
-                            "\n电压:" + dy +
-                            "\n场强:" + cq);
+                    if (MenuActivity.METER_STYLE.equals("CS")) {
+                        GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
+                                "\n水表值:" + waterValue + " m³" +
+                                "\n电压:" + dy +
+                                "\n场强:" + cq);
+                    } else {
+                        GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
+                                "\n水表值:" + waterValue + " m³" +
+                                "\n阀控:" + fk +
+                                "\n电压:" + dy +
+                                "\n场强:" + cq);
+                    }
+
 
                     break;
 
                 case 0x01://LoRa表
                     getMsg = msg.obj.toString();
+                    GetDataActivity_tv_showMsg.append(getMsg + "\n");
                     waterValue = getMsg.substring(10, 18);
                     waterValue = waterValue.substring(34, 36) +
                             waterValue.substring(32, 34) +
@@ -579,11 +662,12 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     dy = getMsg.substring(getMsg.length() - 6, getMsg.length() - 4);
                     dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
                     GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
-                            "\n水表值:" + waterValue +
+                            "\n水表值:" + waterValue + " m³" +
                             "\n电压:" + dy);
                     break;
                 case 0x02://安美通fsk表
                     getMsg = msg.obj.toString();
+                    GetDataActivity_tv_showMsg.append(getMsg + "\n");
                     netId = getMsg.substring(0, 4);
                     waterValue = getMsg.substring(16, 26);
                     waterValue = waterValue.substring(1, 2) +
@@ -595,7 +679,7 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
                     GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
                             "\n网络ID:" + netId +
-                            "\n水表值:" + waterValue +
+                            "\n水表值:" + waterValue + " m³" +
                             "\n阀控:" + getMsg.substring(18, 20) +
                             "\n电压:" + dy);
                     break;

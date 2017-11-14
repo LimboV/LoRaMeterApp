@@ -24,7 +24,7 @@ import com.seck.hzy.lorameterapp.R;
 public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClickListener {
     private EditText etMeterAddr, etNetId, etNetFreq, etWlAddr;
     private Button btnGet, btnSend, btnGetdata;
-    private String oldMeterAddr="", oldFreq="", oldNetID="";
+    private String oldMeterAddr = "", oldFreq = "", oldNetID = "";
     private TextView tvBtMsg, tvWlAddr;
     private CheckBox cbIsLy;
 
@@ -236,8 +236,8 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     tvBtMsg.append("\n写入设置--超级写");
                     MenuActivity.sendCmd(sendMsg);
 
-                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
-                    if (HzyUtils.isConformToRange(etContent3)){
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY") || MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
+                    if (HzyUtils.isConformToRange(etContent3)) {
                         HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率范围为470000hz~510000hz。", "提示");
                         break;
                     }
@@ -333,7 +333,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                         freq + //频率
                         etContent2 + //网络ID
                         etContent1 +//水表地址
-                        "22"+//指令码
+                        "22" +//指令码
                         "0ba0f0400052000000007f00011338";
                 Log.d("limbo", "获取:" + sendMsg);
                 MenuActivity.sendCmd(sendMsg);
@@ -433,7 +433,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     MenuActivity.sendCmd(sendMsg);
                     HzyUtils.closeProgressDialog();
 
-                } else if (MenuActivity.METER_STYLE.equals("W")||MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                     while (etContent1.length() < 8) {
                         etContent1 = "0" + etContent1;
                     }
@@ -444,8 +444,8 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     while (freq.length() < 6) {
                         freq = "0" + freq;
                     }
-                    if (freq.length() > 6) {
-                        HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率过大", "提示");
+                    if (freq.length() > 6 || HzyUtils.isConformToRange(freq)) {
+                        HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                         break;
                     }
                     while (etContent4.length() < 8) {
@@ -526,7 +526,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     if (MenuActivity.METER_STYLE.equals("L")) {//山科LoRa表
 
 
-                    } else if (MenuActivity.METER_STYLE.equals("W")) {//Wmrnet表
+                    } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
                         etMeterAddr.setText(getMsg.substring(16, 24));
                         etNetId.setText(getMsg.substring(12, 16));
                         etNetFreq.setText(Integer.parseInt(getMsg.substring(6, 12), 16) + "");
@@ -570,7 +570,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                                 "\n版本号" + bbh +
                                                 "\n电压" + dy);
                                         tvBtMsg.append("\n" + "频率" + Integer.parseInt(sfreq, 16) / 10 + "Mhz" +
-                                                  "\n网络ID" + netId +
+                                                "\n网络ID" + netId +
                                                 "\n模块ID" + mkId +
                                                 "\n物理模块ID" + wlmoID +
                                                 "\n版本号" + bbh +
@@ -628,14 +628,20 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                 String sfreq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";//频率-16进制
                                 String netId = getMsg.substring(12, 16);//网络ID
                                 String mkId = getMsg.substring(16, 24);//模块ID
-                                String bds;
-                                if (MenuActivity.METER_STYLE.equals("W")){
+                                String bds = "";
+                                if (MenuActivity.METER_STYLE.equals("W")) {
                                     bds = getMsg.substring(27, 28) +
                                             getMsg.substring(29, 30) +
                                             getMsg.substring(31, 32) +
                                             "." + getMsg.substring(33, 34);//表底数
-                                }else{
-                                    bds = Integer.parseInt(getMsg.substring(26, 32))+"."+getMsg.substring(32,34) ;//表底数
+                                } else {
+                                    bds = getMsg.substring(26, 34);
+                                    if (bds.contains("f")){
+                                        bds = getMsg.substring(26, 32) + "." + getMsg.substring(32, 34);//表底数
+                                    }else {
+                                        bds = Integer.parseInt(getMsg.substring(26, 32)) + "." + getMsg.substring(32, 34);//表底数
+                                    }
+
 
                                 }
 

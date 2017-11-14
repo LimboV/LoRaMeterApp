@@ -68,6 +68,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
     @BindView(R.id.UserMsgLoadActivity_cb_error)
     CheckBox UserMsgLoadActivity_cb_error;
 
+    @BindView(R.id.UserMsgLoadActivity_cb_xhid)
+    CheckBox UserMsgLoadActivity_cb_xhid;
+
     private int xqid, cjjid, meternum, flag;
     long meternumber;
     private Button btnId, btnNum, btnSave, btnGetData;
@@ -133,6 +136,14 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
         btnId.setVisibility(View.GONE);
         btnNum.setVisibility(View.GONE);
+        UserMsgLoadActivity_cb_xhid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UserMsgLoadActivity_cb_xhid.isChecked()){
+                    UserMsgLoadActivity_et_meterId.setText(UserMsgLoadActivity_et_meterNumber.getText().toString().trim());
+                }
+            }
+        });
         /**
          * 设置表底数
          */
@@ -473,7 +484,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             } else {
                 meterid = scanResult;
             }
-
+            if (UserMsgLoadActivity_cb_xhid.isChecked()){
+                UserMsgLoadActivity_et_meterId.setText(UserMsgLoadActivity_et_meterNumber.getText().toString().trim());
+            }
 
         }
     }
@@ -598,29 +611,30 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                     LoRa_UserMsgLoadActivity.this.setResult(RESULT_OK, resultIntent);
                     LoRa_UserMsgLoadActivity.this.finish();
                     break;
-                case 0x02:
-                    getMsg = msg.obj.toString();
-                    waterValue = getMsg.substring(10, 18);
-                    waterValue = waterValue.substring(1, 2) +
-                            waterValue.substring(3, 4) +
-                            waterValue.substring(5, 6) + "." +
-                            waterValue.substring(7, 8);
-                    dy = getMsg.substring(20, 22);
-                    dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
-                    while (dy.length() > 5) {
-                        dy = dy.substring(0, dy.length() - 1);
-                    }
-                    Log.d("limbo", "\n\n接收参数:" +
-                            "\n水表读数:" + waterValue +
-                            "\n阀控状态:" + getMsg.substring(18, 20) +
-                            "\n电池电压:" + dy);
+                /**点抄数据--已弃用
+                 case 0x02:
+                 getMsg = msg.obj.toString();
+                 waterValue = getMsg.substring(10, 18);
+                 waterValue = waterValue.substring(1, 2) +
+                 waterValue.substring(3, 4) +
+                 waterValue.substring(5, 6) + "." +
+                 waterValue.substring(7, 8);
+                 dy = getMsg.substring(20, 22);
+                 dy = ((float) Integer.parseInt(dy, 16) / 100 + 2) + "";
+                 while (dy.length() > 5) {
+                 dy = dy.substring(0, dy.length() - 1);
+                 }
+                 Log.d("limbo", "\n\n接收参数:" +
+                 "\n水表读数:" + waterValue +
+                 "\n阀控状态:" + getMsg.substring(18, 20) +
+                 "\n电池电压:" + dy);
 
-                    HzyUtils.closeProgressDialog();
-                    HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this,
-                            "水表读数:" + waterValue +
-                                    "\n阀控状态:" + getMsg.substring(18, 20) +
-                                    "\n电池电压:" + dy + "V", "提示");
-                    break;
+                 HzyUtils.closeProgressDialog();
+                 HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this,
+                 "水表读数:" + waterValue +
+                 "\n阀控状态:" + getMsg.substring(18, 20) +
+                 "\n电池电压:" + dy + "V", "提示");
+                 break;*/
                 case 0x03:
                     getMsg = msg.obj.toString();
 
@@ -642,7 +656,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 "\n模块ID" + mkId +
                                 "\n表底数" + bds +
                                 "\n物理模块ID" + wlmoID);
-                        waterValue = bds;
+                        /*waterValue = bds;
                         if (MenuActivity.METER_STYLE.equals("W")) {
                             waterValue = waterValue.substring(1, 2) +
                                     waterValue.substring(3, 4) +
@@ -651,13 +665,11 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         } else if (MenuActivity.METER_STYLE.equals("JY")) {
                             waterValue = waterValue.substring(0, 6) + "." +
                                     waterValue.substring(6, 8);
-                        }
+                        }*/
                         while (num.length() < 8) {
                             num = "0" + num;
                         }
                         if (mkId.equals(num)) {
-                            LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId), meterid,
-                                    useraddr, date, Newfreq);
 
 
                             afnetID = xqid + "";
@@ -665,15 +677,56 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 afnetID = "0" + afnetID;
                             }
 
-                            sendMsg = "ff" +
-                                    freq +//原频率
-                                    "01" +
-                                    wlmoID +
-                                    Newfreq +
-                                    afnetID;
-                            MenuActivity.sendCmd(sendMsg);
 
                             HzyUtils.closeProgressDialog();
+
+                            try {
+                                sendMsg = "ff" +
+                                        freq +//原频率
+                                        "01" +
+                                        wlmoID +
+                                        Newfreq +
+                                        afnetID;
+                                MenuActivity.sendCmd(sendMsg);
+                                getMsg = "";
+                                Thread.sleep(2500);
+                                getMsg = MenuActivity.Cjj_CB_MSG;
+                                MenuActivity.Cjj_CB_MSG = "";
+                                getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                Log.d("limbo", "get : " + getMsg);
+                                if (getMsg.length() >= 54) {
+                                    MenuActivity.btAuto = false;
+                                    getMsg = getMsg.substring(getMsg.indexOf("a0"));
+                                    Log.d("limbo", getMsg);
+                                    if (getMsg.length() >= 42) {
+                                        freq = getMsg.substring(6, 12);//频率-16进制
+                                        netId = getMsg.substring(12, 16);//网络ID
+                                        mkId = getMsg.substring(16, 24);//模块ID
+                                        bds = getMsg.substring(26, 34);//表底数
+                                        wlmoID = getMsg.substring(34, 42);//物理模块ID
+                                        Log.d("limbo", "网络ID确认--\n原频率" + freq +
+                                                "\n网络ID" + netId +
+                                                "\n模块ID" + mkId +
+                                                "\n表底数" + bds +
+                                                "\n物理模块ID" + wlmoID);
+                                        waterValue = bds;
+                                        if (MenuActivity.METER_STYLE.equals("W")) {
+                                            waterValue = waterValue.substring(1, 2) +
+                                                    waterValue.substring(3, 4) +
+                                                    waterValue.substring(5, 6) + "." +
+                                                    waterValue.substring(7, 8);
+                                        } else if (MenuActivity.METER_STYLE.equals("JY")) {
+                                            waterValue = waterValue.substring(0, 6) + "." +
+                                                    waterValue.substring(6, 8);
+                                        }
+                                    }
+                                }else {
+                                    HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "网络ID获取失败,请重试。", "提示");
+                                }
+                                MenuActivity.Cjj_CB_MSG = "";
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
                             AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_UserMsgLoadActivity.this);
                             dialog.setTitle("水表信息正常");
@@ -683,11 +736,32 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent resultIntent = new Intent();
-                                    Bundle bundle = new Bundle();
-                                    resultIntent.putExtras(bundle);
-                                    LoRa_UserMsgLoadActivity.this.setResult(98, resultIntent);
-                                    LoRa_UserMsgLoadActivity.this.finish();
+                                    /**
+                                     * 确定表序号正确之后，确定网络ID设置成功
+                                     */
+                                    try {
+                                        /**
+                                         * 保存
+                                         */
+
+                                        if (netId.equals(afnetID)) {
+                                            LoRa_DataHelper.addMeter(xqid, cjjid, Integer.parseInt(mkId), meterid,
+                                                    useraddr, date, Newfreq);
+                                            Intent resultIntent = new Intent();
+                                            Bundle bundle = new Bundle();
+                                            resultIntent.putExtras(bundle);
+                                            LoRa_UserMsgLoadActivity.this.setResult(98, resultIntent);
+                                            LoRa_UserMsgLoadActivity.this.finish();
+                                        } else {
+                                            HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "网络ID设置失败,请重试。", "提示");
+                                        }
+
+
+                                    } catch (Exception e) {
+                                        Log.d("limbo", e.toString());
+                                    }
+
+
                                 }
                             });
                             dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -802,9 +876,15 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             String result = scanResult.substring(i - 8, i);
                             UserMsgLoadActivity_et_meterNumber.setText(result);
                             meternumber = Integer.parseInt(result);
+                            if (UserMsgLoadActivity_cb_xhid.isChecked()) {
+                                UserMsgLoadActivity_et_meterId.setText(result);
+                            }
                         } else {
                             UserMsgLoadActivity_et_meterNumber.setText(scanResult);
                             meternumber = Integer.parseInt(scanResult);
+                            if (UserMsgLoadActivity_cb_xhid.isChecked()) {
+                                UserMsgLoadActivity_et_meterId.setText(scanResult);
+                            }
                         }
 
 

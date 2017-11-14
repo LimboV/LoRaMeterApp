@@ -267,14 +267,14 @@ public class HzyUtils {
      * 将字符串两两调换
      */
     public static String changeString1(String newID) {
-        if (newID.length() == 4){
+        if (newID.length() == 4) {
             while (newID.length() % 2 != 0) {
                 newID = "0" + newID;
             }
             String x = newID.substring(0, 2);
             String y = newID.substring(2, 4);
             return y + x;
-        }else {
+        } else {
             return newID;
         }
 
@@ -514,23 +514,39 @@ public class HzyUtils {
      * 用以判断当前表设置表频率是否超过了当前表类型的设置范围
      */
     public static boolean isConformToRange(String s) {
-        if (HzyUtils.isEmpty(s)){
+        s = s.toLowerCase();
+        if (s.contains("a") ||s.contains("b")||s.contains("c")||s.contains("d")||s.contains("e")||s.contains("f"))
+        {
+            s = Integer.parseInt(s,16)+"";
+        }
+        Log.d("limbo", "isConformToRange--" + s);
+        if (HzyUtils.isEmpty(s)) {
             return true;
         }
         long i = Long.parseLong(s);
-        if (i>510000 || i<470000 ){
+        if (i > 510000 || i < 400000) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     /**
-     * 判断字符串长度是否足够
+     * 判断字符串长度是否足够,不够就补足
      */
     public static String isLength(String str, int len) {
         while (str.length() < len) {
             str = "0" + str;
+        }
+        return str;
+    }
+
+    /**
+     * 判断字符串长度是否足够,不够就补足--后面补0
+     */
+    public static String isLength1(String str, int len) {
+        while (str.length() < len) {
+            str = str + "0";
         }
         return str;
     }

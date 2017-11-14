@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="目标路由ID"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_aimLYID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="目标网络ID"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_aimNetID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="目标网络频率(KHz)"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_aimNetFreq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cadetblue"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="层数"
+                        android:textColor="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/Lora_TYPTtoLY_et_countOfFloors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:inputType="number"
+                        android:longClickable="false"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="区域"
+                        android:textColor="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/Lora_TYPTtoLY_et_region"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:inputType="number"
+                        android:longClickable="false"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编号"
+                        android:textColor="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/Lora_TYPTtoLY_et_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:inputType="number"
+                        android:longClickable="false"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cadetblue"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电池电压"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_electricVoltage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:inputType="number"
+                    android:longClickable="false"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cadetblue"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="软件版本号"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_softwareVersion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:inputType="number"
+                    android:longClickable="false"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cadetblue"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="硬件版本号"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_hardwareVersion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:longClickable="false"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参数：路由ID"
+                    android:textColor="@color/wheat"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_parameterLYID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textColor="@color/wheat"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_parameterLYID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写入"
+                    android:textColor="@color/darkgoldenrod"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参数：网络ID"
+                    android:textColor="@color/wheat"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_parameterNetId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textColor="@color/wheat"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_parameterNetId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写入"
+                    android:textColor="@color/darkgoldenrod"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参数：频率（KHz）"
+                    android:textColor="@color/wheat"/>
+
+                <EditText
+                    android:id="@+id/Lora_TYPTtoLY_et_parameterNetFreq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textColor="@color/wheat"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_parameterNetFreq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写入"
+                    android:textColor="@color/darkgoldenrod"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_resetView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="复位界面"
+                    android:textColor="@color/darkgoldenrod"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_readAllParameter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="读取所有参数"
+                    android:textColor="@color/darkgoldenrod"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_writeAllParameter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="写入所有参数"
+                    android:textColor="@color/darkgoldenrod"/>
+
+                <Button
+                    android:id="@+id/Lora_TYPTtoLY_btn_reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="复位转换器"
+                    android:textColor="@color/darkgoldenrod"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/Lora_TYPTtoLY_tv_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/limegreen"/>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

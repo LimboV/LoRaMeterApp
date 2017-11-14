@@ -250,7 +250,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                             }
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
             }
@@ -269,26 +269,6 @@ public class LoRa_Meter485TestActivity extends Activity {
                     EditText view = (EditText) findViewById(idList[i]);
                     fcList.add(i, view.getText().toString().trim());
                 }
-                /*fcList.set(0,Meter485TestActivity_et_fc0.getText().toString().trim());
-                fcList.set(1,Meter485TestActivity_et_fc1.getText().toString().trim());
-                fcList.set(2,Meter485TestActivity_et_fc2.getText().toString().trim());
-                fcList.set(3,Meter485TestActivity_et_fc3.getText().toString().trim());
-                fcList.set(4,Meter485TestActivity_et_fc4.getText().toString().trim());
-                fcList.set(5,Meter485TestActivity_et_fc5.getText().toString().trim());
-                fcList.set(6,Meter485TestActivity_et_fc6.getText().toString().trim());
-                fcList.set(7,Meter485TestActivity_et_fc7.getText().toString().trim());
-                fcList.set(8,Meter485TestActivity_et_fc8.getText().toString().trim());
-                fcList.set(9,Meter485TestActivity_et_fc9.getText().toString().trim());
-                fcList.set(10,Meter485TestActivity_et_fc10.getText().toString().trim());
-                fcList.set(11,Meter485TestActivity_et_fc11.getText().toString().trim());
-                fcList.set(12,Meter485TestActivity_et_fc12.getText().toString().trim());
-                fcList.set(13,Meter485TestActivity_et_fc13.getText().toString().trim());
-                fcList.set(14,Meter485TestActivity_et_fc14.getText().toString().trim());
-                fcList.set(15,Meter485TestActivity_et_fc15.getText().toString().trim());
-                fcList.set(16,Meter485TestActivity_et_fc16.getText().toString().trim());
-                fcList.set(17,Meter485TestActivity_et_fc17.getText().toString().trim());
-                fcList.set(18,Meter485TestActivity_et_fc18.getText().toString().trim());
-                fcList.set(19,Meter485TestActivity_et_fc19.getText().toString().trim());*/
 
                 for (int i = 0; i < 20; i++) {
                     if (fcList.get(i).length() > 0) {
@@ -368,7 +348,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         public void run() {
                             try {
                                 while (MenuActivity.btAuto) {
-                                    Thread.sleep(3000);
+                                    Thread.sleep(5000);
                                     String getMsg = MenuActivity.Cjj_CB_MSG;
                                     MenuActivity.Cjj_CB_MSG = "";
                                     getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
@@ -387,7 +367,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         }
                     }).start();
 
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
             }
@@ -410,26 +390,6 @@ public class LoRa_Meter485TestActivity extends Activity {
                     EditText view = (EditText) findViewById(idList[i]);
                     fcList.add(i, view.getText().toString().trim());
                 }
-                /*fcList.set(0,Meter485TestActivity_et_fc0.getText().toString().trim());
-                fcList.set(1,Meter485TestActivity_et_fc1.getText().toString().trim());
-                fcList.set(2,Meter485TestActivity_et_fc2.getText().toString().trim());
-                fcList.set(3,Meter485TestActivity_et_fc3.getText().toString().trim());
-                fcList.set(4,Meter485TestActivity_et_fc4.getText().toString().trim());
-                fcList.set(5,Meter485TestActivity_et_fc5.getText().toString().trim());
-                fcList.set(6,Meter485TestActivity_et_fc6.getText().toString().trim());
-                fcList.set(7,Meter485TestActivity_et_fc7.getText().toString().trim());
-                fcList.set(8,Meter485TestActivity_et_fc8.getText().toString().trim());
-                fcList.set(9,Meter485TestActivity_et_fc9.getText().toString().trim());
-                fcList.set(10,Meter485TestActivity_et_fc10.getText().toString().trim());
-                fcList.set(11,Meter485TestActivity_et_fc11.getText().toString().trim());
-                fcList.set(12,Meter485TestActivity_et_fc12.getText().toString().trim());
-                fcList.set(13,Meter485TestActivity_et_fc13.getText().toString().trim());
-                fcList.set(14,Meter485TestActivity_et_fc14.getText().toString().trim());
-                fcList.set(15,Meter485TestActivity_et_fc15.getText().toString().trim());
-                fcList.set(16,Meter485TestActivity_et_fc16.getText().toString().trim());
-                fcList.set(17,Meter485TestActivity_et_fc17.getText().toString().trim());
-                fcList.set(18,Meter485TestActivity_et_fc18.getText().toString().trim());
-                fcList.set(19,Meter485TestActivity_et_fc19.getText().toString().trim());*/
 
                 for (int i = 0; i < 20; i++) {
                     if (fcList.get(i).length() > 0) {
@@ -508,7 +468,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         public void run() {
                             try {
                                 while (MenuActivity.btAuto) {
-                                    Thread.sleep(3000);
+                                    Thread.sleep(5000);
                                     String getMsg = MenuActivity.Cjj_CB_MSG;
                                     MenuActivity.Cjj_CB_MSG = "";
                                     getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
@@ -527,7 +487,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         }
                     }).start();
 
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
 
@@ -553,19 +513,22 @@ public class LoRa_Meter485TestActivity extends Activity {
                  */
                 case 0x01:
                     getMsg = msg.obj.toString();
-                    Log.d("limbo", "读到数据:" + getMsg);
                     HzyUtils.closeProgressDialog();
                     if (getMsg.trim().length() != 0) {
                         getMsg = HzyUtils.toStringHex1(getMsg).replaceAll("�", "");
+                        Log.d("limbo", "读到数据:" + getMsg);
                         Meter485TestActivity_tv_showMsg.append(getMsg + "\n");
+                        getMsg = getMsg.replaceAll("\n", "");
+                        if(getMsg.contains("AAAAAAAAAA")){
+                            int resultLen = Integer.parseInt(getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 12, getMsg.indexOf("AAAAAAAAAA") + 14)) - 2;
+                            String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 14, getMsg.indexOf("AAAAAAAAAA") + 14 + resultLen * 2);
+                            for (int i = 0; i < resultLen; i++) {
+                                EditText view = (EditText) findViewById(idList[i]);
+                                view.setText(resultMsg.substring(2 * i, 2 + 2 * i));
+                            }
+                        }
                     }
-                    getMsg = getMsg.replaceAll("\n", "");
-                    int resultLen = Integer.parseInt(getMsg.substring(12, 14)) - 2;
-                    String resultMsg = getMsg.substring(14, 14 + resultLen * 2);
-                    for (int i = 0; i < resultLen; i++) {
-                        EditText view = (EditText) findViewById(idList[i]);
-                        view.setText(resultMsg.substring(2 * i, 2 + 2 * i));
-                    }
+
                     break;
                 /**
                  * 写入
@@ -576,13 +539,20 @@ public class LoRa_Meter485TestActivity extends Activity {
                     HzyUtils.closeProgressDialog();
                     if (getMsg.trim().length() != 0) {
                         getMsg = HzyUtils.toStringHex1(getMsg).replaceAll("�", "");
+                        Log.d("limbo", "读到数据:" + getMsg);
                         Meter485TestActivity_tv_showMsg.append(getMsg + "\n");
+                        getMsg = getMsg.replaceAll("\n", "");
+                        if (getMsg.contains("AAAAAAAAAA")){
+                            String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA")+14, getMsg.indexOf("AAAAAAAAAA")+16);
+                            if (resultMsg.equals("AA")) {
+                                HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "写入成功", "提示");
+                            } else {
+                                HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "写入失败", "提示");
+                            }
+                        }
+
                     }
-                    getMsg = getMsg.replaceAll("\n", "");
-                    resultMsg = getMsg.substring(14, 16);
-                    if (resultMsg.equals("AA")) {
-                        HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "写入成功", "提示");
-                    }
+
                     break;
                 case 0x99:
                     HzyUtils.closeProgressDialog();

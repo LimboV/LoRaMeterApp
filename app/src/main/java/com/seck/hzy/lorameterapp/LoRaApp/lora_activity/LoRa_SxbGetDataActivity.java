@@ -514,7 +514,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
                                     int msgLength = MenuActivity.Cjj_CB_MSG.length();
                                     Thread.sleep(500);
 
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength && msgLength >= 1150) {
+                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength && msgLength >= 2300) {
                                         timeOut = true;
                                     }
 
@@ -527,6 +527,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
                                     mHandler.sendMessage(message);
                                 } else {
                                     getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    getMsg = getMsg.substring(getMsg.indexOf("0a")-12);
                                     Log.d("limbo", getMsg);
 
                                     Message message = new Message();
@@ -611,7 +612,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
                                     int msgLength = MenuActivity.Cjj_CB_MSG.length();
                                     Thread.sleep(500);
 
-                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength && msgLength >= 1150) {
+                                    if (MenuActivity.Cjj_CB_MSG.length() == msgLength && msgLength >= 2300) {
                                         timeOut = true;
                                     }
 
@@ -624,6 +625,7 @@ public class LoRa_SxbGetDataActivity extends Activity {
                                     mHandler.sendMessage(message);
                                 } else {
                                     getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    getMsg = getMsg.substring(getMsg.indexOf("0a")-12);
                                     Log.d("limbo", getMsg);
 
                                     Message message = new Message();
@@ -690,6 +692,12 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     } else if (flag.contains("21") || flag.contains("30")) {//读数
                         SxbGetDataActivity_tv_showMsg.append("\n" + show);
                         show = show.substring(6);
+                        if (SxbGetDataActivity_et_meterAddr.getText().toString().trim().equals("4117041082")){
+                            MenuActivity.SECK_PARAM = "75";
+                        }else if (SxbGetDataActivity_et_meterAddr.getText().toString().trim().equals("4117041191")){
+                            MenuActivity.SECK_PARAM = "96";
+
+                        }
                         String data = Integer.parseInt(show.substring(5, 6) + show.substring(2, 4) + show.substring(0, 2)) + "." + show.substring(17, 18) + MenuActivity.SECK_PARAM;
                         String sxsbds = show.substring(14, 15) + "." + show.substring(23, 24) + "     " +
                                 show.substring(15, 16) + "." + show.substring(22, 23) + "     " +
@@ -755,9 +763,8 @@ public class LoRa_SxbGetDataActivity extends Activity {
                                 Log.d("limbo","第"+i+"字轮CRC successed");
                             }else {
                                 Log.d("limbo",x_string.substring(0,230));
-                                Log.d("limbo","第"+i+"字轮CRC failed" + CRC +"---"+CRC1);
+                                Log.d("limbo","第"+i+"字轮CRC failed   " + CRC +"---"+CRC1);
                                 HintDialog.ShowHintDialog(thisView,"CRC校验出现错误","错误");
-                                break;
                             }
                         }
                         String[] showMsg = new String[5];
@@ -887,7 +894,12 @@ public class LoRa_SxbGetDataActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(13000);
+                    for (int i = 0 ;i<130;i++){
+                        Thread.sleep(100);
+                        if (timeOut){
+                            break;
+                        }
+                    }
                     timeOut = true;
                 } catch (Exception e) {
 
@@ -905,7 +917,12 @@ public class LoRa_SxbGetDataActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(11000);
+                    for (int i = 0 ;i<110;i++){
+                        Thread.sleep(100);
+                        if (timeOut1){
+                            break;
+                        }
+                    }
                     timeOut1 = true;
                     HzyUtils.closeProgressDialog();
                 } catch (Exception e) {

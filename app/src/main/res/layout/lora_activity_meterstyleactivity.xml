@@ -65,7 +65,7 @@
                 android:id="@+id/meterStyleActivity_btn_CSMeter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="超声水表表"
+                android:text="超声水表"
                 android:textColor="@color/white"/>
         </LinearLayout>
     </ScrollView>
