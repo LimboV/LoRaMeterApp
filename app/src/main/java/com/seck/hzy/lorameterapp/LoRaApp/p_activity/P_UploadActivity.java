@@ -140,7 +140,7 @@ public class P_UploadActivity extends Activity {
     }
 
     private void sendHello() {
-        HzyUtils.showProgressDialog2(P_UploadActivity.this, bag);
+        HzyUtils.showProgressDialog2(P_UploadActivity.this, bag,"正在进行程序升级......");
 
 
         new Thread(new Runnable() {

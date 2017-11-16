@@ -60,7 +60,7 @@ public class HzyUtils {
     /**
      * 显示百分比
      */
-    public static void showProgressDialog2(Context context, int size) {
+    public static void showProgressDialog2(Context context, int size, String str) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             // 设置进度条风格，风格为长形
@@ -68,7 +68,7 @@ public class HzyUtils {
             // 设置ProgressDialog 标题
             progressDialog.setTitle("更新进度");
             // 设置ProgressDialog 提示信息
-            progressDialog.setMessage("正在进行程序升级......");
+            progressDialog.setMessage(str);
             // 设置ProgressDialog 进度条进度
             progressDialog.setMax(size);
             // 设置ProgressDialog 的进度条是否不明确
@@ -515,9 +515,8 @@ public class HzyUtils {
      */
     public static boolean isConformToRange(String s) {
         s = s.toLowerCase();
-        if (s.contains("a") ||s.contains("b")||s.contains("c")||s.contains("d")||s.contains("e")||s.contains("f"))
-        {
-            s = Integer.parseInt(s,16)+"";
+        if (s.contains("a") || s.contains("b") || s.contains("c") || s.contains("d") || s.contains("e") || s.contains("f")) {
+            s = Integer.parseInt(s, 16) + "";
         }
         Log.d("limbo", "isConformToRange--" + s);
         if (HzyUtils.isEmpty(s)) {

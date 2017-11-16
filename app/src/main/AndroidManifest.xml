@@ -811,6 +811,24 @@
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_CbXqListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_CbCjjListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_CbMeterListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

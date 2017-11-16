@@ -45,11 +45,11 @@ public class LoRa_XqListActivity extends Activity {
         init();
     }
 
-    private void init(){
+    private void init() {
         setContentView(R.layout.lora_activity_xq_list);
         ButterKnife.bind(this);
         LoRa_DataHelper.getdb();//获取数据库实例
-        adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, getXq()){
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getXq()) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 return super.getView(position, convertView, parent);
@@ -73,14 +73,14 @@ public class LoRa_XqListActivity extends Activity {
                 final int xqid = xqList.get(position).XqId;
                 String xqname = xqList.get(position).XqName;
                 dialog.setMessage("网络ID:" + xqid
-                                + "小区名:" +xqname
+                        + "小区名:" + xqname
                 );
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         LoRa_DataHelper.deleteXqAndMeter(xqid);
                         getXq();
-                        adapter = new ArrayAdapter(LoRa_XqListActivity.this,android.R.layout.simple_list_item_1, getXq());
+                        adapter = new ArrayAdapter(LoRa_XqListActivity.this, android.R.layout.simple_list_item_1, getXq());
                         XqListActivity_lv_xq.setAdapter(adapter);
                     }
                 });
@@ -99,14 +99,14 @@ public class LoRa_XqListActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(LoRa_XqListActivity.this, LoRa_UserMsgLoadActivity.class);
                 i.putExtra("flag", 2);
-                startActivityForResult(i,0);
+                startActivityForResult(i, 0);
             }
         });
         XqListActivity_btn_addXq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoRa_XqListActivity.this, LoRa_AddXqMsgToDbActivity.class);
-                startActivityForResult(i,0);
+                startActivityForResult(i, 0);
             }
         });
     }
@@ -118,8 +118,8 @@ public class LoRa_XqListActivity extends Activity {
             for (LoRa_Cjj cjj : xqList) {
                 data.add(cjj.XqName + "(" + cjj.XqId + ")");
             }
-        }catch (Exception e){
-            Log.e("limbo",e.toString());
+        } catch (Exception e) {
+            Log.e("limbo", e.toString());
             HintDialog.ShowHintDialog(this, "未找到数据,请检查数据库文件是否存在！", "错误");
         }
         return data;
@@ -134,9 +134,9 @@ public class LoRa_XqListActivity extends Activity {
             HintDialog.ShowHintDialog(LoRa_XqListActivity.this, "数据保存成功，网络ID修改成功!\n" + waterValue, "提示");
             Log.d("limbo", "result == ok");
             Toast.makeText(LoRa_XqListActivity.this, "数据保存成功，网络ID修改成功!\n" + waterValue, Toast.LENGTH_LONG).show();
-        }else if (resultCode == 99){
+        } else if (resultCode == 99) {
             getXq();
-            adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, getXq()){
+            adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getXq()) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     return super.getView(position, convertView, parent);
@@ -144,10 +144,10 @@ public class LoRa_XqListActivity extends Activity {
             };
             XqListActivity_lv_xq.setAdapter(adapter);
             Toast.makeText(LoRa_XqListActivity.this, "小区创建成功", Toast.LENGTH_LONG).show();
-        }else if (resultCode == 98){
+        } else if (resultCode == 98) {
             Toast.makeText(LoRa_XqListActivity.this, "数据保存成功", Toast.LENGTH_LONG).show();
-        } else{
-//            Toast.makeText(XqListActivity.this, "发生错误", Toast.LENGTH_LONG).show();
+        } else {
+            //            Toast.makeText(XqListActivity.this, "发生错误", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -241,9 +241,6 @@ public class LoRa_DataHelper {
                 // 设置事务的标志为true，调用此方法会在执行到endTransaction()方法是提交事务，
                 // 若没有调用此方法会在执行到endTransaction()方法回滚事务。
             } finally {
-                //				if (bos != null){
-                //					bos.close();
-                //				}
                 db.endTransaction();
 
             }
@@ -251,7 +248,7 @@ public class LoRa_DataHelper {
         }
     }
 
-    public static void changeUser(int xqid, int cjjid, String userAddr, String meterid, long meterNum, String
+    public static void changeUser(int xqid, int cjjid, String meterid, long meterNum, String
             Date) {
 
         try {

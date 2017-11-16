@@ -141,7 +141,7 @@ public class LoRa_UploadActivity extends Activity {
                 /**
                  * 发送握手信息
                  */
-                HzyUtils.showProgressDialog2(LoRa_UploadActivity.this, bag);
+                HzyUtils.showProgressDialog2(LoRa_UploadActivity.this, bag,"正在进行程序升级......");
                 String sendMsg = "00060000a55a7370";
                 Log.d("limbo", "握手信息:" + sendMsg);
                 tvUploadMsg.append("发送握手信息\n");
