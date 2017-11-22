@@ -192,6 +192,9 @@ public class MenuActivity extends Activity {
                             } else if (METER_STYLE.equals("CS")) {//超声波表
                                 i = new Intent(uiAct, LoRa_MeterChooseActivity.class);
                                 startActivity(i);
+                            }else if (METER_STYLE.equals("NS")) {//数字状态表
+//                                i = new Intent(uiAct, .class);
+//                                startActivity(i);
                             } else {
 
                             }
@@ -328,8 +331,8 @@ public class MenuActivity extends Activity {
                                 i = new Intent(uiAct, Z_GPRSNetActivity.class);
                                 startActivity(i);
                             } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对采集机操作
-                            //统一平台
-                                i = new Intent(MenuActivity.this, Lora_TYPTActivity.class);
+                                //统一平台
+                                i = new Intent(MenuActivity.this, LoRa_TYPTActivity.class);
                                 startActivity(i);
                             } else if (METER_STYLE.equals("CS")) {//超声波表
                                 HintDialog.ShowHintDialog(MenuActivity.this, "只有集中器可使用", "提示");
@@ -371,8 +374,8 @@ public class MenuActivity extends Activity {
         /**
          * LoRa表
          */
-        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台","Lora小区抄表"};
-        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台","Lora小区抄表"};
+        private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台", "Lora小区抄表(未完成)"};
+        private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台", "Lora小区抄表(未完成)"};
         /**
          * P型表
          */
@@ -388,15 +391,21 @@ public class MenuActivity extends Activity {
          */
         private String CS_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "测试"};
         private String CS_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "测试"};
+        /**
+         * 数字状态表
+         */
+        private String NS_Titls[] = {"未连接", "表类型选择", "抄表"};
+        private String NS_Titls2[] = {"已连接", "表类型选择", "抄表"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
-                R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon,R.drawable.lora_pic_cjj,R.drawable.pic_meter};
+                R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon, R.drawable.lora_pic_cjj, R.drawable.pic_meter};
         private int P_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_cjjcb, R.drawable.pic_meter,
                 R.drawable.pic_cb_test, R.drawable.pic_set, R.drawable.pic_gprsnet, R.drawable.pic_download, R.drawable.pic_meter, R.drawable.updater};
         private int Z_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_cb, R.drawable.pic_save, R.drawable.pic_meter,
                 R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet, R.drawable.pic_meter, R.drawable.updater};
         private int CS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
                 R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon, R.drawable.pic_set};
+        private int NS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter};
 
 
         public imageAdapter(Context c) {
@@ -405,14 +414,18 @@ public class MenuActivity extends Activity {
 
         @Override
         public int getCount() {
-            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F") || MenuActivity.METER_STYLE.equals("JY")) {
+            if (MenuActivity.METER_STYLE.equals("L") || MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("F")) {
                 return 10;
+            } else if (MenuActivity.METER_STYLE.equals("JY")) {
+                return 8;
             } else if (MenuActivity.METER_STYLE.equals("P")) {
                 return 10;
             } else if (MenuActivity.METER_STYLE.equals("Z")) {
                 return 10;
             } else if (MenuActivity.METER_STYLE.equals("CS")) {
                 return 9;
+            } else if (MenuActivity.METER_STYLE.equals("NS")) {
+                return 3;
             } else {
                 return 9;
             }
@@ -447,11 +460,11 @@ public class MenuActivity extends Activity {
 
                     iv.setImageResource(LoRa_Imgs[position]);
                 } else if (MenuActivity.METER_STYLE.equals("P")) {
-                    if (MenuActivity.netThread == null)
+                    if (MenuActivity.netThread == null) {
                         tv.setText(P_Titls[position]);
-                    else
+                    } else {
                         tv.setText(P_Titls2[position]);
-
+                    }
                     iv.setImageResource(P_Imgs[position]);
                 } else if (MenuActivity.METER_STYLE.equals("Z")) {
                     if (MenuActivity.netThread == null) {
@@ -469,6 +482,14 @@ public class MenuActivity extends Activity {
                     }
 
                     iv.setImageResource(CS_Imgs[position]);
+                }else if (MenuActivity.METER_STYLE.equals("NS")) {
+                    if (MenuActivity.netThread == null) {
+                        tv.setText(NS_Titls[position]);
+                    } else {
+                        tv.setText(NS_Titls2[position]);
+                    }
+
+                    iv.setImageResource(NS_Imgs[position]);
                 }
 
                 if (MenuActivity.netThread != null && position == 0)
@@ -568,6 +589,8 @@ public class MenuActivity extends Activity {
             menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
         } else if (MenuActivity.METER_STYLE.equals("CS")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:超声水表");
+        }else if (MenuActivity.METER_STYLE.equals("NS")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:数字状态表");
         }
         pref = getSharedPreferences("user_msg1", MODE_PRIVATE);
         SECK_PARAM = pref.getString("EditText_X", "0");

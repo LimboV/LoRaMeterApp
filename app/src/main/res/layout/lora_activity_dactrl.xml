@@ -132,6 +132,22 @@
                     android:layout_height="wrap_content"
                     android:text="读取单个表当前读数"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/LoRa_DActrlActivity_btn_deleteAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="删除集中器所有表信息"/>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

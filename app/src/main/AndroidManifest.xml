@@ -2,7 +2,7 @@
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="2"
-    android:versionName="1.20171108">
+    android:versionName="1.20171120">
 
     <uses-sdk
         android:installLocation="internalOnly"
@@ -712,11 +712,11 @@
             android:name=".LoRaApp.lora_activity.LoRa_SxbParamShiftSetting"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".LoRaApp.lora_activity.Lora_SxbParamLazySetting"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_SxbParamLazySetting"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".LoRaApp.lora_activity.Lora_SxbParamLazySetting"
+            android:name=".LoRaApp.lora_activity.LoRa_SxbParamLazySetting"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_SxbChooseActivity"
@@ -800,13 +800,13 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".LoRaApp.lora_activity.Lora_TYPTActivity"
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTActivity"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".LoRaApp.lora_activity.Lora_TYPTtoLYActivity"
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTtoLYActivity"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
@@ -825,6 +825,12 @@
         </activity>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CbMeterListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTtoJDActivity"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">

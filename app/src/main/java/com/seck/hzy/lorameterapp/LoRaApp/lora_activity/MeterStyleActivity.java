@@ -44,6 +44,8 @@ public class MeterStyleActivity extends Activity {
 
     @BindView(R.id.meterStyleActivity_btn_CSMeter)
     Button meterStyleActivity_btn_CSMeter;
+    @BindView(R.id.meterStyleActivity_btn_NumStateMeter)
+    Button meterStyleActivity_btn_NumStateMeter;
 
     /**
      * 地区
@@ -51,6 +53,7 @@ public class MeterStyleActivity extends Activity {
     private Button btnXj, btnYc;
 
     private TextView tv0, tv1;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -113,6 +116,13 @@ public class MeterStyleActivity extends Activity {
                 saveMeter("CS");
             }
         });
+        meterStyleActivity_btn_NumStateMeter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveMeter("NS");
+            }
+        });
+
 
         /**
          * 地区
@@ -139,7 +149,7 @@ public class MeterStyleActivity extends Activity {
         loadUser0();
     }
 
-    private void saveMeter(String s){
+    private void saveMeter(String s) {
         saveUser(s);//直读表
         loadUser();
         HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
@@ -175,10 +185,12 @@ public class MeterStyleActivity extends Activity {
             tv0.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
             tv0.setText("当前表类型为:直读表");
-        }else if (MenuActivity.METER_STYLE.equals("JY")) {
+        } else if (MenuActivity.METER_STYLE.equals("JY")) {
             tv0.setText("当前表类型为:LoRa隽永表");
-        }else if (MenuActivity.METER_STYLE.equals("CS")) {
+        } else if (MenuActivity.METER_STYLE.equals("CS")) {
             tv0.setText("当前表类型为:超声水表");
+        } else if (MenuActivity.METER_STYLE.equals("NS")) {
+            tv0.setText("当前表类型为:数字状态表");
         }
 
     }

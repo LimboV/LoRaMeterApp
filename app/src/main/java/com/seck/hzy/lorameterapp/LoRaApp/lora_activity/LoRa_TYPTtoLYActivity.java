@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by limbo on 2017/11/6.
  */
 
-public class Lora_TYPTtoLYActivity extends Activity {
+public class LoRa_TYPTtoLYActivity extends Activity {
     @BindView(R.id.Lora_TYPTtoLY_et_aimLYID)
     EditText Lora_TYPTtoLY_et_aimLYID;
     @BindView(R.id.Lora_TYPTtoLY_et_aimNetFreq)
@@ -119,7 +119,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String aimNetID = Lora_TYPTtoLY_et_aimNetID.getText().toString().trim();
                 String aimNetFreq = Lora_TYPTtoLY_et_aimNetFreq.getText().toString().trim();
                 String aimLYID = Lora_TYPTtoLY_et_aimLYID.getText().toString().trim();
@@ -129,11 +129,11 @@ public class Lora_TYPTtoLYActivity extends Activity {
                 aimNetID = HzyUtils.isLength(aimNetID, 4);
                 aimNetFreq = HzyUtils.isLength1(aimNetFreq, 6);
                 if (HzyUtils.isConformToRange(aimNetFreq) || HzyUtils.isConformToRange(parameterNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
-                prepareTimeStart();
+                prepareTimeStart(50);
                 aimLYID = HzyUtils.isLength(aimLYID, 2);
                 parameterLYID = HzyUtils.isLength(parameterLYID, 2);
                 parameterNetId = HzyUtils.isLength(parameterNetId, 4);
@@ -153,18 +153,18 @@ public class Lora_TYPTtoLYActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String date;
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String aimNetID = Lora_TYPTtoLY_et_aimNetID.getText().toString().trim();
                 String aimNetFreq = Lora_TYPTtoLY_et_aimNetFreq.getText().toString().trim();
                 String aimLYID = Lora_TYPTtoLY_et_aimLYID.getText().toString().trim();
                 aimNetID = HzyUtils.isLength(aimNetID, 4);
                 aimNetFreq = HzyUtils.isLength1(aimNetFreq, 6);
                 if (HzyUtils.isConformToRange(aimNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
-                prepareTimeStart();
+                prepareTimeStart(50);
                 aimLYID = HzyUtils.isLength(aimLYID, 2);
                 Calendar c = Calendar.getInstance();
                 Date d = c.getTime();
@@ -181,8 +181,8 @@ public class Lora_TYPTtoLYActivity extends Activity {
         Lora_TYPTtoLY_btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareTimeStart();
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                prepareTimeStart(50);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String date;
                 Calendar c = Calendar.getInstance();
                 Date d = c.getTime();
@@ -212,29 +212,29 @@ public class Lora_TYPTtoLYActivity extends Activity {
         Lora_TYPTtoLY_btn_parameterNetFreq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String aimNetID = Lora_TYPTtoLY_et_aimNetID.getText().toString().trim();
                 String aimNetFreq = Lora_TYPTtoLY_et_aimNetFreq.getText().toString().trim();
                 String aimLYID = Lora_TYPTtoLY_et_aimLYID.getText().toString().trim();
                 String parameterNetFreq = Lora_TYPTtoLY_et_parameterNetFreq.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimLYID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this,
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this,
                             "目标路由ID，目标路由网络ID及目标路由网络频率皆不可为空。", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (HzyUtils.isConformToRange(aimNetFreq) || HzyUtils.isConformToRange(parameterNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
-                prepareTimeStart();
+                prepareTimeStart(50);
                 aimLYID = HzyUtils.isLength(aimLYID, 2);
                 aimNetID = HzyUtils.isLength(aimNetID, 4);
                 aimNetFreq = HzyUtils.isLength1(aimNetFreq, 6);
                 parameterNetFreq = HzyUtils.isLength1(parameterNetFreq, 6);
                 if (HzyUtils.isConformToRange(aimNetFreq) || HzyUtils.isConformToRange(parameterNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -254,31 +254,31 @@ public class Lora_TYPTtoLYActivity extends Activity {
         Lora_TYPTtoLY_btn_parameterLYID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String aimNetID = Lora_TYPTtoLY_et_aimNetID.getText().toString().trim();
                 String aimNetFreq = Lora_TYPTtoLY_et_aimNetFreq.getText().toString().trim();
                 String aimLYID = Lora_TYPTtoLY_et_aimLYID.getText().toString().trim();
                 String parameterLYID = Lora_TYPTtoLY_et_parameterLYID.getText().toString().trim();
 
                 if (HzyUtils.isEmpty(aimLYID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this,
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this,
                             "目标路由ID，目标路由网络ID及目标路由网络频率皆不可为空。", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
-                prepareTimeStart();
+                prepareTimeStart(50);
                 aimLYID = HzyUtils.isLength(aimLYID, 2);
                 aimNetID = HzyUtils.isLength(aimNetID, 4);
                 parameterLYID = HzyUtils.isLength(parameterLYID, 2);
                 aimNetFreq = HzyUtils.isLength1(aimNetFreq, 6);
 
                 if (HzyUtils.isConformToRange(aimNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (parameterLYID.length() > 2) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "参数路由ID长度为一个字节。", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "参数路由ID长度为一个字节。", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
 
@@ -298,30 +298,30 @@ public class Lora_TYPTtoLYActivity extends Activity {
         Lora_TYPTtoLY_btn_parameterNetId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HzyUtils.showProgressDialog(Lora_TYPTtoLYActivity.this);
+                HzyUtils.showProgressDialog(LoRa_TYPTtoLYActivity.this);
                 String aimNetID = Lora_TYPTtoLY_et_aimNetID.getText().toString().trim();
                 String aimNetFreq = Lora_TYPTtoLY_et_aimNetFreq.getText().toString().trim();
                 String aimLYID = Lora_TYPTtoLY_et_aimLYID.getText().toString().trim();
                 String parameterNetId = Lora_TYPTtoLY_et_parameterNetId.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimLYID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this,
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this,
                             "目标路由ID，目标路由网络ID及目标路由网络频率皆不可为空。", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
-                prepareTimeStart();
+                prepareTimeStart(50);
                 aimLYID = HzyUtils.isLength(aimLYID, 2);
                 aimNetID = HzyUtils.isLength(aimNetID, 4);
                 parameterNetId = HzyUtils.isLength(parameterNetId, 4);
                 aimNetFreq = HzyUtils.isLength1(aimNetFreq, 6);
 
                 if (HzyUtils.isConformToRange(aimNetFreq)) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "频率超出允许范围，请重试。(范围为4000000KHz~510000KHz)", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (parameterNetId.length() > 4) {
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "参数路由网络ID长度为两个字节。", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "参数路由网络ID长度为两个字节。", "提示");
                     HzyUtils.closeProgressDialog();
                     return;
 
@@ -355,7 +355,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 78));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "磁铁激活返回");
@@ -386,7 +386,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 66));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "写入返回");
@@ -400,7 +400,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         Lora_TYPTtoLY_et_aimNetFreq.setText(aimnetFreq);
                         Lora_TYPTtoLY_et_aimLYID.setText(aimLYID);
 
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "写入成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "写入成功。", "提示");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
                     }//读取
@@ -411,7 +411,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 88));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "读取返回");
@@ -435,7 +435,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         Lora_TYPTtoLY_et_softwareVersion.setText(softwareVersion);
                         Lora_TYPTtoLY_et_hardwareVersion.setText(hardwareVersion);
 
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "读取成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "读取成功。", "提示");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
                     }//复位
@@ -446,13 +446,13 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 54));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "复位返回");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "复位成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "复位成功。", "提示");
                     }//修改路由ID
                     else if (getMsg.length() >= 62 && getMsg.contains("68001f8a84") &&
                             getMsg.substring(getMsg.indexOf("68001f8a84") + 60, 62).equals("16")) {
@@ -461,7 +461,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 56));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "修改路由ID返回");
@@ -471,7 +471,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         Lora_TYPTtoLY_et_electricVoltage.setText(electricVoltage);
                         Lora_TYPTtoLY_et_aimLYID.setText(aimLYID);
 
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "修改路由ID成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "修改路由ID成功。", "提示");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
 
@@ -483,7 +483,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 46));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "修改路由网络ID返回");
@@ -493,7 +493,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         Lora_TYPTtoLY_et_electricVoltage.setText(electricVoltage);
                         Lora_TYPTtoLY_et_aimNetID.setText(aimNetID);
 
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "修改路由网络ID成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "修改路由网络ID成功。", "提示");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
                     }//修改路由网络频率
@@ -504,7 +504,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 48));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
+                            HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "CRC16校验出错。", "提示");
                             break;
                         }
                         Log.d("limbo", "修改路由网络频率返回");
@@ -514,7 +514,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
                         Lora_TYPTtoLY_et_electricVoltage.setText(electricVoltage);
                         Lora_TYPTtoLY_et_aimNetFreq.setText(aimNetFreq);
 
-                        HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "修改路由网络频率成功。", "提示");
+                        HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "修改路由网络频率成功。", "提示");
                         timeOut = true;
                         HzyUtils.closeProgressDialog();
 
@@ -522,7 +522,7 @@ public class Lora_TYPTtoLYActivity extends Activity {
 
                     break;
                 case 0x99:
-                    HintDialog.ShowHintDialog(Lora_TYPTtoLYActivity.this, "无数据返回，请重试。", "提示");
+                    HintDialog.ShowHintDialog(LoRa_TYPTtoLYActivity.this, "无数据返回，请重试。", "提示");
                     break;
 
                 default:
@@ -534,14 +534,15 @@ public class Lora_TYPTtoLYActivity extends Activity {
 
     /**
      * 开始协议设定时间
+     * timeMax 1 = 0.1s
      */
-    private void prepareTimeStart() {
+    private void prepareTimeStart(final int timeMax) {
         timeOut = false;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 50; i++) {
+                    for (int i = 0; i < timeMax; i++) {
                         Thread.sleep(100);
                         if (timeOut) {
                             break;

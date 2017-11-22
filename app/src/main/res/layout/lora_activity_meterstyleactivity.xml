@@ -67,6 +67,12 @@
                 android:layout_height="wrap_content"
                 android:text="超声水表"
                 android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/meterStyleActivity_btn_NumStateMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="数字状态表"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </ScrollView>
 

@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by limbo on 2017/11/6.
  */
 
-public class Lora_TYPTActivity extends Activity {
+public class LoRa_TYPTActivity extends Activity {
     @BindView(R.id.Lora_TYPTActivity_btn_toJDControl)
     Button Lora_TYPTActivity_btn_toJDControl;
     @BindView(R.id.Lora_TYPTActivity_btn_toJZQControl)
@@ -37,7 +37,8 @@ public class Lora_TYPTActivity extends Activity {
         Lora_TYPTActivity_btn_toJDControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(LoRa_TYPTActivity.this,LoRa_TYPTtoJDActivity.class);
+                startActivity(i);
             }
         });
         Lora_TYPTActivity_btn_toJZQControl.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +50,7 @@ public class Lora_TYPTActivity extends Activity {
         Lora_TYPTActivity_btn_toLYControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Lora_TYPTActivity.this,Lora_TYPTtoLYActivity.class);
+                Intent i = new Intent(LoRa_TYPTActivity.this,LoRa_TYPTtoLYActivity.class);
                 startActivity(i);
             }
         });

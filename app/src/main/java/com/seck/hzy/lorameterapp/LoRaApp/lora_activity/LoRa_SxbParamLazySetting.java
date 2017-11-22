@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
  * Created by limbo on 2017/7/19.
  */
 
-public class Lora_SxbParamLazySetting extends Activity implements Runnable {
+public class LoRa_SxbParamLazySetting extends Activity implements Runnable {
 
     @BindView(R.id.EditText_Addr)
     EditText EditText_Addr;
@@ -195,22 +195,22 @@ public class Lora_SxbParamLazySetting extends Activity implements Runnable {
         read_pic_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HzyUtils.showProgressDialog1(Lora_SxbParamLazySetting.this, "正在读图.......");
+                HzyUtils.showProgressDialog1(LoRa_SxbParamLazySetting.this, "正在读图.......");
                 String addr = EditText_Addr.getText().toString().trim();
                 String freq = EditText_Freq.getText().toString().trim();
                 String netId = EditText_NetID.getText().toString().trim();
                 if (addr.length() > 10) {
-                    HintDialog.ShowHintDialog(Lora_SxbParamLazySetting.this, "表地址过长", "提示");
+                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "表地址过长", "提示");
                 }
                 if (netId.length() > 4) {
-                    HintDialog.ShowHintDialog(Lora_SxbParamLazySetting.this, "网络ID过长", "提示");
+                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "网络ID过长", "提示");
                 }
                 if (HzyUtils.isEmpty(freq)) {
                     freq = "0";
                 }
                 freq = Integer.toHexString(Integer.parseInt(freq));
                 if (freq.length() > 4) {
-                    HintDialog.ShowHintDialog(Lora_SxbParamLazySetting.this, "表频率过大", "提示");
+                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "表频率过大", "提示");
                 }
                 while (freq.length() < 4) {
                     freq = "0" + freq;
@@ -323,7 +323,7 @@ public class Lora_SxbParamLazySetting extends Activity implements Runnable {
                                             ivCenter.setImageBitmap(bp);
                                         }
                                     } catch (Exception e) {
-                                        HintDialog.ShowHintDialog(Lora_SxbParamLazySetting.this, "图像异常", "错误");
+                                        HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "图像异常", "错误");
                                     }
                                 }
                             } catch (Exception e) {
@@ -367,7 +367,7 @@ public class Lora_SxbParamLazySetting extends Activity implements Runnable {
                 }
 
                 isNeedMove = true;
-                new Thread(Lora_SxbParamLazySetting.this).start();
+                new Thread(LoRa_SxbParamLazySetting.this).start();
             }
             // 当松手后，更改标志位，结束加法运算
             else if (event.getAction() == KeyEvent.ACTION_UP) {
@@ -411,7 +411,7 @@ public class Lora_SxbParamLazySetting extends Activity implements Runnable {
                     ivCenter = (ImageView) findViewById(R.id.ib_center);
                     ivCenter.setImageBitmap(mPicCenter);
 
-                    float scale = Lora_SxbParamLazySetting.this.getResources().getDisplayMetrics().density;
+                    float scale = LoRa_SxbParamLazySetting.this.getResources().getDisplayMetrics().density;
                     mMatrix.reset();
                     mMatrix.postScale(34.f / 25.f * scale, 48.f / 36.f * scale);
                     ivCenter.setImageMatrix(mMatrix);
@@ -422,7 +422,7 @@ public class Lora_SxbParamLazySetting extends Activity implements Runnable {
                 //progressBar.hide();
                 if (progressBar != null)
                     progressBar.dismiss();
-                HintDialog.ShowHintDialog(Lora_SxbParamLazySetting.this, (String) msg.obj, "错误");
+                HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, (String) msg.obj, "错误");
             } else if (msg.what == -4) {
                 updateCoorText();
             } else if (msg.what == -5) {

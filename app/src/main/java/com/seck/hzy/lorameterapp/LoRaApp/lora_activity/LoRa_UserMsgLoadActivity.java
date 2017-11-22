@@ -306,7 +306,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             public void onClick(View v) {
                 Newfreq = UserMsgLoadActivity_et_meterFreq.getText().toString().trim();
                 if (HzyUtils.isConformToRange(Newfreq)) {
-                    HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "频率设置范围为470000~510000hz。", "提示");
+                    HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "频率设置范围为400000~510000hz。", "提示");
                     return;
                 }
                 if (!HzyUtils.isEmpty(Newfreq)) {

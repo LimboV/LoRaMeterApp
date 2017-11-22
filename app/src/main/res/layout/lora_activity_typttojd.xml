@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:lineSpacingExtra="10dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标节点ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimJDID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标节点ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimNetID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络频率(KHz)   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimNetFreq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络频率(KHz)"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标路由路径   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimLYLJ1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="一层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimLYLJ2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="二层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_aimLYLJ3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="三层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/skyblue"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   设备类型   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_deviceStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="设备类型"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   层数   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_floor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="层数"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   区域   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_region"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="区域"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   全局编号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_totalNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="全局编号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   局部编号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_partNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="局部编号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   末端信号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_endSingal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="末端信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   路由信号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_LYSignal1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="路由信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_LYSignal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="路由信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_LYSignal3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="路由信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   电池电压   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_electricVoltage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="电池电压"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   软件版本号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_softwareVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="软件版本号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   硬件版本号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_hardwareVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="硬件版本号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   附加版本号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_otherVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="附加版本号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   数据   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="读数"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1.2"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="状态"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   阀控   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_valveState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="阀控"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   参数：节点ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_CSJDID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="节点ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <Button
+                        android:id="@+id/LoRa_TYPTtoJDActivity_btn_setJDId"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="设置"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   参数：网络ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_netID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="网络ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <Button
+                        android:id="@+id/LoRa_TYPTtoJDActivity_btn_setNetId"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="设置"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   参数：网络频率(KHz)   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoJDActivity_et_netFreq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="网络频率(KHz)"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <Button
+                        android:id="@+id/LoRa_TYPTtoJDActivity_btn_setFreq"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="设置"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/LoRa_TYPTtoJDActivity_btn_resetActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightgrey"
+                    android:text="复位界面"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/LoRa_TYPTtoJDActivity_btn_readAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightgrey"
+                    android:text="读取\n所有参数"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/LoRa_TYPTtoJDActivity_btn_writeAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightgrey"
+                    android:text="写入\n所有参数"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/LoRa_TYPTtoJDActivity_btn_reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightgrey"
+                    android:text="复位转换器"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
