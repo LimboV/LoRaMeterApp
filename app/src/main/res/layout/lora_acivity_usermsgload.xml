@@ -128,6 +128,11 @@
 
 
             <CheckBox
+                android:id="@+id/UserMsgLoadActivity_cb_sm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="打开扫描功能"/>
+            <CheckBox
                 android:id="@+id/UserMsgLoadActivity_cb_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

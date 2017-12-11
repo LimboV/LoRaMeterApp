@@ -2,7 +2,7 @@
     package="com.seck.hzy.lorameterapp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="2"
-    android:versionName="1.20171120">
+    android:versionName="1.20171207">
 
     <uses-sdk
         android:installLocation="internalOnly"
@@ -831,6 +831,36 @@
         </activity>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_TYPTtoJDActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_XqListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_ZCjjListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_CjjListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_MeterListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_CBActivity"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">

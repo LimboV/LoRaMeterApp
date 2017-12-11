@@ -1,6 +1,8 @@
 package com.seck.hzy.lorameterapp.LoRaApp.lora_activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +29,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
     private String oldMeterAddr = "", oldFreq = "", oldNetID = "";
     private TextView tvBtMsg, tvWlAddr;
     private CheckBox cbIsLy;
+    int noflag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
         if (MenuActivity.METER_STYLE.equals("L")) {//山科LoRa表
             btnGet.setText("超级写");
             tvWlAddr.setText("编号");
-            btnSend.setVisibility(View.GONE);
+//            btnSend.setVisibility(View.GONE);
         } else {
             etWlAddr.setKeyListener(null);//不可编辑
             if (!MenuActivity.METER_STYLE.equals("W")) {
@@ -173,9 +176,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "地址过长", "提示");
                             break;
                         }
-                        while (freq.length() < 4) {
-                            freq = "0" + freq;
-                        }
+                        HzyUtils.isLength(freq,4);
                         if (freq.length() > 4) {
                             HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率过大", "提示");
                             break;
@@ -304,6 +305,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
 
             /**
              * 山科lora--获取
+             * 安美通-超级写
              */
             case R.id.CsSettingActivity_btn_getdata:
                 tvBtMsg.setText("");//清空信息显示框
@@ -314,46 +316,70 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                     HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "输入不可为空", "提示");
                     break;
                 }
-                freq = Integer.toHexString(Integer.parseInt(etContent3));//频率转化成16进制
+
 
                 if (etContent2.length() > 4) {
                     HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "网络ID过长", "提示");
                     break;
                 }
 
-                freq = HzyUtils.isLength(freq, 6);
+                freq = HzyUtils.isLength(etContent3, 6);
                 etContent2 = HzyUtils.isLength(etContent2, 4);
-                String sendMsg;
+                final String sendMsg;
                 if (MenuActivity.METER_STYLE.equals("W")) {
                     if (etContent1.length() > 8) {
                         HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "表地址过长", "提示");
                         break;
                     }
-                    if (HzyUtils.isConformToRange(freq)){
+                    if (HzyUtils.isConformToRange(freq)) {
                         HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "表频率过大", "提示");
                         break;
                     }
+                    freq = Integer.toHexString(Integer.parseInt(etContent3));//频率转化成16进制
+                    freq = HzyUtils.isLength(freq,6);
                     etContent1 = HzyUtils.isLength(etContent1, 8);
-                    sendMsg = "ffffffff0803000000" +
+                    noflag++;
+                    noflag = noflag % 10;
+
+                    sendMsg = "ffffffff080" + noflag + "000000" +
                             freq + //频率
                             etContent2 + //网络ID
-                            "01"+
-                            etContent1 ;//水表地址
+                            "01" +
+                            etContent1;//水表地址
 
-                    Log.d("limbo", "获取:" + sendMsg);
-                    MenuActivity.sendCmd(sendMsg);
-                    tvBtMsg.append("发送安美通超级写指令:\n频率" + freq + "\n水表地址:" + etContent1+ "\n网络ID:" + etContent2);
-                    new Thread(new Runnable() {
+
+                    final String x = "发送安美通超级写指令:\n频率" + freq + "\n水表地址:" + etContent1 + "\n网络ID:" + etContent2;
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_MeterCsSettingActivity.this);
+                    dialog.setTitle("请确认是否超级写");
+                    dialog.setCancelable(false);
+                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(3000);
-                                MenuActivity.sendCmd("ff");
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("limbo", "发送:" + sendMsg);
+                            tvBtMsg.append(x);
+                            MenuActivity.sendCmd(sendMsg);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(3000);
+                                        MenuActivity.sendCmd("ff");
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
                         }
-                    }).start();
+                    });
+                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    dialog.show();
+
+
                 } else if (MenuActivity.METER_STYLE.equals("L")) {
                     if (etContent1.length() > 10) {
                         HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "表地址过长", "提示");
@@ -366,7 +392,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             etContent1 +//水表地址
                             "22" +//指令码
                             "0ba0f0400052000000007f00011338";
-                    Log.d("limbo", "获取:" + sendMsg);
+                    Log.d("limbo", "发送:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);
                     tvBtMsg.append("发送读取参数指令:\n频率" + freq + "\n水表地址:" + etContent1);
                 }
@@ -419,8 +445,6 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                 + etContent1//模块id
                                 + etContent4//模块编号
                                 + freq;//更改的频率
-
-
                     } else {
                         while (etContent4.length() < 4) {
                             etContent4 = "0" + etContent4;
@@ -443,10 +467,6 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                             HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "频率过大", "提示");
                             break;
                         }
-                        /*if (etContent4.length() > 4) {
-                            HintDialog.ShowHintDialog(LoRa_MeterCsSettingActivity.this, "模块编号过长", "提示");
-                            break;
-                        }*/
                         sendMsg = "68"//起始码
                                 + oldFreq //原频率
                                 + oldNetID  //原网络ID
@@ -610,8 +630,8 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                                 "\n电压" + dy);
                                         etWlAddr.setText(wlmoID);
                                         etMeterAddr.setText(mkId);
-                                        etNetId.setText(netId);
-                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
+//                                        etNetId.setText(netId);
+//                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
                                         MenuActivity.Cjj_CB_MSG = "";
                                     }
                                 }
@@ -643,8 +663,8 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                                 "\n物理模块ID" + wlmoID);
                                         etWlAddr.setText(wlmoID);
                                         etMeterAddr.setText(mkId);
-                                        etNetId.setText(netId);
-                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
+//                                        etNetId.setText(netId);
+//                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
                                         MenuActivity.Cjj_CB_MSG = "";
                                     }
 
@@ -655,7 +675,7 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
 
 
                         } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")) {//Wmrnet表
-                            if (getMsg.length() >= 42) {
+                            if (getMsg.length() >= 42 && getMsg.contains("a0")) {
                                 getMsg = getMsg.substring(getMsg.indexOf("a0"));
                                 //                        String freq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";//频率-16进制
                                 String sfreq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";//频率-16进制

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seck.hzy.lorameterapp.LoRaApp.ns_activity.NS_XqListActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_CameraTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_ChooseActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_GPRSNetActivity;
@@ -62,7 +63,7 @@ public class MenuActivity extends Activity {
      */
     static public String SECK_PARAM = "0";
     static public BluetoothConnectThread netThread = null;
-    public static boolean blutoothEnabled = false;
+    public static boolean blutoothEnabled = false,TIMEOUT =false;
     public static String METER_STYLE;
     public static String CITY_NAME;
     public static String Cjj_CB_MSG = "";//存放数据
@@ -173,9 +174,9 @@ public class MenuActivity extends Activity {
                         startActivityForResult(i, 0);
                         break;
                     case 2:
-                        if (MenuActivity.netThread == null) {
-                            networkConnect();
-                            return;
+                        if (MenuActivity.netThread == null && !METER_STYLE.equals("NS")) {
+                                networkConnect();
+                                return;
                         } else {
                             if (METER_STYLE.equals("P")) {//P型表水表抄表
                                 MenuActivity.timeDelayMax = 7000;
@@ -193,8 +194,8 @@ public class MenuActivity extends Activity {
                                 i = new Intent(uiAct, LoRa_MeterChooseActivity.class);
                                 startActivity(i);
                             }else if (METER_STYLE.equals("NS")) {//数字状态表
-//                                i = new Intent(uiAct, .class);
-//                                startActivity(i);
+                                i = new Intent(uiAct, NS_XqListActivity.class);
+                                startActivity(i);
                             } else {
 
                             }

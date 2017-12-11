@@ -179,9 +179,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                 }
                 freq = Integer.toHexString(Integer.valueOf(freq + "0"));
                 if (freq.length() <= 4) {
-                    while (freq.length() < 4) {
-                        freq = "0" + freq;
-                    }
+                    freq = HzyUtils.isLength(freq, 4);
                 } else {
                     HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据过大", "错误");
                 }
@@ -519,12 +517,12 @@ public class LoRa_Meter485TestActivity extends Activity {
                         Log.d("limbo", "读到数据:" + getMsg);
                         Meter485TestActivity_tv_showMsg.append(getMsg + "\n");
                         getMsg = getMsg.replaceAll("\n", "");
-                        if(getMsg.contains("AAAAAAAAAA")){
+                        if(getMsg.contains("AAAAAAAAAA")&& getMsg.contains("4B")){
                             int resultLen = Integer.parseInt(getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 12, getMsg.indexOf("AAAAAAAAAA") + 14)) - 2;
                             String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 14, getMsg.indexOf("AAAAAAAAAA") + 14 + resultLen * 2);
                             for (int i = 0; i < resultLen; i++) {
                                 EditText view = (EditText) findViewById(idList[i]);
-                                view.setText(resultMsg.substring(2 * i, 2 + 2 * i));
+                                view.setText(resultMsg.substring(2 * i,     2 + 2 * i));
                             }
                         }
                     }

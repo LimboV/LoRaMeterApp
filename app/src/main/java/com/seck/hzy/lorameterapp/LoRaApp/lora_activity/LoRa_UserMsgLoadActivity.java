@@ -71,6 +71,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
     @BindView(R.id.UserMsgLoadActivity_cb_xhid)
     CheckBox UserMsgLoadActivity_cb_xhid;
 
+    @BindView(R.id.UserMsgLoadActivity_cb_sm)
+    CheckBox UserMsgLoadActivity_cb_sm;
+
     private int xqid, cjjid, meternum, flag;
     long meternumber;
     private Button btnId, btnNum, btnSave, btnGetData;
@@ -139,8 +142,20 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         UserMsgLoadActivity_cb_xhid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (UserMsgLoadActivity_cb_xhid.isChecked()){
+                if (UserMsgLoadActivity_cb_xhid.isChecked()) {
                     UserMsgLoadActivity_et_meterId.setText(UserMsgLoadActivity_et_meterNumber.getText().toString().trim());
+                }
+            }
+        });
+        UserMsgLoadActivity_cb_sm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UserMsgLoadActivity_cb_sm.isChecked()) {
+                    btnId.setVisibility(View.VISIBLE);
+                    btnNum.setVisibility(View.VISIBLE);
+                } else {
+                    btnId.setVisibility(View.GONE);
+                    btnNum.setVisibility(View.GONE);
                 }
             }
         });
@@ -484,7 +499,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             } else {
                 meterid = scanResult;
             }
-            if (UserMsgLoadActivity_cb_xhid.isChecked()){
+            if (UserMsgLoadActivity_cb_xhid.isChecked()) {
                 UserMsgLoadActivity_et_meterId.setText(UserMsgLoadActivity_et_meterNumber.getText().toString().trim());
             }
 
@@ -720,7 +735,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                                     waterValue.substring(6, 8);
                                         }
                                     }
-                                }else {
+                                } else {
                                     HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "网络ID获取失败,请重试。", "提示");
                                 }
                                 MenuActivity.Cjj_CB_MSG = "";
@@ -730,7 +745,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
                             AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_UserMsgLoadActivity.this);
                             dialog.setTitle("水表信息正常");
-                            dialog.setMessage("\n户号:" + useraddr + "\n\n写入LoRa网络ID:" + afnetID + "\n写入LoRa网络频率:" + Integer.parseInt(Newfreq, 16) +
+                            dialog.setMessage("\n户号:" + useraddr + "\n\n写入LoRa网络ID:" + afnetID + "\n写入LoRa网络频率:" + Integer.parseInt(Newfreq, 16) + "Hz" +
                                     "\n\n绑定水表ID:" + meterid + "\n绑定模块序号:" + num + "\n读取模块序号:" + mkId + "\n\n当前水表读数:" + waterValue);
                             dialog.setCancelable(false);
                             dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -797,7 +812,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                     break;
                 case 0x04:
                     getMsg = msg.obj.toString();
-                    if (getMsg.contains("a0")) {
+                    if (getMsg.contains("a0") && getMsg.length() > 42) {
                         String mkxh = getMsg.substring(2, 4);//型号
                         String bb = getMsg.substring(4, 6);//版本
                         String freq = Integer.parseInt(getMsg.substring(6, 12), 16) + "";
@@ -818,7 +833,12 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 "\n表底数:" + bds +
                                 "\n物理ID:" + wlid;
                         Log.d("limbo", result);
-                        HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, result, "返回");
+                        if (meterid.equals(mkid)){
+                            HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, result, "返回");
+                        }else {
+                            HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "数据异常", "返回");
+                        }
+
 
 
                         HzyUtils.closeProgressDialog();

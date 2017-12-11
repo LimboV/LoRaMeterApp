@@ -23,10 +23,10 @@ public class Z_DataHelper {
         try {
             String fileName = getSDPath() + "/" + dbName;
             File x = new File(fileName.toString());
-            if (x.exists()){
-                Log.d("limbo","数据库文件存在");
-            }else {
-                Log.d("limbo","数据库文件不存在");
+            if (x.exists()) {
+                Log.d("limbo", "数据库文件存在");
+            } else {
+                Log.d("limbo", "数据库文件不存在");
             }
             db = SQLiteDatabase.openOrCreateDatabase(fileName, null);
         } catch (Exception e) {
@@ -34,8 +34,6 @@ public class Z_DataHelper {
         }
         return db;
     }
-
-
 
 
     public static List<Z_Cjj> getCjj(int xqid) {
@@ -73,22 +71,23 @@ public class Z_DataHelper {
         c.close();
         return cjjList;
     }
-    public static List<LoRaFc> getFc(int xqid, int cjjid){
+
+    public static List<LoRaFc> getFc(int xqid, int cjjid) {
         ArrayList<LoRaFc> fcList = new ArrayList<LoRaFc>();
         Cursor c = db.rawQuery("SELECT  *  FROM   Fcjj where xqid=" + xqid + " and cjjid=" + cjjid, null);
         while (c.moveToNext()) {
             LoRaFc loRaFc = new LoRaFc();
-            loRaFc.XqId =  c.getInt(c.getColumnIndex("XqId"));
-            loRaFc.CjjId =  c.getInt(c.getColumnIndex("CjjId"));
-            loRaFc.FcId =  c.getInt(c.getColumnIndex("FcId"));
-            loRaFc.fcName =  c.getString(c.getColumnIndex("FcName"));
-            loRaFc.FcNetId =  c.getInt(c.getColumnIndex("FcNetId"));
-            loRaFc.FcFreq =  c.getString(c.getColumnIndex("FcFreq"));
-            loRaFc.FcParam1 =  c.getString(c.getColumnIndex("FcParam1"));
-            loRaFc.FcParam2 =  c.getString(c.getColumnIndex("FcParam2"));
-            loRaFc.FcParam3 =  c.getString(c.getColumnIndex("FcParam3"));
-            loRaFc.FcParam4 =  c.getString(c.getColumnIndex("FcParam4"));
-            loRaFc.FcParam5 =  c.getString(c.getColumnIndex("FcParam5"));
+            loRaFc.XqId = c.getInt(c.getColumnIndex("XqId"));
+            loRaFc.CjjId = c.getInt(c.getColumnIndex("CjjId"));
+            loRaFc.FcId = c.getInt(c.getColumnIndex("FcId"));
+            loRaFc.fcName = c.getString(c.getColumnIndex("FcName"));
+            loRaFc.FcNetId = c.getInt(c.getColumnIndex("FcNetId"));
+            loRaFc.FcFreq = c.getString(c.getColumnIndex("FcFreq"));
+            loRaFc.FcParam1 = c.getString(c.getColumnIndex("FcParam1"));
+            loRaFc.FcParam2 = c.getString(c.getColumnIndex("FcParam2"));
+            loRaFc.FcParam3 = c.getString(c.getColumnIndex("FcParam3"));
+            loRaFc.FcParam4 = c.getString(c.getColumnIndex("FcParam4"));
+            loRaFc.FcParam5 = c.getString(c.getColumnIndex("FcParam5"));
             fcList.add(loRaFc);
         }
         c.close();
@@ -123,6 +122,7 @@ public class Z_DataHelper {
         c.close();
         return meters;
     }
+
     public static int getMaxMeterId(int xqid, int cjjid) {
 
         ArrayList<Z_MeterUser> meters = new ArrayList<>();
@@ -132,12 +132,12 @@ public class Z_DataHelper {
             Z_MeterUser m = new Z_MeterUser();
             m.MeterId = c.getInt(c.getColumnIndex("MeterId"));
 
-            if (m.MeterId>maxMeterId){
+            if (m.MeterId > maxMeterId) {
                 maxMeterId = m.MeterId;
             }
         }
         c.close();
-        return maxMeterId+1;
+        return maxMeterId + 1;
     }
 
     public static List<LoRa_MeterUser> getAllMeter(int xqid) {
@@ -161,11 +161,7 @@ public class Z_DataHelper {
             } else {
                 m.Pic = BitmapFactory.decodeByteArray(picBytes, 0, picBytes.length);
             }
-            if (m.UserAddr.length() == 0) {
-
-            } else {
-                meters.add(m);
-            }
+            meters.add(m);
 
         }
         c.close();
@@ -192,6 +188,7 @@ public class Z_DataHelper {
 
     /**
      * 添加分采
+     *
      * @param loRaFc
      */
     public static void addFcjj(LoRaFc loRaFc) {
@@ -199,25 +196,25 @@ public class Z_DataHelper {
             db.beginTransaction();
             try {
                 ContentValues cv = new ContentValues();
-                cv.put("XqId",loRaFc.getXqId());
-                cv.put("CjjId",loRaFc.getCjjId());
-                cv.put("FcId",loRaFc.getFcId());
-                cv.put("FcName",loRaFc.getFcName());
-                cv.put("FcNetId",loRaFc.getFcNetId());
-                cv.put("FcFreq",loRaFc.getFcFreq());
-                cv.put("FcNum",loRaFc.getFcNum());
-                cv.put("FcParam1",loRaFc.getFcParam1());
-                cv.put("FcParam2",loRaFc.getFcParam2());
-                cv.put("FcParam3",loRaFc.getFcParam3());
-                cv.put("FcParam4",loRaFc.getFcParam4());
-                cv.put("FcParam5",loRaFc.getFcParam5());
+                cv.put("XqId", loRaFc.getXqId());
+                cv.put("CjjId", loRaFc.getCjjId());
+                cv.put("FcId", loRaFc.getFcId());
+                cv.put("FcName", loRaFc.getFcName());
+                cv.put("FcNetId", loRaFc.getFcNetId());
+                cv.put("FcFreq", loRaFc.getFcFreq());
+                cv.put("FcNum", loRaFc.getFcNum());
+                cv.put("FcParam1", loRaFc.getFcParam1());
+                cv.put("FcParam2", loRaFc.getFcParam2());
+                cv.put("FcParam3", loRaFc.getFcParam3());
+                cv.put("FcParam4", loRaFc.getFcParam4());
+                cv.put("FcParam5", loRaFc.getFcParam5());
                 db.insert("Fcjj", null, cv);//添加数据
                 db.setTransactionSuccessful();
             } finally {
                 db.endTransaction();
             }
         } catch (Exception e) {
-            Log.d("limbo",e.toString());
+            Log.d("limbo", e.toString());
         }
 
     }
@@ -225,7 +222,7 @@ public class Z_DataHelper {
     /**
      * 删除分采
      */
-    public static void deleteFc(int xqid, int cjjid, int fcid){
+    public static void deleteFc(int xqid, int cjjid, int fcid) {
         try {
             db.beginTransaction();
             try {
@@ -243,7 +240,7 @@ public class Z_DataHelper {
         }
     }
 
-    public static void addMeter(int xqid, int cjjid,int meterid, String meterNumber, String userAddr, String date) {
+    public static void addMeter(int xqid, int cjjid, int meterid, String meterNumber, String userAddr, String date) {
 
         try {
             db.beginTransaction();

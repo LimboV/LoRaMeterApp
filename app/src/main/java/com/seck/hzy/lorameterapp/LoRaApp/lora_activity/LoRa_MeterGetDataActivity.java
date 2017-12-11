@@ -626,14 +626,20 @@ public class LoRa_MeterGetDataActivity extends Activity {
                     String cq = getMsg.substring(22, 24);
                     dy = String.format("%.2f", (float) Integer.parseInt(dy, 16) / 100 + 2);
                     cq = Integer.parseInt(cq, 16) + "";
-                    String fk = getMsg.substring(18, 20);
-                    if (fk.contains("00")) {
+                    String attack = getMsg.substring(18, 19);
+                    if (attack.contains("3")){
+                        attack = "异常";
+                    }else {
+                        attack = "正常";
+                    }
+                    String fk = getMsg.substring(19, 20);
+                    if (fk.contains("0")) {
                         fk = "不明";
-                    } else if (fk.contains("01")) {
+                    } else if (fk.contains("1")) {
                         fk = "半开";
-                    } else if (fk.contains("02")) {
+                    } else if (fk.contains("2")) {
                         fk = "关阀";
-                    } else if (fk.contains("03")) {
+                    } else if (fk.contains("3")) {
                         fk = "开阀";
                     }
                     if (MenuActivity.METER_STYLE.equals("CS")) {
@@ -645,6 +651,7 @@ public class LoRa_MeterGetDataActivity extends Activity {
                         GetDataActivity_tv_showMsg.append("\n\n接收参数:" +
                                 "\n水表值:" + waterValue + " m³" +
                                 "\n阀控:" + fk +
+                                "\n状态:" + attack +
                                 "\n电压:" + dy +
                                 "\n场强:" + cq);
                     }

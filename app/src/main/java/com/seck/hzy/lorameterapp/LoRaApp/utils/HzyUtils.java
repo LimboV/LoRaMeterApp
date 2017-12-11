@@ -8,6 +8,8 @@ import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.util.Log;
 
+import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -548,5 +550,29 @@ public class HzyUtils {
             str = str + "0";
         }
         return str;
+    }
+
+    /**
+     * 开始协议设定时间
+     */
+    public static void prepareTimeStart(final int time) {
+        MenuActivity.TIMEOUT = false;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < time; i++) {
+                        Thread.sleep(100);
+                        if (MenuActivity.TIMEOUT) {
+                            break;
+                        }
+                    }
+                    MenuActivity.TIMEOUT = true;
+                    HzyUtils.closeProgressDialog();
+                } catch (Exception e) {
+
+                }
+            }
+        }).start();
     }
 }

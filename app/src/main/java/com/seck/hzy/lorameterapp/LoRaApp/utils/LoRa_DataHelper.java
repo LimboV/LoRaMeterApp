@@ -20,10 +20,10 @@ public class LoRa_DataHelper {
         try {
             String fileName = getSDPath() + "/" + dbName;
             File x = new File(fileName.toString());
-            if (x.exists()){
-                Log.d("limbo","数据库文件存在");
-            }else {
-                Log.d("limbo","数据库文件不存在");
+            if (x.exists()) {
+                Log.d("limbo", "数据库文件存在");
+            } else {
+                Log.d("limbo", "数据库文件不存在");
             }
             db = SQLiteDatabase.openOrCreateDatabase(fileName, null);
         } catch (Exception e) {
@@ -68,22 +68,23 @@ public class LoRa_DataHelper {
         c.close();
         return cjjList;
     }
-    public static List<LoRaFc> getFc(int xqid, int cjjid){
+
+    public static List<LoRaFc> getFc(int xqid, int cjjid) {
         ArrayList<LoRaFc> fcList = new ArrayList<LoRaFc>();
         Cursor c = db.rawQuery("SELECT  *  FROM   Fcjj where xqid=" + xqid + " and cjjid=" + cjjid, null);
         while (c.moveToNext()) {
             LoRaFc loRaFc = new LoRaFc();
-            loRaFc.XqId =  c.getInt(c.getColumnIndex("XqId"));
-            loRaFc.CjjId =  c.getInt(c.getColumnIndex("CjjId"));
-            loRaFc.FcId =  c.getInt(c.getColumnIndex("FcId"));
-            loRaFc.fcName =  c.getString(c.getColumnIndex("FcName"));
-            loRaFc.FcNetId =  c.getInt(c.getColumnIndex("FcNetId"));
-            loRaFc.FcFreq =  c.getString(c.getColumnIndex("FcFreq"));
-            loRaFc.FcParam1 =  c.getString(c.getColumnIndex("FcParam1"));
-            loRaFc.FcParam2 =  c.getString(c.getColumnIndex("FcParam2"));
-            loRaFc.FcParam3 =  c.getString(c.getColumnIndex("FcParam3"));
-            loRaFc.FcParam4 =  c.getString(c.getColumnIndex("FcParam4"));
-            loRaFc.FcParam5 =  c.getString(c.getColumnIndex("FcParam5"));
+            loRaFc.XqId = c.getInt(c.getColumnIndex("XqId"));
+            loRaFc.CjjId = c.getInt(c.getColumnIndex("CjjId"));
+            loRaFc.FcId = c.getInt(c.getColumnIndex("FcId"));
+            loRaFc.fcName = c.getString(c.getColumnIndex("FcName"));
+            loRaFc.FcNetId = c.getInt(c.getColumnIndex("FcNetId"));
+            loRaFc.FcFreq = c.getString(c.getColumnIndex("FcFreq"));
+            loRaFc.FcParam1 = c.getString(c.getColumnIndex("FcParam1"));
+            loRaFc.FcParam2 = c.getString(c.getColumnIndex("FcParam2"));
+            loRaFc.FcParam3 = c.getString(c.getColumnIndex("FcParam3"));
+            loRaFc.FcParam4 = c.getString(c.getColumnIndex("FcParam4"));
+            loRaFc.FcParam5 = c.getString(c.getColumnIndex("FcParam5"));
             fcList.add(loRaFc);
         }
         c.close();
@@ -140,11 +141,7 @@ public class LoRa_DataHelper {
             } else {
                 m.Pic = BitmapFactory.decodeByteArray(picBytes, 0, picBytes.length);
             }
-            if (m.UserAddr.length() == 0) {
-
-            } else {
-                meters.add(m);
-            }
+            meters.add(m);
 
         }
         c.close();
@@ -171,6 +168,7 @@ public class LoRa_DataHelper {
 
     /**
      * 添加分采
+     *
      * @param loRaFc
      */
     public static void addFcjj(LoRaFc loRaFc) {
@@ -178,25 +176,25 @@ public class LoRa_DataHelper {
             db.beginTransaction();
             try {
                 ContentValues cv = new ContentValues();
-                cv.put("XqId",loRaFc.getXqId());
-                cv.put("CjjId",loRaFc.getCjjId());
-                cv.put("FcId",loRaFc.getFcId());
-                cv.put("FcName",loRaFc.getFcName());
-                cv.put("FcNetId",loRaFc.getFcNetId());
-                cv.put("FcFreq",loRaFc.getFcFreq());
-                cv.put("FcNum",loRaFc.getFcNum());
-                cv.put("FcParam1",loRaFc.getFcParam1());
-                cv.put("FcParam2",loRaFc.getFcParam2());
-                cv.put("FcParam3",loRaFc.getFcParam3());
-                cv.put("FcParam4",loRaFc.getFcParam4());
-                cv.put("FcParam5",loRaFc.getFcParam5());
+                cv.put("XqId", loRaFc.getXqId());
+                cv.put("CjjId", loRaFc.getCjjId());
+                cv.put("FcId", loRaFc.getFcId());
+                cv.put("FcName", loRaFc.getFcName());
+                cv.put("FcNetId", loRaFc.getFcNetId());
+                cv.put("FcFreq", loRaFc.getFcFreq());
+                cv.put("FcNum", loRaFc.getFcNum());
+                cv.put("FcParam1", loRaFc.getFcParam1());
+                cv.put("FcParam2", loRaFc.getFcParam2());
+                cv.put("FcParam3", loRaFc.getFcParam3());
+                cv.put("FcParam4", loRaFc.getFcParam4());
+                cv.put("FcParam5", loRaFc.getFcParam5());
                 db.insert("Fcjj", null, cv);//添加数据
                 db.setTransactionSuccessful();
             } finally {
                 db.endTransaction();
             }
         } catch (Exception e) {
-            Log.d("limbo",e.toString());
+            Log.d("limbo", e.toString());
         }
 
     }
@@ -204,7 +202,7 @@ public class LoRa_DataHelper {
     /**
      * 删除分采
      */
-    public static void deleteFc(int xqid, int cjjid, int fcid){
+    public static void deleteFc(int xqid, int cjjid, int fcid) {
         try {
             db.beginTransaction();
             try {
@@ -222,7 +220,7 @@ public class LoRa_DataHelper {
         }
     }
 
-    public static void addMeter(int xqid, int cjjid, int meterid, String meterNumber, String userAddr, String date,String freq) {
+    public static void addMeter(int xqid, int cjjid, int meterid, String meterNumber, String userAddr, String date, String freq) {
 
         try {
             db.beginTransaction();
@@ -321,12 +319,12 @@ public class LoRa_DataHelper {
             if (!sdDir.exists()) {
                 sdDir.mkdir();
             } else {
-//                sdDir = new File(Environment.getExternalStorageDirectory().getPath() + "/SeckLoRaDB");// 获取SD卡的path
+                //                sdDir = new File(Environment.getExternalStorageDirectory().getPath() + "/SeckLoRaDB");// 获取SD卡的path
             }
             Log.d("limbo", "return sdPath:" + sdDir.toString());
 
-//            return "/storage/sdcard0/SeckLoRaDB";//将path转化为string类型返回
-//            return "/mnt/sdcard/SeckLoRaDB";//将path转化为string类型返回
+            //            return "/storage/sdcard0/SeckLoRaDB";//将path转化为string类型返回
+            //            return "/mnt/sdcard/SeckLoRaDB";//将path转化为string类型返回
             return sdDir.toString();//将path转化为string类型返回
         } else {
             Log.d("limbo", "no exist");
