@@ -694,8 +694,6 @@ public class LoRa_MeterCsSettingActivity extends Activity implements View.OnClic
                                     } else {
                                         bds = Integer.parseInt(getMsg.substring(26, 32)) + "." + getMsg.substring(32, 34);//表底数
                                     }
-
-
                                 }
 
                                 String wlmoID = getMsg.substring(34, 42);//物理模块ID
