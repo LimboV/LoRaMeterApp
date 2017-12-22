@@ -349,7 +349,7 @@ public class HzyUtils {
         if (HzyUtils.isEmpty(str)) {
             return "0";
         } else {
-            return Integer.toHexString(Integer.parseInt(str));
+            return Long.toHexString(Long.parseLong(str));
         }
     }
 

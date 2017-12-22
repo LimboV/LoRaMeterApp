@@ -63,7 +63,7 @@ public class MenuActivity extends Activity {
      */
     static public String SECK_PARAM = "0";
     static public BluetoothConnectThread netThread = null;
-    public static boolean blutoothEnabled = false,TIMEOUT =false;
+    public static boolean blutoothEnabled = false, TIMEOUT = false;
     public static String METER_STYLE;
     public static String CITY_NAME;
     public static String Cjj_CB_MSG = "";//存放数据
@@ -87,6 +87,9 @@ public class MenuActivity extends Activity {
     @BindView(R.id.gvMain)
     GridView gvMain;
 
+    @BindView(R.id.textView)
+    TextView textView;
+
     @BindView(R.id.menuActivity_btn_exit)
     Button menuActivity_btn_exit;
 
@@ -107,6 +110,7 @@ public class MenuActivity extends Activity {
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
         ButterKnife.bind(this);
+        textView.setText("软件版本：" + "20171220");
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
@@ -175,8 +179,8 @@ public class MenuActivity extends Activity {
                         break;
                     case 2:
                         if (MenuActivity.netThread == null && !METER_STYLE.equals("NS")) {
-                                networkConnect();
-                                return;
+                            networkConnect();
+                            return;
                         } else {
                             if (METER_STYLE.equals("P")) {//P型表水表抄表
                                 MenuActivity.timeDelayMax = 7000;
@@ -193,7 +197,7 @@ public class MenuActivity extends Activity {
                             } else if (METER_STYLE.equals("CS")) {//超声波表
                                 i = new Intent(uiAct, LoRa_MeterChooseActivity.class);
                                 startActivity(i);
-                            }else if (METER_STYLE.equals("NS")) {//数字状态表
+                            } else if (METER_STYLE.equals("NS")) {//数字状态表
                                 i = new Intent(uiAct, NS_XqListActivity.class);
                                 startActivity(i);
                             } else {
@@ -483,7 +487,7 @@ public class MenuActivity extends Activity {
                     }
 
                     iv.setImageResource(CS_Imgs[position]);
-                }else if (MenuActivity.METER_STYLE.equals("NS")) {
+                } else if (MenuActivity.METER_STYLE.equals("NS")) {
                     if (MenuActivity.netThread == null) {
                         tv.setText(NS_Titls[position]);
                     } else {
@@ -590,7 +594,7 @@ public class MenuActivity extends Activity {
             menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
         } else if (MenuActivity.METER_STYLE.equals("CS")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:超声水表");
-        }else if (MenuActivity.METER_STYLE.equals("NS")) {
+        } else if (MenuActivity.METER_STYLE.equals("NS")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:数字状态表");
         }
         pref = getSharedPreferences("user_msg1", MODE_PRIVATE);

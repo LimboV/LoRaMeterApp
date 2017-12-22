@@ -31,7 +31,7 @@ public class LoRa_UploadActivity extends Activity {
     private boolean RECEPTION = false;//更新返回
     //    private String msg = "";//文件解析后存放
     private String xqNum, CjjNum;//小区号，采集机编号
-    private boolean sucFlag = false;//记录握手是否成功
+    private boolean sucFlag = false, isbreak = false;//记录握手是否成功
     private int allLen = 0;//字节数
     private int bag = 0;//包数
     private List<String> dateList = new ArrayList<String>();//升级数据分包
@@ -65,7 +65,7 @@ public class LoRa_UploadActivity extends Activity {
                 /**
                  * 查找SeckUpdate文件夹，如果没有，创建并提醒
                  */
-//                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckUpdate");
+                //                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckUpdate");
                 File file = new File("/sdcard" + "/SeckUpdate");
                 read0();
                 if (!file.exists()) {
@@ -141,7 +141,7 @@ public class LoRa_UploadActivity extends Activity {
                 /**
                  * 发送握手信息
                  */
-                HzyUtils.showProgressDialog2(LoRa_UploadActivity.this, bag,"正在进行程序升级......");
+                HzyUtils.showProgressDialog2(LoRa_UploadActivity.this, bag, "正在进行程序升级......");
                 String sendMsg = "00060000a55a7370";
                 Log.d("limbo", "握手信息:" + sendMsg);
                 tvUploadMsg.append("发送握手信息\n");
@@ -191,7 +191,9 @@ public class LoRa_UploadActivity extends Activity {
                                 /**
                                  * 循环发送包
                                  */
-                                for (int i = 0; i < bag; i++) {
+                                isbreak = false;
+                                for (int i = 0; i < bag && !isbreak; i++) {
+                                    Thread.sleep(500);
                                     RECEPTION = false;
                                     String nowNum = Integer.toHexString(i);
                                     if (nowNum.length() < 4) {
@@ -206,42 +208,44 @@ public class LoRa_UploadActivity extends Activity {
                                     message.what = 0x05;
                                     message.obj = "正在发送第" + i + "包数据\n";
                                     mHandler.sendMessage(message);
-                                    HzyUtils.progressDialog.setProgress(i + 1);//更新进度条
+                                    if (HzyUtils.progressDialog != null) {
+                                        HzyUtils.progressDialog.setProgress(i + 1);//更新进度条
+                                    }
                                     MenuActivity.sendCmd(sendMsg);
                                     /**
                                      * 判断数据包接收情况
                                      */
-//                                    while (!RECEPTION) {
-                                        Thread.sleep(1500);
-                                        getMsg = MenuActivity.Cjj_CB_MSG;
-                                        if (getMsg.length() == 0) {
-                                            sucFlag = false;
-                                            message = new Message();
-                                            message.what = 0x98;
-                                            message.obj = getMsg;
-                                            message.arg1 = i;
-                                            mHandler.sendMessage(message);
-                                        } else {
-                                            getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    //                                    while (!RECEPTION) {
+                                    Thread.sleep(2000);
+                                    getMsg = MenuActivity.Cjj_CB_MSG;
+                                    if (getMsg.length() == 0) {
+                                        sucFlag = false;
+                                        message = new Message();
+                                        message.what = 0x98;
+                                        message.obj = getMsg;
+                                        message.arg1 = i;
+                                        mHandler.sendMessage(message);
+                                    } else {
+                                        getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
 
-                                            message = new Message();
-                                            message.what = 0x04;
-                                            message.obj = getMsg;
-                                            message.arg1 = i;
-                                            mHandler.sendMessage(message);
-                                        }
-                                            /**
-                                             * 接收失败处理
-                                            Thread.sleep(2000);
-                                            if (RECEPTION){
-                                                //包接收成功，继续下一包
-                                            }else {
-                                                break;
-                                                //包接收失败
-                                            }*/
+                                        message = new Message();
+                                        message.what = 0x04;
+                                        message.obj = getMsg;
+                                        message.arg1 = i;
+                                        mHandler.sendMessage(message);
                                     }
+                                    /**
+                                     * 接收失败处理
+                                     Thread.sleep(2000);
+                                     if (RECEPTION){
+                                     //包接收成功，继续下一包
+                                     }else {
+                                     break;
+                                     //包接收失败
+                                     }*/
+                                }
 
-//                                }
+                                //                                }
 
                             } else {
                                 Message message = new Message();
@@ -465,6 +469,7 @@ public class LoRa_UploadActivity extends Activity {
                     } else {
                         //接收失败
                         RECEPTION = false;
+                        isbreak = true;
                         HzyUtils.closeProgressDialog();
                         Log.d("limbo", "第" + error + "包数据接收失败");
                         tvUploadMsg.append("第" + error + "包数据接收失败\n");
@@ -485,6 +490,7 @@ public class LoRa_UploadActivity extends Activity {
                 case 0x98:
                     error = msg.arg1;
                     HzyUtils.closeProgressDialog();
+                    isbreak = true;
                     HintDialog.ShowHintDialog(LoRa_UploadActivity.this, "第" + error + "包数据没有接收到返回信息", "提示");
                     break;
                 case 0x99:

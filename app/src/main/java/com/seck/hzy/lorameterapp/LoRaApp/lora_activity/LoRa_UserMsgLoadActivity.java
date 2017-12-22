@@ -165,8 +165,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         UserMsgLoadActivity_btn_setBds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (
-                        HzyUtils.isEmpty(UserMsgLoadActivity_et_meterFreq.getText().toString()) ||
+                if (HzyUtils.isEmpty(UserMsgLoadActivity_et_meterFreq.getText().toString()) ||
                                 HzyUtils.isEmpty(UserMsgLoadActivity_et_bds.getText().toString()) ||
                                 HzyUtils.isEmpty(UserMsgLoadActivity_et_meterId.getText().toString()) ||
                                 HzyUtils.isConformToRange(UserMsgLoadActivity_et_meterFreq.getText().toString())
@@ -227,7 +226,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                             String getMsg = "";
                             try {
                                 Thread.sleep(4000);
-                                getMsg = getMsg + MenuActivity.Cjj_CB_MSG;
+                                getMsg = MenuActivity.Cjj_CB_MSG;
                                 MenuActivity.Cjj_CB_MSG = "";
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 Log.d("limbo", "get : " + getMsg);
@@ -236,8 +235,8 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                     message.what = 0x99;
                                     message.obj = getMsg;
                                     mHandler.sendMessage(message);
-                                } else {
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                } else if (getMsg.contains("a0") && getMsg.length() > 42 && getMsg.contains(meterid)) {
+                                    getMsg = getMsg.substring(getMsg.indexOf(meterid)-16);
                                     Log.d("limbo", getMsg);
 
                                     Message message = new Message();
@@ -820,7 +819,12 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         String mkid = getMsg.substring(16, 24);
                         String zt = getMsg.substring(24, 26);
                         String bds = getMsg.substring(26, 34);
-                        bds = Integer.parseInt(bds.substring(0, 6)) + "." + bds.substring(6, 8);
+                        if (bds.contains("f")){
+                            bds = bds.substring(0, 6) + "." + bds.substring(6, 8);
+                        }else {
+                            bds = Integer.parseInt(bds.substring(0, 6)) + "." + bds.substring(6, 8);
+                        }
+
                         String wlid = getMsg.substring(34, 42);
 
 
@@ -833,12 +837,11 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                 "\n表底数:" + bds +
                                 "\n物理ID:" + wlid;
                         Log.d("limbo", result);
-                        if (meterid.equals(mkid)){
+                        if (meterid.equals(mkid)) {
                             HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, result, "返回");
-                        }else {
+                        } else {
                             HintDialog.ShowHintDialog(LoRa_UserMsgLoadActivity.this, "数据异常", "返回");
                         }
-
 
 
                         HzyUtils.closeProgressDialog();
