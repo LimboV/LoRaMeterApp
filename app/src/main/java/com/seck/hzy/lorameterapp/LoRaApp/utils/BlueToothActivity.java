@@ -17,8 +17,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.seck.hzy.lorameterapp.R;
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
+import com.seck.hzy.lorameterapp.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -32,7 +36,18 @@ public class BlueToothActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         if (adapter == null)
             adapter = new ArrayAdapter<String>(this, R.layout.lora_activity_blue_tooth);
-
+        AndPermission.with(this)
+                .requestCode(300)
+                .permission(Permission.LOCATION)
+                .callback(this)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        // 这里的对话框可以自定义，只要调用rationale.resume()就可以继续申请。
+                        AndPermission.rationaleDialog(BlueToothActivity.this, rationale).show();
+                    }
+                })
+                .start();
 //        setupActionBar();
 
         if (cwjReceiver == null)

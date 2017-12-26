@@ -121,6 +121,8 @@ public class LoRa_XqListActivity extends Activity {
         } catch (Exception e) {
             Log.e("limbo", e.toString());
             HintDialog.ShowHintDialog(this, "未找到数据,请检查数据库文件是否存在！", "错误");
+
+            Toast.makeText(this, "未找到数据,请检查数据库文件是否存在！", Toast.LENGTH_LONG).show();
             finish();
         }
         return data;

@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,8 +50,15 @@ import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_PasswordDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,8 +118,47 @@ public class MenuActivity extends Activity {
     private void init() {
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
+        AndPermission.with(this)
+                .requestCode(300)
+                .permission(Permission.CONTACTS)
+                .permission(Permission.LOCATION)
+                .permission(Permission.CAMERA)
+                .permission(Permission.STORAGE)
+                .callback(this)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        // 这里的对话框可以自定义，只要调用rationale.resume()就可以继续申请。
+                        AndPermission.rationaleDialog(MenuActivity.this, rationale).show();
+                    }
+                })
+                .start();
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(MenuActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(MenuActivity.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int flag = copyFilesFassets(MenuActivity.this, "LoRaDb.db", Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
+        switch (flag) {
+            case 0://完成
+                Toast.makeText(MenuActivity.this, "DB文件创建完成", Toast.LENGTH_LONG).show();
+                break;
+            case 1://不存在
+                Toast.makeText(MenuActivity.this, "SD卡不存在", Toast.LENGTH_LONG).show();
+                break;
+            case 2://报错
+                Toast.makeText(MenuActivity.this, "DB文件创建失败", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
         ButterKnife.bind(this);
-        textView.setText("软件版本：" + "20171220");
+        textView.setText("软件版本：" + "20171226");
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
@@ -727,4 +775,63 @@ public class MenuActivity extends Activity {
         return rtn;
     }
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"};
+
+    /**
+     * 从assets目录中复制整个文件夹内容
+     *
+     * @param context Context 使用CopyFiles类的Activity
+     * @param oldPath String  原文件路径  如：/aa
+     * @param newPath String  复制后路径  如：xx:/bb/cc
+     */
+    public  int copyFilesFassets(Context context, String oldPath, String newPath) {
+        try {
+            boolean sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+            if (sdCardExist) {
+                String fileNames[] = context.getAssets().list(oldPath);//获取assets目录下的所有文件及目录名
+                if (fileNames.length > 0) {//如果是目录
+                    File file = new File(newPath);
+                    file.mkdirs();//如果文件夹不存在，则递归
+                    for (String fileName : fileNames) {
+                        Log.d("limbo",fileName);
+                        copyFilesFassets(context, oldPath + "/" + fileName, newPath + "/" + fileName);
+                    }
+                } else {//如果是文件
+                    File sdDir = new File(newPath);// 获取SD卡的path
+                    if (!sdDir.exists()) {
+                        sdDir.mkdirs();
+                    }
+                    sdDir = new File(newPath+"/LoRaDb.db");
+                    if (!sdDir.exists()){
+                        InputStream is = context.getAssets().open(oldPath);
+                        FileOutputStream fos = new FileOutputStream(new File(newPath+"/LoRaDb.db"));
+                        byte[] buffer = new byte[1024];
+                        int byteCount = 0;
+                        while ((byteCount = is.read(buffer)) != -1) {//循环从输入流读取 buffer字节
+                            fos.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
+                        }
+                        fos.flush();//刷新缓冲区
+                        is.close();
+                        fos.close();
+                    }else {
+                    }
+
+                }
+                return 0;
+            } else {
+                return 1;
+            }
+
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Log.d("limbo", e.toString());
+            //如果捕捉到错误则通知UI线程
+        }
+        return 2;
+    }
 }
