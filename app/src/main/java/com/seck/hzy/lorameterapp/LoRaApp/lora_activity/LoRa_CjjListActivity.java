@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.seck.hzy.lorameterapp.R;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_Cjj;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
+import com.seck.hzy.lorameterapp.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,18 @@ public class LoRa_CjjListActivity extends Activity {
 
     void init() {
         setContentView(R.layout.lora_activity_ly_list);
+        AndPermission.with(this)
+                .requestCode(300)
+                .permission(Permission.STORAGE)
+                .callback(this)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        // 这里的对话框可以自定义，只要调用rationale.resume()就可以继续申请。
+                        AndPermission.rationaleDialog(LoRa_CjjListActivity.this, rationale).show();
+                    }
+                })
+                .start();
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         xqid = bundle.getInt("xqid");

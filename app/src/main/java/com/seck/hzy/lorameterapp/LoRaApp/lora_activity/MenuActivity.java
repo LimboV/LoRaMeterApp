@@ -136,7 +136,8 @@ public class MenuActivity extends Activity {
         try {
             //检测是否有写的权限
             int permission = ActivityCompat.checkSelfPermission(MenuActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE");
-            if (permission != PackageManager.PERMISSION_GRANTED) {
+            int permission2 = ActivityCompat.checkSelfPermission(MenuActivity.this, "android.permission.READ_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED) {
                 // 没有写的权限，去申请写的权限，会弹出对话框
                 ActivityCompat.requestPermissions(MenuActivity.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
             }
@@ -153,6 +154,9 @@ public class MenuActivity extends Activity {
                 break;
             case 2://报错
                 Toast.makeText(MenuActivity.this, "DB文件创建失败", Toast.LENGTH_LONG).show();
+                break;
+            case 3://已存在
+                Toast.makeText(MenuActivity.this, "DB文件已存在", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
@@ -787,7 +791,7 @@ public class MenuActivity extends Activity {
      * @param oldPath String  原文件路径  如：/aa
      * @param newPath String  复制后路径  如：xx:/bb/cc
      */
-    public  int copyFilesFassets(Context context, String oldPath, String newPath) {
+    public int copyFilesFassets(Context context, String oldPath, String newPath) {
         try {
             boolean sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
             if (sdCardExist) {
@@ -796,7 +800,7 @@ public class MenuActivity extends Activity {
                     File file = new File(newPath);
                     file.mkdirs();//如果文件夹不存在，则递归
                     for (String fileName : fileNames) {
-                        Log.d("limbo",fileName);
+                        Log.d("limbo", fileName);
                         copyFilesFassets(context, oldPath + "/" + fileName, newPath + "/" + fileName);
                     }
                 } else {//如果是文件
@@ -804,10 +808,10 @@ public class MenuActivity extends Activity {
                     if (!sdDir.exists()) {
                         sdDir.mkdirs();
                     }
-                    sdDir = new File(newPath+"/LoRaDb.db");
-                    if (!sdDir.exists()){
+                    sdDir = new File(newPath + "/LoRaDb.db");
+                    if (!sdDir.exists()) {
                         InputStream is = context.getAssets().open(oldPath);
-                        FileOutputStream fos = new FileOutputStream(new File(newPath+"/LoRaDb.db"));
+                        FileOutputStream fos = new FileOutputStream(new File(newPath + "/LoRaDb.db"));
                         byte[] buffer = new byte[1024];
                         int byteCount = 0;
                         while ((byteCount = is.read(buffer)) != -1) {//循环从输入流读取 buffer字节
@@ -816,11 +820,12 @@ public class MenuActivity extends Activity {
                         fos.flush();//刷新缓冲区
                         is.close();
                         fos.close();
-                    }else {
+                        return 0;
+                    } else {
+                        return 3;
                     }
-
                 }
-                return 0;
+
             } else {
                 return 1;
             }

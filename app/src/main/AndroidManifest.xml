@@ -54,50 +54,42 @@
             android:name=".LoRaApp.lora_activity.LoRa_MeterCsSettingActivity"
             android:label="表参数设置"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_MeterChooseActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CjjCsSettingActivity"
             android:label="采集机参数设置"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_CjjChooseActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_MeterChooseActivity"
             android:label="表端功能选择"
             android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CjjChooseActivity"
             android:label="采集机端功能选择"
             android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.utils.BlueToothActivity"
             android:label="蓝牙连接"
             android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.MeterStyleActivity"
             android:label="表类型选择"
             android:parentActivityName=".LoRaApp.lora_activity.MenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_MeterGetDataActivity"
             android:label="抄表"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_MeterChooseActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_GprsSettingActivity"
             android:label="GPRS参数设置"
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_CjjCsSettingActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CjjGetDataActivity"
             android:label="采集机抄表"

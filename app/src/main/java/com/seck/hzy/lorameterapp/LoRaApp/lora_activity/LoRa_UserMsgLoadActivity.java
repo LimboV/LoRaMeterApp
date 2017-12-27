@@ -22,6 +22,10 @@ import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_DataHelper;
 import com.seck.hzy.lorameterapp.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -89,6 +93,18 @@ public class LoRa_UserMsgLoadActivity extends Activity {
     void init() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         setContentView(R.layout.lora_acivity_usermsgload);
+        AndPermission.with(this)
+                .requestCode(300)
+                .permission(Permission.STORAGE)
+                .callback(this)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        // 这里的对话框可以自定义，只要调用rationale.resume()就可以继续申请。
+                        AndPermission.rationaleDialog(LoRa_UserMsgLoadActivity.this, rationale).show();
+                    }
+                })
+                .start();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
         ButterKnife.bind(this);
         if (!MenuActivity.METER_STYLE.equals("JY")) {
