@@ -193,7 +193,7 @@ public class LoRa_UploadActivity extends Activity {
                                  */
                                 isbreak = false;
                                 for (int i = 0; i < bag && !isbreak; i++) {
-                                    Thread.sleep(500);
+
                                     RECEPTION = false;
                                     String nowNum = Integer.toHexString(i);
                                     if (nowNum.length() < 4) {
@@ -217,9 +217,9 @@ public class LoRa_UploadActivity extends Activity {
                                      */
                                     //                                    while (!RECEPTION) {
                                     Thread.sleep(2000);
-                                    getMsg = MenuActivity.Cjj_CB_MSG;
+                                    getMsg = HzyUtils.GetBlueToothMsg();
                                     if (getMsg.length() == 0) {
-                                        sucFlag = false;
+                                        RECEPTION = false;
                                         message = new Message();
                                         message.what = 0x98;
                                         message.obj = getMsg;
@@ -227,7 +227,6 @@ public class LoRa_UploadActivity extends Activity {
                                         mHandler.sendMessage(message);
                                     } else {
                                         getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
-
                                         message = new Message();
                                         message.what = 0x04;
                                         message.obj = getMsg;
@@ -236,13 +235,67 @@ public class LoRa_UploadActivity extends Activity {
                                     }
                                     /**
                                      * 接收失败处理
-                                     Thread.sleep(2000);
-                                     if (RECEPTION){
-                                     //包接收成功，继续下一包
-                                     }else {
-                                     break;
-                                     //包接收失败
-                                     }*/
+                                     */
+                                    Thread.sleep(500);
+                                    if (RECEPTION) {
+                                        //包接收成功，继续下一包
+                                    } else {
+                                        //包接收失败--重试两次
+                                        message = new Message();
+                                        message.what = 0x05;
+                                        message.obj = "正在重新发送第" + i + "包数据\n";
+                                        mHandler.sendMessage(message);
+                                        MenuActivity.sendCmd(sendMsg);
+                                        Thread.sleep(2000);
+                                        getMsg = HzyUtils.GetBlueToothMsg();
+                                        if (getMsg.length() == 0) {
+                                            RECEPTION = false;
+                                            message = new Message();
+                                            message.what = 0x98;
+                                            message.obj = getMsg;
+                                            message.arg1 = i;
+                                            mHandler.sendMessage(message);
+                                        } else {
+                                            getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                            message = new Message();
+                                            message.what = 0x04;
+                                            message.obj = getMsg;
+                                            message.arg1 = i;
+                                            mHandler.sendMessage(message);
+                                        }
+                                        /**
+                                         * 接收失败处理
+                                         */
+                                        Thread.sleep(500);
+                                        if (RECEPTION) {
+                                            //包接收成功，继续下一包
+                                        } else {
+                                            //包接收失败--重试两次
+                                            message = new Message();
+                                            message.what = 0x05;
+                                            message.obj = "正在重新发送第" + i + "包数据\n";
+                                            mHandler.sendMessage(message);
+                                            MenuActivity.sendCmd(sendMsg);
+                                            Thread.sleep(2000);
+                                            getMsg = HzyUtils.GetBlueToothMsg();
+                                            if (getMsg.length() == 0) {
+                                                RECEPTION = false;
+                                                message = new Message();
+                                                message.what = 0x98;
+                                                message.obj = getMsg;
+                                                message.arg1 = i;
+                                                mHandler.sendMessage(message);
+                                            } else {
+                                                getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                                message = new Message();
+                                                message.what = 0x04;
+                                                message.obj = getMsg;
+                                                message.arg1 = i;
+                                                mHandler.sendMessage(message);
+                                            }
+                                        }
+                                    }
+
                                 }
 
                                 //                                }
@@ -489,8 +542,8 @@ public class LoRa_UploadActivity extends Activity {
                  */
                 case 0x98:
                     error = msg.arg1;
-                    HzyUtils.closeProgressDialog();
-                    isbreak = true;
+                    //                    HzyUtils.closeProgressDialog();
+                    //                    isbreak = true;
                     HintDialog.ShowHintDialog(LoRa_UploadActivity.this, "第" + error + "包数据没有接收到返回信息", "提示");
                     break;
                 case 0x99:

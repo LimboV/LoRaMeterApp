@@ -12,7 +12,6 @@ import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -577,5 +576,10 @@ public class HzyUtils {
         }).start();
     }
 
+    public static String GetBlueToothMsg() {
+        String x = MenuActivity.Cjj_CB_MSG;
+        MenuActivity.Cjj_CB_MSG = "";
+        return x;
+    }
 
 }

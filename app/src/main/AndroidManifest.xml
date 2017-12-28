@@ -50,11 +50,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoRaApp.lora_activity.LoRa_MeterCsSettingActivity"
-            android:label="表参数设置"
-            android:parentActivityName=".LoRaApp.lora_activity.LoRa_MeterChooseActivity"
-            android:screenOrientation="portrait"/>
+
+
+
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CjjCsSettingActivity"
             android:label="采集机参数设置"
@@ -96,6 +94,11 @@
             android:parentActivityName=".LoRaApp.lora_activity.LoRa_CjjChooseActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_MeterCsSettingActivity"
+            android:label="表参数设置"
+            android:parentActivityName=".LoRaApp.lora_activity.LoRa_MeterChooseActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_CjjAboutActivity"
             android:label="采集机相关功能设置"

@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ssHss on 2016/7/18.
  */
-public class LoRa_MeterChooseActivity extends Activity implements View.OnClickListener {
+public class LoRa_MeterChooseActivity extends Activity {
 
     @BindView(R.id.meterChooseActivity_btn_getData)
     Button meterChooseActivity_btn_getData;
@@ -43,12 +43,30 @@ public class LoRa_MeterChooseActivity extends Activity implements View.OnClickLi
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_meterchooseactivity);
         ButterKnife.bind(this);
+        meterChooseActivity_btn_getData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoRa_MeterChooseActivity.this,LoRa_MeterGetDataActivity.class);
+                startActivity(i);
+            }
+        });
 
-        meterChooseActivity_btn_getData.setOnClickListener(this);
-        meterChooseActivity_btn_yc485Test.setOnClickListener(this);
-        meterChooseActivity_btn_getPic.setOnClickListener(this);
-        meterChooseActivity_btn_setting.setOnClickListener(this);
-        meterChooseActivity_btn_location.setOnClickListener(this);
+
+        meterChooseActivity_btn_yc485Test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoRa_MeterChooseActivity.this,LoRa_Meter485TestActivity.class);
+                startActivity(i);
+            }
+        });
+        meterChooseActivity_btn_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoRa_MeterChooseActivity.this,LoRa_MeterCsSettingActivity.class);
+                startActivity(i);
+            }
+        });
+
         if (MenuActivity.METER_STYLE.equals("L")){
 
         }else {
@@ -57,32 +75,4 @@ public class LoRa_MeterChooseActivity extends Activity implements View.OnClickLi
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.meterChooseActivity_btn_getData:
-                Intent i = new Intent(LoRa_MeterChooseActivity.this,LoRa_MeterGetDataActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.meterChooseActivity_btn_getPic:
-                break;
-
-            case R.id.meterChooseActivity_btn_setting:
-                i = new Intent(LoRa_MeterChooseActivity.this,LoRa_MeterCsSettingActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.meterChooseActivity_btn_location:
-                break;
-
-            case R.id.meterChooseActivity_btn_yc485Test:
-                i = new Intent(LoRa_MeterChooseActivity.this,LoRa_Meter485TestActivity.class);
-                startActivity(i);
-                break;
-
-            default:
-                break;
-        }
-    }
 }

@@ -16,10 +16,11 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.R;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
+import com.seck.hzy.lorameterapp.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,7 +37,7 @@ import java.util.Date;
 public class LoRa_BluetoothUtilsActivity extends Activity {
 
     private TextView tvMsg;
-    private Button btnSend, btnTest, btnSave, btnJcTest, btnCTS,btnCTS2;
+    private Button btnSend, btnTest, btnSave, btnJcTest, btnCTS, btnCTS2;
     private EditText etSend;
     private Spinner spTest;
     private CheckBox mCheckBox, mCheckBox1;
@@ -45,7 +46,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
             "测试表7", "测试表8", "测试表9", "测试表10"};
 
     private String txtMsg = "";
-
+    private long mPressedTime = 0;
     private ScrollView mScrollView;
 
     @Override
@@ -94,6 +95,20 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
             }
         });
 
+
+        tvMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (System.currentTimeMillis() - mPressedTime < 2000) {
+                    tvMsg.setText("");
+                } else {
+                    mPressedTime = System.currentTimeMillis();
+                    Toast.makeText(LoRa_BluetoothUtilsActivity.this, "再次点击清屏", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,8 +124,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                             try {
                                 while (MenuActivity.btAuto) {
                                     Thread.sleep(2500);
-                                    String getMsg = MenuActivity.Cjj_CB_MSG;
-                                    MenuActivity.Cjj_CB_MSG = "";
+                                    String getMsg = HzyUtils.GetBlueToothMsg();
                                     getMsg = getMsg.replaceAll("0x", "");
                                     Log.d("limbo", getMsg);
 
@@ -223,9 +237,8 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                     public void run() {
                         try {
                             while (MenuActivity.btAuto) {
-                                Thread.sleep(2500);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
-                                MenuActivity.Cjj_CB_MSG = "";
+                                Thread.sleep(1500);
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 Log.d("limbo", getMsg);
 
@@ -340,7 +353,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                         if (mCheckBox.isChecked()) {
                             HzyUtils.addPlace(getMsg);
                         } else {
-                            getMsg = getMsg.replaceAll(" ","");
+                            getMsg = getMsg.replaceAll(" ", "");
                             getMsg = HzyUtils.toStringHex1(getMsg).replaceAll("�", "");
                         }
 
@@ -374,9 +387,9 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                     HzyUtils.closeProgressDialog();
                     getMsg = msg.obj.toString();
                     Log.d("limbo", "读到数据:" + getMsg);
-                    if (getMsg.equals("000600a0e05d")){
+                    if (getMsg.equals("000600a0e05d")) {
                         HintDialog.ShowHintDialog(LoRa_BluetoothUtilsActivity.this, "开始连接服务器", "提示");
-                    }else {
+                    } else {
                         HintDialog.ShowHintDialog(LoRa_BluetoothUtilsActivity.this, "连接服务器失败", "提示");
                     }
                     break;
@@ -384,9 +397,9 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                     HzyUtils.closeProgressDialog();
                     getMsg = msg.obj.toString();
                     Log.d("limbo", "读到数据:" + getMsg);
-                    if (getMsg.equals("000600a0e05d")){
+                    if (getMsg.equals("000600a0e05d")) {
                         HintDialog.ShowHintDialog(LoRa_BluetoothUtilsActivity.this, "开始连接服务器", "提示");
-                    }else {
+                    } else {
                         HintDialog.ShowHintDialog(LoRa_BluetoothUtilsActivity.this, "连接服务器失败", "提示");
                     }
                     break;

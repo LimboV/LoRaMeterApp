@@ -50,10 +50,6 @@ import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_PasswordDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.RationaleListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -118,7 +114,7 @@ public class MenuActivity extends Activity {
     private void init() {
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
-        AndPermission.with(this)
+        /*AndPermission.with(this)
                 .requestCode(300)
                 .permission(Permission.CONTACTS)
                 .permission(Permission.LOCATION)
@@ -132,7 +128,7 @@ public class MenuActivity extends Activity {
                         AndPermission.rationaleDialog(MenuActivity.this, rationale).show();
                     }
                 })
-                .start();
+                .start();*/
         try {
             //检测是否有写的权限
             int permission = ActivityCompat.checkSelfPermission(MenuActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE");
@@ -144,7 +140,7 @@ public class MenuActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int flag = copyFilesFassets(MenuActivity.this, "LoRaDb.db", Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
+        /*int flag = copyFilesFassets(MenuActivity.this, "LoRaDb.db", Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
         switch (flag) {
             case 0://完成
                 Toast.makeText(MenuActivity.this, "DB文件创建完成", Toast.LENGTH_LONG).show();
@@ -160,9 +156,9 @@ public class MenuActivity extends Activity {
                 break;
             default:
                 break;
-        }
+        }*/
         ButterKnife.bind(this);
-        textView.setText("软件版本：" + "20171226");
+        textView.setText("软件版本：" + "20171228");
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 

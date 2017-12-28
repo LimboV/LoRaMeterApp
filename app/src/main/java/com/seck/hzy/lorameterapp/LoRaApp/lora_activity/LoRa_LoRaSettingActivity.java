@@ -135,7 +135,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -224,7 +224,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -322,7 +322,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -378,7 +378,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -434,7 +434,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1500);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -450,7 +450,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                                     mHandler.sendMessage(message);
                                 }
                                 HzyUtils.closeProgressDialog();
-                            }        catch (InterruptedException e) {
+                            } catch (InterruptedException e) {
                                 HzyUtils.closeProgressDialog();
                                 e.printStackTrace();
                             }
@@ -682,7 +682,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -734,7 +734,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -798,7 +798,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
 
                             try {
                                 Thread.sleep(1000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -847,11 +847,11 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(2000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 int AllCount = Integer.parseInt(getMsg.substring(4, 6), 16);//总节点
                                 while (getMsg.length() != AllCount * 76) {
-                                    getMsg = MenuActivity.Cjj_CB_MSG;
+                                    getMsg = HzyUtils.GetBlueToothMsg();
                                     getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 }
 
@@ -902,7 +902,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         public void run() {
                             try {
                                 Thread.sleep(3000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
                                     message.what = 0x99;
@@ -952,7 +952,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                                 try {
 
                                     Thread.sleep(6000);
-                                    String getMsg = MenuActivity.Cjj_CB_MSG;
+                                    String getMsg = HzyUtils.GetBlueToothMsg();
                                     if (getMsg.length() == 0) {
                                         Message message = new Message();
                                         message.what = 0x99;
@@ -1041,29 +1041,34 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "参数错误", "错误");
                     } else {
                         getMsg = getMsg.substring(8, 72);
-                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this,
-                                "节点号:" + getMsg.substring(0, 10)
-                                        + "\n分采号1:  " + Integer.parseInt(getMsg.substring(10, 12), 16)
-                                        + "\n分采号2:  " + Integer.parseInt(getMsg.substring(12, 14), 16)
-                                        + "\n分采号3:  " + Integer.parseInt(getMsg.substring(14, 16), 16)
-                                        + "\n分采号4:  " + Integer.parseInt(getMsg.substring(16, 18), 16)
-                                        + "\n分采号5:  " + Integer.parseInt(getMsg.substring(18, 20), 16)
-                                        + "\n分采号6:  " + Integer.parseInt(getMsg.substring(20, 22), 16)
-                                        + "\n分采号7:  " + Integer.parseInt(getMsg.substring(22, 24), 16)
-                                        + "\n分采号8:  " + Integer.parseInt(getMsg.substring(24, 26), 16)
-                                        + "\n分采号9:  " + Integer.parseInt(getMsg.substring(26, 28), 16)
-                                        + "\n分采号10:  " + Integer.parseInt(getMsg.substring(28, 30), 16)
-                                        + "\n分采号11:  " + Integer.parseInt(getMsg.substring(30, 32), 16)
-                                        + "\n分采号12:  " + Integer.parseInt(getMsg.substring(32, 34), 16)
-                                        + "\n分采号13:  " + Integer.parseInt(getMsg.substring(34, 36), 16)
-                                        + "\n分采号14:  " + Integer.parseInt(getMsg.substring(36, 38), 16)
-                                        + "\n分采号15:  " + Integer.parseInt(getMsg.substring(38, 40), 16)
-                                        + "\n分采号16:  " + Integer.parseInt(getMsg.substring(40, 42), 16)
-                                        + "\n分采号17:  " + Integer.parseInt(getMsg.substring(42, 44), 16)
-                                        + "\n分采号18:  " + Integer.parseInt(getMsg.substring(44, 46), 16)
-                                        + "\n分采号19:  " + Integer.parseInt(getMsg.substring(46, 48), 16)
-                                        + "\n分采号20:  " + Integer.parseInt(getMsg.substring(48, 50), 16)
-                                , "返回");
+                        String x = "节点号:" + getMsg.substring(0, 10);
+                        for (int i = 1; i < 21; i++) {
+                            x = x + "\n分采号" + i + ":" + Integer.parseInt(getMsg.substring(8 + i * 2, 10 + i * 2), 16);
+                        }
+
+                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, x, "返回");
+                        //                                "节点号:" + getMsg.substring(0, 10)
+                        //                                        + "\n分采号1:  " + Integer.parseInt(getMsg.substring(10, 12), 16)
+                        //                                        + "\n分采号2:  " + Integer.parseInt(getMsg.substring(12, 14), 16)
+                        //                                        + "\n分采号3:  " + Integer.parseInt(getMsg.substring(14, 16), 16)
+                        //                                        + "\n分采号4:  " + Integer.parseInt(getMsg.substring(16, 18), 16)
+                        //                                        + "\n分采号5:  " + Integer.parseInt(getMsg.substring(18, 20), 16)
+                        //                                        + "\n分采号6:  " + Integer.parseInt(getMsg.substring(20, 22), 16)
+                        //                                        + "\n分采号7:  " + Integer.parseInt(getMsg.substring(22, 24), 16)
+                        //                                        + "\n分采号8:  " + Integer.parseInt(getMsg.substring(24, 26), 16)
+                        //                                        + "\n分采号9:  " + Integer.parseInt(getMsg.substring(26, 28), 16)
+                        //                                        + "\n分采号10:  " + Integer.parseInt(getMsg.substring(28, 30), 16)
+                        //                                        + "\n分采号11:  " + Integer.parseInt(getMsg.substring(30, 32), 16)
+                        //                                        + "\n分采号12:  " + Integer.parseInt(getMsg.substring(32, 34), 16)
+                        //                                        + "\n分采号13:  " + Integer.parseInt(getMsg.substring(34, 36), 16)
+                        //                                        + "\n分采号14:  " + Integer.parseInt(getMsg.substring(36, 38), 16)
+                        //                                        + "\n分采号15:  " + Integer.parseInt(getMsg.substring(38, 40), 16)
+                        //                                        + "\n分采号16:  " + Integer.parseInt(getMsg.substring(40, 42), 16)
+                        //                                        + "\n分采号17:  " + Integer.parseInt(getMsg.substring(42, 44), 16)
+                        //                                        + "\n分采号18:  " + Integer.parseInt(getMsg.substring(44, 46), 16)
+                        //                                        + "\n分采号19:  " + Integer.parseInt(getMsg.substring(46, 48), 16)
+                        //                                        + "\n分采号20:  " + Integer.parseInt(getMsg.substring(48, 50), 16)
+
                     }
 
                     break;
@@ -1094,29 +1099,11 @@ public class LoRa_LoRaSettingActivity extends Activity {
                     } else {
                         //                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, "替换成功:" + getMsg.substring(10, 12), "成功");
                         getMsg = getMsg.substring(8, 72);
-                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this,
-                                "节点号:" + getMsg.substring(0, 10)
-                                        + "\n分采号1:  " + Integer.parseInt(getMsg.substring(10, 12), 16)
-                                        + "\n分采号2:  " + Integer.parseInt(getMsg.substring(12, 14), 16)
-                                        + "\n分采号3:  " + Integer.parseInt(getMsg.substring(14, 16), 16)
-                                        + "\n分采号4:  " + Integer.parseInt(getMsg.substring(16, 18), 16)
-                                        + "\n分采号5:  " + Integer.parseInt(getMsg.substring(18, 20), 16)
-                                        + "\n分采号6:  " + Integer.parseInt(getMsg.substring(20, 22), 16)
-                                        + "\n分采号7:  " + Integer.parseInt(getMsg.substring(22, 24), 16)
-                                        + "\n分采号8:  " + Integer.parseInt(getMsg.substring(24, 26), 16)
-                                        + "\n分采号9:  " + Integer.parseInt(getMsg.substring(26, 28), 16)
-                                        + "\n分采号10:  " + Integer.parseInt(getMsg.substring(28, 30), 16)
-                                        + "\n分采号11:  " + Integer.parseInt(getMsg.substring(30, 32), 16)
-                                        + "\n分采号12:  " + Integer.parseInt(getMsg.substring(32, 34), 16)
-                                        + "\n分采号13:  " + Integer.parseInt(getMsg.substring(34, 36), 16)
-                                        + "\n分采号14:  " + Integer.parseInt(getMsg.substring(36, 38), 16)
-                                        + "\n分采号15:  " + Integer.parseInt(getMsg.substring(38, 40), 16)
-                                        + "\n分采号16:  " + Integer.parseInt(getMsg.substring(40, 42), 16)
-                                        + "\n分采号17:  " + Integer.parseInt(getMsg.substring(42, 44), 16)
-                                        + "\n分采号18:  " + Integer.parseInt(getMsg.substring(44, 46), 16)
-                                        + "\n分采号19:  " + Integer.parseInt(getMsg.substring(46, 48), 16)
-                                        + "\n分采号20:  " + Integer.parseInt(getMsg.substring(48, 50), 16)
-                                , "返回");
+                        String x = "节点号:" + getMsg.substring(0, 10);
+                        for (int i = 1; i < 21; i++) {
+                            x = x + "\n分采号" + i + ":" + Integer.parseInt(getMsg.substring(8 + i * 2, 10 + i * 2), 16);
+                        }
+                        HintDialog.ShowHintDialog(LoRa_LoRaSettingActivity.this, x, "返回");
                     }
 
                     break;
@@ -1135,7 +1122,15 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         needFor = AllCount / 10;
                     }*/
                     for (int i = 1; i <= AllCount; i++) {
-                        String fc0 = Integer.parseInt(getMsg.substring(18 + (i - 1) * 76, 20 + (i - 1) * 76), 16) + "";
+                        String fc;
+                        tvJdMsg.append("\n\n节点号:" + getMsg.substring(8 + (i - 1) * 76, 18 + (i - 1) * 76));
+                        for (int j = 0; j < 20; j++) {
+                            fc = Integer.parseInt(getMsg.substring(18 + (i - 1) * 76 + 2 * j, 20 + (i - 1) * 76 + 2 * j), 16) + "";
+                            fc = HzyUtils.isLength(fc, 3);
+                            fc = fc.equals("000") ? "" : "   " + fc;
+                            tvJdMsg.append("  分采号:" + fc);
+                        }
+                        /*String fc0 = Integer.parseInt(getMsg.substring(18 + (i - 1) * 76, 20 + (i - 1) * 76), 16) + "";
                         String fc1 = Integer.parseInt(getMsg.substring(20 + (i - 1) * 76, 22 + (i - 1) * 76), 16) + "";
                         String fc2 = Integer.parseInt(getMsg.substring(22 + (i - 1) * 76, 24 + (i - 1) * 76), 16) + "";
                         String fc3 = Integer.parseInt(getMsg.substring(24 + (i - 1) * 76, 26 + (i - 1) * 76), 16) + "";
@@ -1320,7 +1315,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                         tvJdMsg.append("\n\n节点号:" + getMsg.substring(8 + (i - 1) * 76, 18 + (i - 1) * 76)
                                 + "  分采号:" + fc0 + fc1 + fc2 + fc3 + fc4 + fc5 + fc6 + fc7 + fc8 + fc9 + fc10
                                 + fc11 + fc12 + fc13 + fc14 + fc15 + fc16 + fc17 + fc18 + fc19
-                        );
+                        );*/
                     }
                     break;
                 /**

@@ -329,7 +329,7 @@ public class LoRa_DataHelper {
         } else {
             Log.d("limbo", "no exist");
             //            return "/mnt/sdcard2/SeckLoRaDB";
-            return "/storage/sdcard0" + "/SeckLoRaDB";
+            return "/storage/sdcard0" + "   /SeckLoRaDB";
         }
 
     }

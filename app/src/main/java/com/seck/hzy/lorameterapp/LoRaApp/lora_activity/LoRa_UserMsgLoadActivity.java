@@ -47,6 +47,10 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
     @BindView(R.id.UserMsgLoadActivity_btn_save)
     Button UserMsgLoadActivity_btn_save;
+    @BindView(R.id.UserMsgLoadActivity_btn_idLoad)
+    Button UserMsgLoadActivity_btn_idLoad;
+    @BindView(R.id.UserMsgLoadActivity_btn_numberLoad)
+    Button UserMsgLoadActivity_btn_numberLoad;
 
     @BindView(R.id.UserMsgLoadActivity_et_meterId)
     EditText UserMsgLoadActivity_et_meterId;
@@ -82,6 +86,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
     long meternumber;
     private Button btnId, btnNum, btnSave, btnGetData;
     private int X_FLAG = 0;
+    private boolean cbox = false;
     private String useraddr, date, meterid, sendMsg, getMsg, afnetID, num, waterValue, Newfreq;
 
     @Override
@@ -111,7 +116,6 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             UserMsgLoadActivity_btn_setBds.setVisibility(View.GONE);
             UserMsgLoadActivity_et_bds.setVisibility(View.GONE);
         }
-
         loadUser();
 
         UserMsgLoadActivity_cb_error.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +133,8 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         /**
          * id
          */
-        btnId = (Button) findViewById(R.id.UserMsgLoadActivity_btn_idLoad);
-        btnId.setOnClickListener(new View.OnClickListener() {
+
+        UserMsgLoadActivity_btn_idLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //打开扫描界面扫描条形码或二维码
@@ -142,8 +146,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
         /**
          * number
          */
-        btnNum = (Button) findViewById(R.id.UserMsgLoadActivity_btn_numberLoad);
-        btnNum.setOnClickListener(new View.OnClickListener() {
+        UserMsgLoadActivity_btn_numberLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //打开扫描界面扫描条形码或二维码
@@ -153,8 +156,6 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             }
         });
 
-        btnId.setVisibility(View.GONE);
-        btnNum.setVisibility(View.GONE);
         UserMsgLoadActivity_cb_xhid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,11 +168,11 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (UserMsgLoadActivity_cb_sm.isChecked()) {
-                    btnId.setVisibility(View.VISIBLE);
-                    btnNum.setVisibility(View.VISIBLE);
+                    UserMsgLoadActivity_btn_idLoad.setVisibility(View.VISIBLE);
+                    UserMsgLoadActivity_btn_numberLoad.setVisibility(View.VISIBLE);
                 } else {
-                    btnId.setVisibility(View.GONE);
-                    btnNum.setVisibility(View.GONE);
+                    UserMsgLoadActivity_btn_idLoad.setVisibility(View.GONE);
+                    UserMsgLoadActivity_btn_numberLoad.setVisibility(View.GONE);
                 }
             }
         });
@@ -182,9 +183,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (HzyUtils.isEmpty(UserMsgLoadActivity_et_meterFreq.getText().toString()) ||
-                                HzyUtils.isEmpty(UserMsgLoadActivity_et_bds.getText().toString()) ||
-                                HzyUtils.isEmpty(UserMsgLoadActivity_et_meterId.getText().toString()) ||
-                                HzyUtils.isConformToRange(UserMsgLoadActivity_et_meterFreq.getText().toString())
+                        HzyUtils.isEmpty(UserMsgLoadActivity_et_bds.getText().toString()) ||
+                        HzyUtils.isEmpty(UserMsgLoadActivity_et_meterId.getText().toString()) ||
+                        HzyUtils.isConformToRange(UserMsgLoadActivity_et_meterFreq.getText().toString())
                         ) {
                     return;
                 } else {
@@ -252,7 +253,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                                     message.obj = getMsg;
                                     mHandler.sendMessage(message);
                                 } else if (getMsg.contains("a0") && getMsg.length() > 42 && getMsg.contains(meterid)) {
-                                    getMsg = getMsg.substring(getMsg.indexOf(meterid)-16);
+                                    getMsg = getMsg.substring(getMsg.indexOf(meterid) - 16);
                                     Log.d("limbo", getMsg);
 
                                     Message message = new Message();
@@ -835,9 +836,9 @@ public class LoRa_UserMsgLoadActivity extends Activity {
                         String mkid = getMsg.substring(16, 24);
                         String zt = getMsg.substring(24, 26);
                         String bds = getMsg.substring(26, 34);
-                        if (bds.contains("f")){
+                        if (bds.contains("f")) {
                             bds = bds.substring(0, 6) + "." + bds.substring(6, 8);
-                        }else {
+                        } else {
                             bds = Integer.parseInt(bds.substring(0, 6)) + "." + bds.substring(6, 8);
                         }
 
@@ -943,8 +944,14 @@ public class LoRa_UserMsgLoadActivity extends Activity {
      * 使用SharePreferences保存用户信息
      */
     public void saveUser() {
+        if (UserMsgLoadActivity_cb_sm.isChecked()) {
+            cbox = true;
+        } else {
+            cbox = false;
+        }
 
         SharedPreferences.Editor editor = getSharedPreferences("UserMsgLoadActivity", MODE_PRIVATE).edit();
+        editor.putBoolean("cbox", cbox);//用以保存扫描功能勾选项
         editor.putString("etXqId", UserMsgLoadActivity_et_xqId.getText().toString());
         editor.putString("etCjjId", UserMsgLoadActivity_et_cjjID.getText().toString());
         editor.putString("etUserAddr", UserMsgLoadActivity_et_userAddr.getText().toString());
@@ -958,6 +965,15 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
     public void loadUser() {
         SharedPreferences pref = getSharedPreferences("UserMsgLoadActivity", MODE_PRIVATE);
+        if (pref.getBoolean("cbox", false)) {
+            UserMsgLoadActivity_cb_sm.setChecked(true);
+//            UserMsgLoadActivity_btn_idLoad.setVisibility(View.VISIBLE);
+//            UserMsgLoadActivity_btn_numberLoad.setVisibility(View.VISIBLE);
+        } else {
+            UserMsgLoadActivity_cb_sm.setChecked(false);
+            UserMsgLoadActivity_btn_idLoad.setVisibility(View.GONE);
+            UserMsgLoadActivity_btn_numberLoad.setVisibility(View.GONE);
+        }
         UserMsgLoadActivity_et_xqId.setText(pref.getString("etXqId", ""));
         UserMsgLoadActivity_et_cjjID.setText(pref.getString("etCjjId", ""));
         UserMsgLoadActivity_et_userAddr.setText(pref.getString("etUserAddr", ""));

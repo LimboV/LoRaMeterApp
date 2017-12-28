@@ -94,9 +94,8 @@
 
                 <Button
                     android:id="@+id/UserMsgLoadActivity_btn_numberLoad"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:text="扫描"/>
             </LinearLayout>
 
@@ -120,9 +119,8 @@
 
                 <Button
                     android:id="@+id/UserMsgLoadActivity_btn_idLoad"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:text="扫描"/>
             </LinearLayout>
 
