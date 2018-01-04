@@ -158,7 +158,7 @@ public class MenuActivity extends Activity {
                 break;
         }*/
         ButterKnife.bind(this);
-        textView.setText("软件版本：" + "20171228");
+        textView.setText("软件版本：" + "20171229");
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
@@ -182,7 +182,7 @@ public class MenuActivity extends Activity {
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
+                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }

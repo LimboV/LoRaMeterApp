@@ -514,7 +514,6 @@ public class LoRa_UploadActivity extends Activity {
                         tvUploadMsg.append("第" + error + "包数据接收完成\n");
                         if (getMsg.length() > 20 && getMsg.contains("00CC")) {
                             //更新完成
-                            RECEPTION = true;
                             HzyUtils.closeProgressDialog();
                             Log.d("limbo", "更新完成");
                             tvUploadMsg.append("更新完成\n");
@@ -522,8 +521,8 @@ public class LoRa_UploadActivity extends Activity {
                     } else {
                         //接收失败
                         RECEPTION = false;
-                        isbreak = true;
-                        HzyUtils.closeProgressDialog();
+//                        isbreak = true;
+//                        HzyUtils.closeProgressDialog();
                         Log.d("limbo", "第" + error + "包数据接收失败");
                         tvUploadMsg.append("第" + error + "包数据接收失败\n");
                     }

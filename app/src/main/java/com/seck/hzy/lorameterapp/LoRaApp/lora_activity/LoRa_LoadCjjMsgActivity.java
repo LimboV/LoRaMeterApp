@@ -79,7 +79,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
                     MenuActivity.sendCmd(sendMsg);
                     try {
                         Thread.sleep(1300);
-                        String getMsg = MenuActivity.Cjj_CB_MSG;
+                        String getMsg = HzyUtils.GetBlueToothMsg();
                         getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                         if (getMsg.length() == 0) {
                             Message message = new Message();
@@ -127,7 +127,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
                     public void run() {
                         try {
                             Thread.sleep(4000);
-                            String getMsg = MenuActivity.Cjj_CB_MSG;
+                            String getMsg = HzyUtils.GetBlueToothMsg();
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             if (getMsg.length() == 0) {
                                 Message message = new Message();
@@ -164,7 +164,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
                     public void run() {
                         try {
                             Thread.sleep(2000);
-                            String getMsg = MenuActivity.Cjj_CB_MSG;
+                            String getMsg = HzyUtils.GetBlueToothMsg();
                             getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                             if (getMsg.length() == 0) {
                                 Message message = new Message();
@@ -265,7 +265,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
                             MenuActivity.sendCmd(sendMsg);
                             try {
                                 Thread.sleep(4000);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
@@ -312,7 +312,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
                             MenuActivity.sendCmd(sendMsg);
                             try {
                                 Thread.sleep(1500);
-                                String getMsg = MenuActivity.Cjj_CB_MSG;
+                                String getMsg = HzyUtils.GetBlueToothMsg();
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 if (getMsg.length() == 0) {
                                     Message message = new Message();
