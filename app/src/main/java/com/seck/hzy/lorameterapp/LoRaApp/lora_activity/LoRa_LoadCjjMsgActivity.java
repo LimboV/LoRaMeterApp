@@ -34,7 +34,7 @@ public class LoRa_LoadCjjMsgActivity extends Activity {
     private Button btnLoad, btnEnd, btnGetMsg,btnDelete;
     private int xqid;
     private List<LoRa_MeterUser> meterList;
-    private ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
+    private ArrayList<HashMap<String, Object>> listItem = new ArrayList<>();
     private String from[] = new String[]{"meterid", "data"};
     private int to[] = new int[]{R.id.meterId, R.id.data};
     private SimpleAdapter listItemAdapter;

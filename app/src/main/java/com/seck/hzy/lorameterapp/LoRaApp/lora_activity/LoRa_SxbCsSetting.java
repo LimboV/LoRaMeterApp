@@ -737,25 +737,6 @@ public class LoRa_SxbCsSetting extends Activity {
         }
     };
 
-    /**
-     * 开始协议设定时间
-     */
-    private void prepareTimeStart1() {
-        timeOut1 = false;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10000);
-                    timeOut1 = true;
-                    HintDialog.ShowHintDialog(thisView, "通讯超时", "提示");
-                    HzyUtils.closeProgressDialog();
-                } catch (Exception e) {
-
-                }
-            }
-        }).start();
-    }
 
     /**
      * 使用SharePreferences保存用户信息

@@ -380,7 +380,6 @@ public class HzyUtils {
         }
         try {
             s = new String(baKeyword, "utf-8");//UTF-16le:Not
-            //            s = new String(baKeyword, "GB2312");//UTF-16le:Not
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -400,7 +399,6 @@ public class HzyUtils {
             }
         }
         try {
-            //            s = new String(baKeyword, "utf-8");//UTF-16le:Not
             s = new String(baKeyword, "GB2312");//UTF-16le:Not
         } catch (Exception e1) {
             e1.printStackTrace();

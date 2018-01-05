@@ -37,11 +37,11 @@ public class LoRa_CjjListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.lora_activity_ly_list);
         init();
     }
 
     void init() {
-        setContentView(R.layout.lora_activity_ly_list);
         AndPermission.with(this)
                 .requestCode(300)
                 .permission(Permission.STORAGE)

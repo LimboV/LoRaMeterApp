@@ -129,8 +129,7 @@ public class Z_OtherCommandsActivity extends ListActivity {
                                         @Override
                                         public void run() {
                                             progressBar.dismiss();
-                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "服务器测试成功",
-                                                    "提示");
+                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "服务器测试成功", "提示");
                                         }
                                     });
                                 } catch (UnknownHostException e) {
@@ -138,8 +137,7 @@ public class Z_OtherCommandsActivity extends ListActivity {
                                         @Override
                                         public void run() {
                                             progressBar.dismiss();
-                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "无法连接到服务器",
-                                                    "错误");
+                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "无法连接到服务器", "错误");
                                         }
                                     });
                                 } catch (InterruptedIOException e) {
@@ -147,8 +145,7 @@ public class Z_OtherCommandsActivity extends ListActivity {
                                         @Override
                                         public void run() {
                                             progressBar.dismiss();
-                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "服务器无响应",
-                                                    "错误");
+                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "服务器无响应", "错误");
                                         }
                                     });
                                 } catch (IOException e) {
@@ -156,8 +153,7 @@ public class Z_OtherCommandsActivity extends ListActivity {
                                         @Override
                                         public void run() {
                                             progressBar.dismiss();
-                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "本地网络未开启",
-                                                    "错误");
+                                            HintDialog.ShowHintDialog(Z_OtherCommandsActivity.this, "本地网络未开启", "错误");
                                         }
                                     });
                                 }
