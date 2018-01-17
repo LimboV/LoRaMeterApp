@@ -89,6 +89,7 @@
 
                 <EditText
                     android:id="@+id/CjjAboutActivity_et_Cbjg"
+                    android:hint="0天即每天发送，1天即隔1天发送。"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"

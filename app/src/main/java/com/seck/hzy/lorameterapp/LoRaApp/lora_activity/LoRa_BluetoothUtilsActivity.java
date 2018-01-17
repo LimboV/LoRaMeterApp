@@ -48,7 +48,6 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
     private String txtMsg = "";
     private long mPressedTime = 0;
     private ScrollView mScrollView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +132,6 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                                     message.obj = getMsg;
                                     mHandler.sendMessage(message);
                                 }
-
                             } catch (Exception e) {
                                 Log.d("limbo", e.toString());
                             }
@@ -196,7 +194,6 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
             public void onClick(View v) {
                 try {
                     String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckTest";
-                    //                    String path = Environment.getExternalStorageDirectory().getAbsolutePath() ;
                     String filePath = path + "/YCtest" + ".txt";
                     File file = new File(path);
                     if (!file.exists()) {
@@ -206,20 +203,19 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                     try {
                         f.createNewFile();
                     } catch (IOException e) {
-                        Log.d("limbo", "file create error");
+                        Log.d("limbo", "File create error");
                     }
                     FileOutputStream outStream = new FileOutputStream(f);
                     OutputStreamWriter writer = new OutputStreamWriter(outStream);
                     writer.write(txtMsg);
-                    //            writer.write("/n");
                     writer.flush();
                     writer.close();//记得关闭
 
                     outStream.close();
                     HintDialog.ShowHintDialog(LoRa_BluetoothUtilsActivity.this, "save success", "tip");
-                    Log.d("limbo", "file write success");
+                    Log.d("limbo", "File write success");
                 } catch (Exception e) {
-                    Log.d("limbo", "file write error");
+                    Log.d("limbo", "File write error");
                 }
             }
         });

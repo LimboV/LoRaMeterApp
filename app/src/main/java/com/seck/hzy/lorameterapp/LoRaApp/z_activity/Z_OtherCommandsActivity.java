@@ -41,10 +41,8 @@ public class Z_OtherCommandsActivity extends ListActivity {
                 "5.通讯测试",
                 "6.服务器测试"};
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.z_activity_listview, menuItems);
-        this.
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.z_activity_listview, menuItems);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
 
         setListAdapter(adapter);
 
@@ -57,7 +55,7 @@ public class Z_OtherCommandsActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Intent intent = null;
+                Intent intent;
 
                 switch (position) {
                     case 0:

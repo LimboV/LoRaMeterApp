@@ -77,11 +77,21 @@ public class LoRa_MeterGetDataActivity extends Activity {
             GetDataActivity_btn_gf.setVisibility(View.GONE);
             GetDataActivity_btn_kf.setVisibility(View.GONE);
             GetDataActivity_btn_zt.setVisibility(View.GONE);
+        }else if (MenuActivity.METER_STYLE.equals("F")){
+            GetDataActivity_et_jd.setVisibility(View.GONE);
+
         }
         loadUser();
         GetDataActivity_btn_getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 if (MenuActivity.METER_STYLE.equals("L")) {//山科LoRa表
                     HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                     GetDataActivity_tv_showMsg.setText("");
@@ -330,6 +340,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         GetDataActivity_btn_zt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                 GetDataActivity_tv_showMsg.setText("");
                 String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
@@ -386,6 +403,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         GetDataActivity_btn_bkf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                 GetDataActivity_tv_showMsg.setText("");
                 String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
@@ -439,6 +463,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         GetDataActivity_btn_gf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                 GetDataActivity_tv_showMsg.setText("");
                 String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
@@ -492,6 +523,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         GetDataActivity_btn_kf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                 GetDataActivity_tv_showMsg.setText("");
                 String addr = GetDataActivity_et_meterAddr.getText().toString().trim();
@@ -545,6 +583,13 @@ public class LoRa_MeterGetDataActivity extends Activity {
         GetDataActivity_btn_fx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HzyUtils.isEmpty(GetDataActivity_et_freq.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_meterAddr.getText().toString().trim())||
+                        HzyUtils.isEmpty(GetDataActivity_et_netId.getText().toString().trim())
+                        ){
+                    HintDialog.ShowHintDialog(LoRa_MeterGetDataActivity.this,"输入不可为0","提示");
+                    return;
+                }
                 HzyUtils.showProgressDialog(LoRa_MeterGetDataActivity.this);
                 GetDataActivity_tv_showMsg.setText("");
                 String addr = GetDataActivity_et_meterAddr.getText().toString().trim();

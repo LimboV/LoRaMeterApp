@@ -122,11 +122,12 @@ public class Z_OffonValveActivity extends Activity {
                 case 0x00:
                     String getMsg = msg.obj.toString();
                     Log.d("limbo", "读到数据:" + getMsg);
-
                     if (getMsg.contains("03810a00")){
+                        timeOut = true;
                         HintDialog.ShowHintDialog(Z_OffonValveActivity.this,"当前状态：开","数据");
                         tv_1.setText("当前状态：开");
                     }else if (getMsg.contains("03810a01")){
+                        timeOut = true;
                         HintDialog.ShowHintDialog(Z_OffonValveActivity.this,"当前状态：关","数据");
                         tv_1.setText("当前状态：关");
                     }
@@ -161,8 +162,9 @@ public class Z_OffonValveActivity extends Activity {
                         Message message = new Message();
                         message.what = 0x99;
                         mHandler.sendMessage(message);
+                        timeOut = true;
                     }
-                    timeOut = true;
+
                 } catch (Exception e) {
                     Log.d("limbo", e.toString());
                 }

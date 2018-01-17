@@ -34,8 +34,9 @@ public class BlueToothActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (adapter == null)
-            adapter = new ArrayAdapter<String>(this, R.layout.lora_activity_blue_tooth);
+        if (adapter == null) {
+            adapter = new ArrayAdapter<>(this, R.layout.lora_activity_blue_tooth);
+        }
         AndPermission.with(this)
                 .requestCode(300)
                 .permission(Permission.LOCATION)
@@ -48,24 +49,24 @@ public class BlueToothActivity extends ListActivity {
                     }
                 })
                 .start();
-//        setupActionBar();
 
-        if (cwjReceiver == null)
+        if (cwjReceiver == null) {
             cwjReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     String action = intent.getAction();
-                    Log.v(LOG_TAG, action);
+                    Log.d("limbo", action);
 
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                         if (adapter.getPosition(device.getName() + "\n" + device.getAddress()) < 0) {
-                            adapter.add(device.getName() + "\n" + device.getAddress());
+                            adapter.add("设备名："+device.getName() + "\n蓝牙地址：" + device.getAddress());
                             adapter.notifyDataSetChanged();
                         }
                     }
                 }
             };
+        }
 
         setListAdapter(adapter);
         ListView listView = getListView();
@@ -87,8 +88,8 @@ public class BlueToothActivity extends ListActivity {
                 try {
                     final UUID UUID_RFCOMM_GENERIC = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//串口通用UUID
                     mmSocket = btDev.createRfcommSocketToServiceRecord(UUID_RFCOMM_GENERIC);
-//                    Method m = btDev.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
-//                    mmSocket = (BluetoothSocket) m.invoke(btDev, 1);
+                    //                    Method m = btDev.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
+                    //                    mmSocket = (BluetoothSocket) m.invoke(btDev, 1);
                 } catch (Exception e) {
                     Log.v("limbo", e.toString());
                     e.printStackTrace();

@@ -158,7 +158,7 @@ public class MenuActivity extends Activity {
                 break;
         }*/
         ButterKnife.bind(this);
-        textView.setText("软件版本：" + "20171229");
+        textView.setText("软件版本：" + "20180115");
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 

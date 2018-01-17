@@ -351,19 +351,19 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 date = df.format(d);
                 String sendMsg = "68001d0000000000000000000000000000008aff" + date;
                 sendMsg = sendMsg + HzyUtils.CRC16(sendMsg) + "16";
-                Log.d("limbo","\n发送:" + sendMsg + "\n");
+                Log.d("limbo", "\n发送:" + sendMsg + "\n");
                 MenuActivity.sendCmd(sendMsg);
             }
         });
         LoRa_TYPTtoJDActivity_btn_resetActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                LoRa_TYPTtoJDActivity_et_aimJDID.setText("");
-//                LoRa_TYPTtoJDActivity_et_aimNetID.setText("");
-//                LoRa_TYPTtoJDActivity_et_aimNetFreq.setText("");
-//                LoRa_TYPTtoJDActivity_et_aimLYLJ1.setText("");
-//                LoRa_TYPTtoJDActivity_et_aimLYLJ2.setText("");
-//                LoRa_TYPTtoJDActivity_et_aimLYLJ3.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimJDID.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimNetID.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimNetFreq.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimLYLJ1.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimLYLJ2.setText("");
+                //                LoRa_TYPTtoJDActivity_et_aimLYLJ3.setText("");
                 LoRa_TYPTtoJDActivity_et_deviceStyle.setText("");
                 LoRa_TYPTtoJDActivity_et_floor.setText("");
                 LoRa_TYPTtoJDActivity_et_region.setText("");
@@ -410,16 +410,16 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                             break;
                         }
                         String JDid = getMsg.substring(10, 24);//节点id
-                        String endSingal = getMsg.substring(24, 26);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(24, 26), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(26, 28);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
+                        electricVoltage = volt(electricVoltage);
                         String Subtype = getMsg.substring(30, 32);//设备子类型
                         String netId = getMsg.substring(32, 36);//网络ID
                         String netFreq = getMsg.substring(36, 42);//网络频率
                         String floor = getMsg.substring(42, 44);//层数
                         String region = getMsg.substring(44, 46);//区域
-                        String totalNum = getMsg.substring(46, 50);//全局编号
-                        String partNum = getMsg.substring(50, 54);//局部编号
+                        String totalNum = Integer.parseInt(getMsg.substring(46, 50), 16) + "";//全局编号
+                        String partNum = Integer.parseInt(getMsg.substring(50, 54), 16) + "";//局部编号
                         String softwareVersion = getMsg.substring(54, 62);//软件版本
                         String hardwareVersion = getMsg.substring(62, 70);//硬件版本
                         String otherVersion = getMsg.substring(70, 78);//附加版本
@@ -456,12 +456,12 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         }
                         String JDid = getMsg.substring(10, 24);//节点id
                         String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = getMsg.substring(26, 28);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
-                        String LYXH1 = getMsg.substring(36, 38);//路由信号1
-                        String LYXH2 = getMsg.substring(38, 40);//路由信号2
-                        String LYXH3 = getMsg.substring(40, 42);//路由信号3
+                        electricVoltage = volt(electricVoltage);
+                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
                         String netId = getMsg.substring(42, 46);//目标节点网络ID
                         LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
                         LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
@@ -484,12 +484,12 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         }
                         String JDid = getMsg.substring(10, 24);//节点id
                         String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = getMsg.substring(26, 28);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
-                        String LYXH1 = getMsg.substring(36, 38);//路由信号1
-                        String LYXH2 = getMsg.substring(38, 40);//路由信号2
-                        String LYXH3 = getMsg.substring(40, 42);//路由信号3
+                        electricVoltage = volt(electricVoltage);
+                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
                         String jdid = getMsg.substring(42, 56);//目标节点ID
                         LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
                         LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
@@ -511,12 +511,12 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         }
                         String JDid = getMsg.substring(10, 24);//节点id
                         String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = getMsg.substring(26, 28);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
-                        String LYXH1 = getMsg.substring(36, 38);//路由信号1
-                        String LYXH2 = getMsg.substring(38, 40);//路由信号2
-                        String LYXH3 = getMsg.substring(40, 42);//路由信号3
+                        electricVoltage = volt(electricVoltage);
+                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
                         String netFreq = getMsg.substring(42, 48);//目标节点频率
                         LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
                         LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
@@ -537,18 +537,18 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         }
                         String JDid = getMsg.substring(10, 24);//节点id
                         String Subtype = getMsg.substring(24, 26);//设备子类型
-                        String endSingal = getMsg.substring(26, 28);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
-                        String LYXH1 = getMsg.substring(36, 38);//路由信号1
-                        String LYXH2 = getMsg.substring(38, 40);//路由信号2
-                        String LYXH3 = getMsg.substring(40, 42);//路由信号3
+                        electricVoltage = volt(electricVoltage);
+                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
                         String netID = getMsg.substring(42, 46);//目标节点网络ID
                         String netFreq = getMsg.substring(46, 52);//目标节点网络频率
                         String floor = getMsg.substring(52, 54);//所在层数
                         String region = getMsg.substring(54, 56);//所在区域
-                        String totalNum = getMsg.substring(56, 60);//全局编号
-                        String partNum = getMsg.substring(60, 64);//局部编号
+                        String totalNum = Integer.parseInt(getMsg.substring(56, 60), 16) + "";//全局编号
+                        String partNum = Integer.parseInt(getMsg.substring(60, 64), 16) + "";//局部编号
                         String softwareVersion = getMsg.substring(64, 72);//软件版本
                         String hardwareVersion = getMsg.substring(72, 80);//硬件版本
                         String otherVersion = getMsg.substring(80, 88);//其他版本
@@ -582,12 +582,12 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         }
                         String JDid = getMsg.substring(10, 24);//旧节点id
                         String Subtype = getMsg.substring(24, 26);//设备子类型
-                        String endSingal = getMsg.substring(26, 28);//末端强度
+                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
                         String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = (float) (255 / Integer.parseInt(electricVoltage, 16) * 1.224) + "V";//电池电压
-                        String LYXH1 = getMsg.substring(36, 38);//路由信号1
-                        String LYXH2 = getMsg.substring(38, 40);//路由信号2
-                        String LYXH3 = getMsg.substring(40, 42);//路由信号3
+                        electricVoltage = volt(electricVoltage);
+                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
                         String jdID = getMsg.substring(42, 56);//目标节点ID
                         String netid = getMsg.substring(56, 60);//目标节点网络id
                         String netFreq = getMsg.substring(60, 66);//目标节点网络频率
@@ -602,9 +602,9 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         LoRa_TYPTtoJDActivity_et_aimNetID.setText(netid);
                         LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
                         returnMsg = "一键修改成功";
-                    }else if (getMsg.length() >= 60 && getMsg.contains("68001e8aff") &&
+                    } else if (getMsg.length() >= 60 && getMsg.contains("68001e8aff") &&
                             getMsg.substring(getMsg.indexOf("68001e8aff") + 58, 60).equals("16")) {
-                        Log.d("limbo","接收到:" + getMsg + "\n");
+                        Log.d("limbo", "接收到:" + getMsg + "\n");
                         String crc16back = getMsg.substring(54, 58);
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 54));
                         if (!crc16result.equals(crc16back)) {
@@ -616,7 +616,7 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                         returnMsg = "复位成功";
                     }
                     //                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, returnMsg, "提示");
-                    if (returnMsg.length()!= 0){
+                    if (returnMsg.length() != 0) {
                         Toast.makeText(LoRa_TYPTtoJDActivity.this, returnMsg, Toast.LENGTH_LONG).show();
                     }
 
@@ -634,17 +634,33 @@ public class LoRa_TYPTtoJDActivity extends Activity {
         }
     };
 
+    private  String volt(String volt){
+        String electricVoltage =  ((float)255 / Float.parseFloat(Integer.parseInt(volt, 16)+"") * 1.224)+"";//电池电压
+        electricVoltage = electricVoltage.substring(0,electricVoltage.indexOf(".")+3) + "V";
+
+        return electricVoltage;
+    }
     /**
      * 开始协议设定时间
      * timeMax 1 = 0.1s
      */
-    private void prepareTimeStart(final int timeMax) {
+    private void prepareTimeStart(int timeMax) {
         timeOut = false;
+        if (!HzyUtils.isEmpty(LoRa_TYPTtoJDActivity_et_aimLYLJ1.getText().toString())) {
+            timeMax = timeMax + 15;
+        }
+        if (!HzyUtils.isEmpty(LoRa_TYPTtoJDActivity_et_aimLYLJ2.getText().toString())) {
+            timeMax = timeMax + 15;
+        }
+        if (!HzyUtils.isEmpty(LoRa_TYPTtoJDActivity_et_aimLYLJ3.getText().toString())) {
+            timeMax = timeMax + 15;
+        }
+        final int finalTimeMax = timeMax;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < timeMax; i++) {
+                    for (int i = 0; i < finalTimeMax; i++) {
                         Thread.sleep(100);
                         if (timeOut) {
                             break;
