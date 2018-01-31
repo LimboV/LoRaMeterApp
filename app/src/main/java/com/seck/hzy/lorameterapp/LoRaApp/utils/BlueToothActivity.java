@@ -60,7 +60,7 @@ public class BlueToothActivity extends ListActivity {
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                         if (adapter.getPosition(device.getName() + "\n" + device.getAddress()) < 0) {
-                            adapter.add("设备名："+device.getName() + "\n蓝牙地址：" + device.getAddress());
+                            adapter.add("设备名："+device.getName() + "\n" + device.getAddress());
                             adapter.notifyDataSetChanged();
                         }
                     }

@@ -97,7 +97,7 @@ public class LoRa_UserMsgLoadActivity extends Activity {
 
     void init() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
-        setContentView(R.layout.lora_acivity_usermsgload);
+        setContentView(R.layout.lora_activity_usermsgload);
         AndPermission.with(this)
                 .requestCode(300)
                 .permission(Permission.STORAGE)

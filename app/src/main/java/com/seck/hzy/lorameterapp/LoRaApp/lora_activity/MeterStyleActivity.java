@@ -44,15 +44,16 @@ public class MeterStyleActivity extends Activity {
 
     @BindView(R.id.meterStyleActivity_btn_CSMeter)
     Button meterStyleActivity_btn_CSMeter;
+
     @BindView(R.id.meterStyleActivity_btn_NumStateMeter)
     Button meterStyleActivity_btn_NumStateMeter;
 
-    /**
-     * 地区
-     */
-    private Button btnXj, btnYc;
+    @BindView(R.id.meterStyleActivity_btn_loRaSXMeter)
+    Button meterStyleActivity_btn_loRaSXMeter;
+    @BindView(R.id.meterStyleActivity_btn_loRaDZMeter)
+    Button meterStyleActivity_btn_loRaDZMeter;
 
-    private TextView tv0, tv1;
+    private TextView tv0;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -72,7 +73,6 @@ public class MeterStyleActivity extends Activity {
 
 
         tv0 = (TextView) findViewById(R.id.meterStyleActivity_tv_tip0);
-        tv1 = (TextView) findViewById(R.id.meterStyleActivity_tv_tip1);
 
         meterStyleActivity_btn_loRaMeter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,29 +124,7 @@ public class MeterStyleActivity extends Activity {
         });
 
 
-        /**
-         * 地区
-         */
-        btnXj = (Button) findViewById(R.id.meterStyleActivity_btn_Xj);
-        btnXj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveUser0("XJ");//新疆
-                loadUser0();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-            }
-        });
-        btnYc = (Button) findViewById(R.id.meterStyleActivity_btn_Yc);
-        btnYc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveUser0("YC");//宜春
-                loadUser0();
-                HintDialog.ShowHintDialog(MeterStyleActivity.this, "设置完成", "提示");
-            }
-        });
         loadUser();
-        loadUser0();
     }
 
     private void saveMeter(String s) {
@@ -177,46 +155,34 @@ public class MeterStyleActivity extends Activity {
         MenuActivity.METER_STYLE = pref.getString("meterStyle", "");
         if (MenuActivity.METER_STYLE.equals("L")) {
             tv0.setText("当前表类型为:山科LoRa表");
+        } else if (MenuActivity.METER_STYLE.equals("LSX")) {
+            tv0.setText("当前表类型为:山科LoRa摄像表");
+        } else if (MenuActivity.METER_STYLE.equals("LDZ")) {
+            tv0.setText("当前表类型为:山科LoRa电阻表");
+        } else if (MenuActivity.METER_STYLE.equals("LYX")) {
+            tv0.setText("当前表类型为:山科有线分采LoRa");
         } else if (MenuActivity.METER_STYLE.equals("W")) {
             tv0.setText("当前表类型为:安美通LoRa表");
         } else if (MenuActivity.METER_STYLE.equals("F")) {
             tv0.setText("当前表类型为:安美通Fsk表");
+        } else if (MenuActivity.METER_STYLE.equals("JY")) {
+            tv0.setText("当前表类型为:LoRa隽永表");
+        } else if (MenuActivity.METER_STYLE.equals("JYMC")) {
+            tv0.setText("当前表类型为:隽永LoRa脉冲表");
+        } else if (MenuActivity.METER_STYLE.equals("JYDZ")) {
+            tv0.setText("当前表类型为:隽永LoRa电阻表");
         } else if (MenuActivity.METER_STYLE.equals("P")) {
             tv0.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
-            tv0.setText("当前表类型为:直读表");
-        } else if (MenuActivity.METER_STYLE.equals("JY")) {
-            tv0.setText("当前表类型为:LoRa隽永表");
+            tv0.setText("当前表类型为:有线直读表");
         } else if (MenuActivity.METER_STYLE.equals("CS")) {
             tv0.setText("当前表类型为:超声水表");
         } else if (MenuActivity.METER_STYLE.equals("NS")) {
             tv0.setText("当前表类型为:数字状态表");
+        } else if (MenuActivity.METER_STYLE.equals("NS")) {
+            tv0.setText("当前表类型为:无");
         }
 
-    }
-
-    /**
-     * 使用SharePreferences保存用户信息
-     */
-    public void saveUser0(String x) {
-
-        SharedPreferences.Editor editor = getSharedPreferences("meterStyle", MODE_PRIVATE).edit();
-        editor.putString("cityName", x);
-        editor.commit();
-    }
-
-    /**
-     * 加载用户信息
-     */
-
-    public void loadUser0() {
-        SharedPreferences pref = getSharedPreferences("meterStyle", MODE_PRIVATE);
-        MenuActivity.CITY_NAME = pref.getString("cityName", "");
-        if (MenuActivity.CITY_NAME.equals("XJ")) {
-            tv1.setText("当前地区为:新疆");
-        } else if (MenuActivity.CITY_NAME.equals("YC")) {
-            tv1.setText("当前地区为:宜春");
-        }
     }
 
 }

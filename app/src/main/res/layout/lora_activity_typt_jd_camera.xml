@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/pic_menu"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:lineSpacingExtra="10dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标节点ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimJDID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标节点ID"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimNetID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络频率(KHz)   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimNetFreq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络频率(KHz)"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标路由路径   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimLYLJ1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="一层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimLYLJ2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="二层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_aimLYLJ3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="三层路径"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/skyblue"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   末端信号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_endSingal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="末端信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   电池电压   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_electricVoltage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="电池电压"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   路由信号   "
+                        android:textColor="@color/black"/>
+
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_LYSignal1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="1层"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_LYSignal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="2层"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTJdCameraActivity_et_LYSignal3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="3层"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   表数据   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="表数据"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   置信度   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="2"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="3"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="4"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_believe6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:hint="6"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3.5"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_rtcData"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="实时\n数据"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="   字轮   "
+                            android:textColor="@color/black"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_Z6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="   附加   "
+                            android:textColor="@color/black"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/LoRa_TYPTJdCameraActivity_iv_F6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3.5"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_autoLocate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="字轮\n自动定位"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   Y轴   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_Y"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   X5   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_X5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   X4   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_X4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   X3   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_X3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   X2   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_X2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   X1   "
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/LoRa_TYPTJdCameraActivity_et_X1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_bg"
+                                android:gravity="center"
+                                android:hint=""
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                                android:textCursorDrawable="@drawable/color_cursor"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_readLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="读取\n坐标"/>
+
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_writeLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="写入\n坐标"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/khaki"
+                    android:lineSpacingExtra="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_now"
+                            android:text="实时\n字轮图片"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_his"
+                            android:text="历史\n字轮图片"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_nowadd"
+                            android:text="实时\n附加图片"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_hisnow"
+                            android:text="历史\n附加图片"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_reset"
+                            android:text="复位\n界面"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_sd"
+                            android:text="手动\n调整坐标"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/LoRa_TYPTJdCameraActivity_btn_resetx"
+                            android:text="复位\n转换器"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

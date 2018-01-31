@@ -34,7 +34,6 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-
     <application
         android:name=".LoRaApp.App"
         android:allowBackup="true"
@@ -643,6 +642,18 @@
         </activity>
         <activity
             android:name=".LoRaApp.ns_activity.NS_CBActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTJdFucationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTJd_CameraDebug"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">

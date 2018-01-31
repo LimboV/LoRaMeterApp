@@ -24,7 +24,7 @@ public class LoRa_TYPTActivity extends Activity {
     @BindView(R.id.Lora_TYPTActivity_btn_toLYControl)
     Button Lora_TYPTActivity_btn_toLYControl;
 
-
+    public static boolean timeOut = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class LoRa_TYPTActivity extends Activity {
         Lora_TYPTActivity_btn_toJDControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoRa_TYPTActivity.this,LoRa_TYPTtoJDActivity.class);
+                Intent i = new Intent(LoRa_TYPTActivity.this,LoRa_TYPTJdFucationActivity.class);
                 startActivity(i);
             }
         });

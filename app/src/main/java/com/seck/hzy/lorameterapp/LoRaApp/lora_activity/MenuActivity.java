@@ -70,7 +70,6 @@ public class MenuActivity extends Activity {
     static public BluetoothConnectThread netThread = null;
     public static boolean blutoothEnabled = false, TIMEOUT = false;
     public static String METER_STYLE;
-    public static String CITY_NAME;
     public static String Cjj_CB_MSG = "";//存放数据
     public static boolean btFlag = false;//蓝牙接受完成标志位
     public static boolean btAuto = false;//蓝牙自动接收标志位
@@ -158,7 +157,7 @@ public class MenuActivity extends Activity {
                 break;
         }*/
         ButterKnife.bind(this);
-        textView.setText("软件版本：" + "20180115");
+        textView.setText("软件版本：" + this.getAppVersionName(this).substring(this.getAppVersionName(this).indexOf(".") + 1));
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
@@ -182,7 +181,7 @@ public class MenuActivity extends Activity {
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                     @Override
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -429,6 +428,7 @@ public class MenuActivity extends Activity {
          */
         private String LoRa_Titls[] = {"未连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台", "Lora小区抄表(未完成)"};
         private String LoRa_Titls2[] = {"已连接", "表类型选择", "对表端操作", "对摄像表操作", "对采集机操作", "蓝牙工具", "存入表信息", "分采导入", "统一平台", "Lora小区抄表(未完成)"};
+
         /**
          * P型表
          */
@@ -627,9 +627,14 @@ public class MenuActivity extends Activity {
     public void loadUser() {
         SharedPreferences pref = getSharedPreferences("meterStyle", MODE_PRIVATE);
         METER_STYLE = pref.getString("meterStyle", "L");
-        CITY_NAME = pref.getString("cityName", "YC");
         if (MenuActivity.METER_STYLE.equals("L")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:山科LoRa表");
+        } else if (MenuActivity.METER_STYLE.equals("LSX")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:山科LoRa摄像表");
+        } else if (MenuActivity.METER_STYLE.equals("LDZ")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:山科LoRa摄像表");
+        } else if (MenuActivity.METER_STYLE.equals("LYX")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:山科有线分采LoRa");
         } else if (MenuActivity.METER_STYLE.equals("W")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:安美通LoRa表");
         } else if (MenuActivity.METER_STYLE.equals("F")) {
@@ -637,7 +642,11 @@ public class MenuActivity extends Activity {
         } else if (MenuActivity.METER_STYLE.equals("P")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:P型摄像表");
         } else if (MenuActivity.METER_STYLE.equals("Z")) {
-            menuActivity_tv_meterStyle.setText("当前表类型为:直读表");
+            menuActivity_tv_meterStyle.setText("当前表类型为:有线直读表");
+        } else if (MenuActivity.METER_STYLE.equals("JYMC")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:隽永LoRa脉冲表");
+        } else if (MenuActivity.METER_STYLE.equals("JYDZ")) {
+            menuActivity_tv_meterStyle.setText("当前表类型为:隽永LoRa电阻表");
         } else if (MenuActivity.METER_STYLE.equals("JY")) {
             menuActivity_tv_meterStyle.setText("当前表类型为:LoRa隽永表");
         } else if (MenuActivity.METER_STYLE.equals("CS")) {
@@ -702,9 +711,7 @@ public class MenuActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 2, 2, "网络状态");
         menu.add(0, 3, 3, "关于");
-        menu.add(0, 4, 4, "退出");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -712,18 +719,8 @@ public class MenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         super.onOptionsItemSelected(menuItem);
         switch (menuItem.getItemId()) {
-            case 2:
-                if (MenuActivity.netThread == null) {
-                    HintDialog.ShowHintDialog(this, "蓝牙未连接", "状态");
-                } else {
-                    HintDialog.ShowHintDialog(this, "蓝牙已连接", "状态");
-                }
-                break;
             case 3:
                 showAbout();
-                break;
-            case 4:
-                finish();
                 break;
         }
         return true;
@@ -732,13 +729,11 @@ public class MenuActivity extends Activity {
     public void showAbout() {
 
         String aboutText = "版本号 : " + this.getAppVersionName(this) + "\r\n" +
-                "Copyright (C) 1999 - 2017\r\nSeck (Hangzhou)";
-
+                "Copyright (C) 1999 - 2018\r\nSeck (Hangzhou)";
         new AlertDialog.Builder(this).setTitle(R.string.app_name).setMessage(aboutText)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 }).show();
     }
@@ -756,7 +751,6 @@ public class MenuActivity extends Activity {
             }
         } catch (Exception e) {
         }
-
         return versionName;
     }
 

@@ -114,8 +114,7 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                     try {
                         Thread.sleep(1500);
                         String resultMsg = "";
-                        resultMsg = resultMsg + MenuActivity.Cjj_CB_MSG;
-                        MenuActivity.Cjj_CB_MSG = "";
+                        resultMsg = resultMsg + HzyUtils.GetBlueToothMsg();
                         if (resultMsg.length() != 0) {
                             resultMsg = resultMsg.replaceAll("0x", "").replaceAll(" ", "");
                             Log.d("limbo", "get:" + resultMsg);
@@ -341,7 +340,6 @@ public class LoRa_TYPTtoJDActivity extends Activity {
         LoRa_TYPTtoJDActivity_btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HzyUtils.showProgressDialog(LoRa_TYPTtoJDActivity.this);
                 prepareTimeStart(50);
                 HzyUtils.showProgressDialog(LoRa_TYPTtoJDActivity.this);
                 String date;
@@ -634,12 +632,13 @@ public class LoRa_TYPTtoJDActivity extends Activity {
         }
     };
 
-    private  String volt(String volt){
-        String electricVoltage =  ((float)255 / Float.parseFloat(Integer.parseInt(volt, 16)+"") * 1.224)+"";//电池电压
-        electricVoltage = electricVoltage.substring(0,electricVoltage.indexOf(".")+3) + "V";
+    private String volt(String volt) {
+        String electricVoltage = ((float) 255 / Float.parseFloat(Integer.parseInt(volt, 16) + "") * 1.224) + "";//电池电压
+        electricVoltage = electricVoltage.substring(0, electricVoltage.indexOf(".") + 3) + "V";
 
         return electricVoltage;
     }
+
     /**
      * 开始协议设定时间
      * timeMax 1 = 0.1s
@@ -679,6 +678,7 @@ public class LoRa_TYPTtoJDActivity extends Activity {
             }
         }).start();
     }
+
 
     @Override
     protected void onDestroy() {

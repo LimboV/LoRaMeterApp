@@ -67,7 +67,7 @@ public class LoRa_ChangeUserMsg extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lora_acivity_usermsgload);
+        setContentView(R.layout.lora_activity_usermsgload);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//默认不弹出输入框
         ButterKnife.bind(this);
 
