@@ -1,8 +1,6 @@
 package com.seck.hzy.lorameterapp.LoRaApp.lora_activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -29,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by limbo on 2016/11/29.
@@ -89,34 +88,48 @@ public class LoRa_UserActivity extends Activity {
         UserActivity_lv_userList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_UserActivity.this);
-                dialog.setTitle("是否删除该数据");
-                dialog.setCancelable(false);
                 String num = meterList.get(position).MeterId + "";
                 while (num.length() < 8) {
                     num = "0" + num;
                 }
-                dialog.setMessage("用户地址:" + meterList.get(position).UserAddr + "\n"
-                        + "\nLoRa网络ID:" + meterList.get(position).XqId
-                        + "\nLoRa网络频率:" + "495000Hz"
-                        + "\n\n水表ID:" + meterList.get(position).MeterNumber
-                        + "\n模块序列号:" + num
-                        + "\n保存时间:" + meterList.get(position).Date);
-                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        LoRa_DataHelper.deleteUser(meterList.get(position).XqId, meterList.get(position).CjjId, meterList.get(position).MeterId);
-                        getList();
-                        listItemAdapter.notifyDataSetChanged();
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                new SweetAlertDialog(LoRa_UserActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("是否删除该数据?")
+                        .setContentText("用户地址:" + meterList.get(position).UserAddr + "\n"
+                                + "\nLoRa网络ID:" + meterList.get(position).XqId
+                                + "\nLoRa网络频率:" + "495000Hz"
+                                + "\n\n水表ID:" + meterList.get(position).MeterNumber
+                                + "\n模块序列号:" + num
+                                + "\n保存时间:" + meterList.get(position).Date)
+                        .setCancelText("取消")
+                        .setConfirmText("确认")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                Log.d("limboV", "sure");
+                                LoRa_DataHelper.deleteUser(meterList.get(position).XqId, meterList.get(position).CjjId, meterList.get(position).MeterId);
+                                getList();
+                                listItemAdapter.notifyDataSetChanged();
+                                new SweetAlertDialog(LoRa_UserActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("完成!")
+                                        .setContentText("你已经成功删除该数据!")
+                                        .show();
+                                sweetAlertDialog.cancel();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                Log.d("limboV", "cancel");
+                                new SweetAlertDialog(LoRa_UserActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("取消!")
+                                        .setContentText("你已经取消删除该数据!")
+                                        .show();
+                                sDialog.cancel();
+                            }
+                        }).show();
 
-                    }
-                });
-                dialog.show();
+
                 return false;
             }
         });

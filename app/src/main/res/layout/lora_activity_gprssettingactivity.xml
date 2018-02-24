@@ -57,6 +57,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:text="www.seck.com.cn:9286"
                     android:id="@+id/GprsSettingActivity_et_GprsDkh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

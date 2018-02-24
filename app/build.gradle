@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.20180117"
+        versionName "1.20180211"
     }
     buildTypes {
         release {
@@ -34,4 +34,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.yanzhenjie:permission:1.1.2'
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

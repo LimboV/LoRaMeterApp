@@ -26,6 +26,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.seck.hzy.lorameterapp.LoRaApp.lora_activity.LoRa_TYPTActivity.timeOut;
 
@@ -164,7 +165,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 LoRa_TYPTJdCameraActivity_et_data.setText("");
@@ -196,7 +200,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 LoRa_TYPTJdCameraActivity_iv_Z1.setImageBitmap(null);
@@ -278,7 +285,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 resultMsg = "";
@@ -303,7 +313,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 resultMsg = "";
@@ -328,7 +341,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 LoRa_TYPTJdCameraActivity_et_Y.setText("");
@@ -359,11 +375,17 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void onClick(View v) {
                 getEditTextContext();
                 if (HzyUtils.isEmpty(aimNetId) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimJdId)) {
-                    HintDialog.ShowHintDialog(activity, "目标频率，目标网络ID及目标节点ID皆不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标频率，目标网络ID及目标节点ID皆不可为空!")
+                            .show();
                     return;
                 }
                 if (HzyUtils.isEmpty(Y) || HzyUtils.isEmpty(X1) || HzyUtils.isEmpty(X2) || HzyUtils.isEmpty(X3) || HzyUtils.isEmpty(X4) || HzyUtils.isEmpty(X5)) {
-                    HintDialog.ShowHintDialog(activity, "坐标数据不可为空", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("坐标数据不可为空!")
+                            .show();
                     return;
                 }
                 resultMsg = "";
@@ -698,7 +720,10 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
 
                     break;
                 case 0x99:
-                    HintDialog.ShowHintDialog(activity, "无数据返回，请重试。", "提示");
+                    new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("无数据返回，请重试!")
+                            .show();
                     break;
                 default:
                     break;

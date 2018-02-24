@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by limbo on 2017/7/19.
@@ -200,17 +201,26 @@ public class LoRa_SxbParamLazySetting extends Activity implements Runnable {
                 String freq = EditText_Freq.getText().toString().trim();
                 String netId = EditText_NetID.getText().toString().trim();
                 if (addr.length() > 10) {
-                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "表地址过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbParamLazySetting.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表地址过长!")
+                            .show();
                 }
                 if (netId.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "网络ID过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbParamLazySetting.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("网络ID过长!")
+                            .show();
                 }
                 if (HzyUtils.isEmpty(freq)) {
                     freq = "0";
                 }
                 freq = Integer.toHexString(Integer.parseInt(freq));
                 if (freq.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbParamLazySetting.this, "表频率过大", "提示");
+                    new SweetAlertDialog(LoRa_SxbParamLazySetting.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表频率过大!")
+                            .show();
                 }
                 while (freq.length() < 4) {
                     freq = "0" + freq;

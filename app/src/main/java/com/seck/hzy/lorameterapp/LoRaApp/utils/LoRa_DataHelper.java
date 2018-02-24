@@ -36,7 +36,7 @@ public class LoRa_DataHelper {
     public static List<LoRa_Cjj> getCjj(int xqid) {
 
         ArrayList<LoRa_Cjj> cjjList = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT XqId, XqName, CjjId, CjjAddr  FROM   cjj where xqid=" + xqid, null);
+        Cursor c = db.rawQuery("SELECT XqId, XqName, CjjId, CjjAddr  FROM   Cjj where xqid=" + xqid, null);
 
         while (c.moveToNext()) {
             LoRa_Cjj cjj = new LoRa_Cjj();
@@ -57,7 +57,7 @@ public class LoRa_DataHelper {
     public static List<LoRa_Cjj> getXq() {
 
         ArrayList<LoRa_Cjj> cjjList = new ArrayList<LoRa_Cjj>();
-        Cursor c = db.rawQuery("SELECT distinct XqId, XqName  FROM   cjj", null);
+        Cursor c = db.rawQuery("SELECT distinct XqId, XqName  FROM   Cjj", null);
 
         while (c.moveToNext()) {
             LoRa_Cjj cjj = new LoRa_Cjj();

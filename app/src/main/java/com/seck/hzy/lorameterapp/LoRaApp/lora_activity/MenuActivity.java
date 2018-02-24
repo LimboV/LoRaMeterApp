@@ -50,6 +50,10 @@ import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_PasswordDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_Setting1Activity;
 import com.seck.hzy.lorameterapp.LoRaApp.z_activity.Z_XQListActivity;
 import com.seck.hzy.lorameterapp.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,6 +62,7 @@ import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by ssHss on 2016/7/14.
@@ -113,7 +118,7 @@ public class MenuActivity extends Activity {
     private void init() {
         //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.lora_activity_menuactivity);
-        /*AndPermission.with(this)
+        AndPermission.with(this)
                 .requestCode(300)
                 .permission(Permission.CONTACTS)
                 .permission(Permission.LOCATION)
@@ -127,7 +132,7 @@ public class MenuActivity extends Activity {
                         AndPermission.rationaleDialog(MenuActivity.this, rationale).show();
                     }
                 })
-                .start();*/
+                .start();
         try {
             //检测是否有写的权限
             int permission = ActivityCompat.checkSelfPermission(MenuActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE");
@@ -139,7 +144,7 @@ public class MenuActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*int flag = copyFilesFassets(MenuActivity.this, "LoRaDb.db", Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
+        int flag = copyFilesFassets(MenuActivity.this, "LoRaDb.db", Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
         switch (flag) {
             case 0://完成
                 Toast.makeText(MenuActivity.this, "DB文件创建完成", Toast.LENGTH_LONG).show();
@@ -155,7 +160,7 @@ public class MenuActivity extends Activity {
                 break;
             default:
                 break;
-        }*/
+        }
         ButterKnife.bind(this);
         textView.setText("软件版本：" + this.getAppVersionName(this).substring(this.getAppVersionName(this).indexOf(".") + 1));
         progressBar = new ProgressDialog(this);
@@ -171,22 +176,31 @@ public class MenuActivity extends Activity {
         menuActivity_btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MenuActivity.this);
-                dialog.setTitle("请确认是否退出");
-                dialog.setCancelable(false);
-                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.show();
+                new SweetAlertDialog(MenuActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("提示")
+                        .setContentText("请确认是否要退出?")
+                        .setCancelText("取消")
+                        .setConfirmText("确认")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                Log.d("limboV", "sure");
+                                sweetAlertDialog.cancel();
+                                finish();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                Log.d("limboV", "cancel");
+                                new SweetAlertDialog(MenuActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("取消!")
+                                        .setContentText("你已经取消退出!")
+                                        .show();
+                                sDialog.cancel();
+                            }
+                        }).show();
             }
         });
 

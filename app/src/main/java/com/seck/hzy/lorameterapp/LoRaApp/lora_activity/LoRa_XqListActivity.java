@@ -1,8 +1,6 @@
 package com.seck.hzy.lorameterapp.LoRaApp.lora_activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -31,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by limbo on 2016/11/28.
@@ -99,30 +98,43 @@ public class LoRa_XqListActivity extends Activity {
         XqListActivity_lv_xq.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(LoRa_XqListActivity.this);
-                dialog.setTitle("是否删除该小区所有信息");
-                dialog.setCancelable(false);
                 final int xqid = xqList.get(position).XqId;
                 String xqname = xqList.get(position).XqName;
-                dialog.setMessage("网络ID:" + xqid
-                        + "小区名:" + xqname
-                );
-                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        LoRa_DataHelper.deleteXqAndMeter(xqid);
-                        getXq();
-                        adapter = new ArrayAdapter(LoRa_XqListActivity.this, android.R.layout.simple_list_item_1, getXq());
-                        XqListActivity_lv_xq.setAdapter(adapter);
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                new SweetAlertDialog(LoRa_XqListActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("是否删除该小区所有信息?")
+                        .setContentText("网络ID:" + xqid +"小区名:" + xqname)
+                        .setCancelText("取消")
+                        .setConfirmText("确认")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                Log.d("limboV", "sure");
+                                LoRa_DataHelper.deleteXqAndMeter(xqid);
+                                getXq();
+                                adapter = new ArrayAdapter(LoRa_XqListActivity.this, android.R.layout.simple_list_item_1, getXq());
+                                XqListActivity_lv_xq.setAdapter(adapter);
+                                Toast.makeText(LoRa_XqListActivity.this, "修改完成", Toast.LENGTH_LONG).show();
+                                new SweetAlertDialog(LoRa_XqListActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("完成!")
+                                        .setContentText("你已经成功删除小区信息!")
+                                        .show();
+                                sweetAlertDialog.cancel();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                Log.d("limboV", "cancel");
+                                new SweetAlertDialog(LoRa_XqListActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("取消!")
+                                        .setContentText("你已经取消删除小区信息!")
+                                        .show();
+                                sDialog.cancel();
+                            }
+                        }).show();
 
-                    }
-                });
-                dialog.show();
+
                 return false;
             }
         });

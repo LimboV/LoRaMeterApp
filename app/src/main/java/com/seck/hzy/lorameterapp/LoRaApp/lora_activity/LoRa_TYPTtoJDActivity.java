@@ -22,6 +22,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by limbo on 2017/11/16.
@@ -145,8 +146,10 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 String LYLJ2 = LoRa_TYPTtoJDActivity_et_aimLYLJ2.getText().toString().trim();
                 String LYLJ3 = LoRa_TYPTtoJDActivity_et_aimLYLJ3.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimJDID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID) || HzyUtils.isEmpty(JDID)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -181,8 +184,10 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 String LYLJ2 = LoRa_TYPTtoJDActivity_et_aimLYLJ2.getText().toString().trim();
                 String LYLJ3 = LoRa_TYPTtoJDActivity_et_aimLYLJ3.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimJDID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID) || HzyUtils.isEmpty(netID)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "参数节点网络ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -217,14 +222,18 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 String LYLJ2 = LoRa_TYPTtoJDActivity_et_aimLYLJ2.getText().toString().trim();
                 String LYLJ3 = LoRa_TYPTtoJDActivity_et_aimLYLJ3.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimJDID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID) || HzyUtils.isEmpty(netFreq)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "参数节点网络频率、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (HzyUtils.isConformToRange(netFreq)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "目标节点网络频率超出范围。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标节点网络频率超出范围!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -258,14 +267,18 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 String LYLJ2 = LoRa_TYPTtoJDActivity_et_aimLYLJ2.getText().toString().trim();
                 String LYLJ3 = LoRa_TYPTtoJDActivity_et_aimLYLJ3.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimJDID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "参数节点网络频率、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (HzyUtils.isConformToRange(aimNetFreq)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "目标节点网络频率超出范围。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("目标节点网络频率超出范围!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -307,14 +320,18 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                 String jdid = LoRa_TYPTtoJDActivity_et_CSJDID.getText().toString().trim();
                 if (HzyUtils.isEmpty(aimJDID) || HzyUtils.isEmpty(aimNetFreq) || HzyUtils.isEmpty(aimNetID)
                         || HzyUtils.isEmpty(netFreq) || HzyUtils.isEmpty(netId) || HzyUtils.isEmpty(jdid)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "参数节点网络频率、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("参数节点ID、目标节点ID、目标节点网络ID及目标节点网络频率皆不可为空!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
                 if (HzyUtils.isConformToRange(aimNetFreq) || HzyUtils.isConformToRange(netFreq)) {
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this,
-                            "网络频率超出范围。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("网络频率超出范围!")
+                            .show();
                     HzyUtils.closeProgressDialog();
                     return;
                 }
@@ -624,7 +641,10 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                     break;
 
                 case 0x99:
-                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "无数据返回，请重试。", "提示");
+                    new SweetAlertDialog(LoRa_TYPTtoJDActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("提示!")
+                            .setContentText("无数据返回，请重试!")
+                            .show();
                     break;
                 default:
                     break;

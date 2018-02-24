@@ -22,6 +22,7 @@ import com.seck.hzy.lorameterapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by limbo on 2016/11/22.
@@ -171,10 +172,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                     String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
                     if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表地址过长!")
+                                .show();
                     }
                     if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("网络ID过长!")
+                                .show();
                     }
                     if (HzyUtils.isEmpty(freq)) {
                         freq = "0";
@@ -182,7 +189,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     freq = Integer.toHexString(Integer.parseInt(freq));
                     //                    freq = Integer.parseInt(freq, 16) + "";
                     if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表频率过大!")
+                                .show();
                     }
                     freq = HzyUtils.isLength(freq, 4);
                     netId = HzyUtils.isLength(netId, 4);
@@ -223,10 +233,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                 String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
                 if (addr.length() > 10) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表地址过长!")
+                            .show();
                 }
                 if (netId.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("网络ID过长!")
+                            .show();
                 }
                 if (HzyUtils.isEmpty(freq)) {
                     freq = "0";
@@ -234,7 +250,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 freq = Integer.toHexString(Integer.parseInt(freq));
                 //                    freq = Integer.parseInt(freq, 16) + "";
                 if (freq.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表频率过大!")
+                            .show();
                 }
                 freq = HzyUtils.isLength(freq, 4);
                 netId = HzyUtils.isLength(netId, 4);
@@ -292,10 +311,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
                     String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                     if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表地址过长!")
+                                .show();
                     }
                     if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("网络ID过长!")
+                                .show();
                     }
                     if (HzyUtils.isEmpty(freq)) {
                         freq = "0";
@@ -303,7 +328,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     freq = Integer.toHexString(Integer.parseInt(freq));
                     //                    freq = Integer.parseInt(freq, 16) + "";
                     if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表频率过大!")
+                                .show();
                     }
                     while (freq.length() < 4) {
                         freq = "0" + freq;
@@ -361,10 +389,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
                     String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                     if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表地址过长!")
+                                .show();
                     }
                     if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("网络ID过长!")
+                                .show();
                     }
                     if (HzyUtils.isEmpty(freq)) {
                         freq = "0";
@@ -372,7 +406,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     freq = Integer.toHexString(Integer.parseInt(freq));
                     //                    freq = Integer.parseInt(freq, 16) + "";
                     if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表频率过大!")
+                                .show();
                     }
                     while (freq.length() < 4) {
                         freq = "0" + freq;
@@ -419,10 +456,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                 String addr = SxbGetDataActivity_et_meterAddr.getText().toString().trim();
                 if (addr.length() > 10) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表地址过长!")
+                            .show();
                 }
                 if (netId.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("网络ID过长!")
+                            .show();
                 }
                 if (HzyUtils.isEmpty(freq)) {
                     freq = "0";
@@ -430,7 +473,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 freq = Integer.toHexString(Integer.parseInt(freq));
                 //                    freq = Integer.parseInt(freq, 16) + "";
                 if (freq.length() > 4) {
-                    HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("表频率过大!")
+                            .show();
                 }
                 while (freq.length() < 4) {
                     freq = "0" + freq;
@@ -464,10 +510,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
                     String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                     if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表地址过长!")
+                                .show();
                     }
                     if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("网络ID过长!")
+                                .show();
                     }
                     if (HzyUtils.isEmpty(freq)) {
                         freq = "0";
@@ -475,7 +527,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     freq = Integer.toHexString(Integer.parseInt(freq));
                     //                    freq = Integer.parseInt(freq, 16) + "";
                     if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表频率过大!")
+                                .show();
                     }
                     while (freq.length() < 4) {
                         freq = "0" + freq;
@@ -561,10 +616,16 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     String freq = SxbGetDataActivity_et_freq.getText().toString().trim();
                     String netId = SxbGetDataActivity_et_netId.getText().toString().trim();
                     if (addr.length() > 10) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表地址过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表地址过长!")
+                                .show();
                     }
                     if (netId.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "网络ID过长", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("网络ID过长!")
+                                .show();
                     }
                     if (HzyUtils.isEmpty(freq)) {
                         freq = "0";
@@ -572,7 +633,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     freq = Integer.toHexString(Integer.parseInt(freq));
                     //                    freq = Integer.parseInt(freq, 16) + "";
                     if (freq.length() > 4) {
-                        HintDialog.ShowHintDialog(LoRa_SxbGetDataActivity.this, "表频率过大", "提示");
+                        new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("提示")
+                                .setContentText("表频率过大!")
+                                .show();
                     }
                     while (freq.length() < 4) {
                         freq = "0" + freq;
@@ -850,6 +914,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                 case 0x98:
                     HzyUtils.closeProgressDialog();
                     SxbGetDataActivity_tv_showMsg.append("\n" + "读图失败,请重试.");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("读图失败,请重试!")
+                            .show();
                     //HintDialog.ShowHintDialog(SxbGetDataActivity.this, "未接收到数据", "提示");
 
                     break;
@@ -857,6 +925,10 @@ public class LoRa_SxbGetDataActivity extends Activity {
                     MenuActivity.btAuto = true;
                     HzyUtils.closeProgressDialog();
                     SxbGetDataActivity_tv_showMsg.append("\n" + "数据接收失败,请重试.");
+                    new SweetAlertDialog(LoRa_SxbGetDataActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("提示")
+                            .setContentText("数据接收失败,请重试!")
+                            .show();
                     //HintDialog.ShowHintDialog(SxbGetDataActivity.this, "未接收到数据", "提示");
                     break;
             }
