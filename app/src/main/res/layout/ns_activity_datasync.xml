@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/NS_DataSyncActivity_btn_download_data"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="下载小区信息" />
+
+    <Button
+        android:id="@+id/NS_DataSyncActivity_btn_upload_data"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="上传抄表数据" />
+
+<!--    <Button
+        android:id="@+id/import_data_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="导入数据库"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/export_data_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="导出数据库"
+        android:visibility="invisible" />-->
+
+</LinearLayout>

@@ -70,7 +70,6 @@ public class LoRa_UserActivity extends Activity {
         meterList = LoRa_DataHelper.getMeters(xqid, cjjid);//从数据库中获取列表
 
         UserActivity_lv_userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(LoRa_UserActivity.this, LoRa_ChangeUserMsg.class);

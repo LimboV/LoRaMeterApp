@@ -7,6 +7,12 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+import com.seck.hzy.lorameterapp.LoRaApp.model.CjjDetails;
+import com.seck.hzy.lorameterapp.LoRaApp.model.MeterDetails;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_Cjj;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_MeterUser;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NsXqMsg;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +42,13 @@ public class NS_DataHelper {
         return db;
     }
 
-    public static List<LoRa_Cjj> getXq() {
+    public static List<NS_Cjj> getXq() {
 
-        ArrayList<LoRa_Cjj> cjjList = new ArrayList<>();
+        ArrayList<NS_Cjj> cjjList = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT distinct XqId, XqName  FROM   cjj", null);
 
         while (c.moveToNext()) {
-            LoRa_Cjj cjj = new LoRa_Cjj();
+            NS_Cjj cjj = new NS_Cjj();
             cjj.XqId = c.getInt(c.getColumnIndex("XqId"));
             cjj.XqName = c.getString(c.getColumnIndex("XqName"));
             cjjList.add(cjj);
@@ -52,13 +58,13 @@ public class NS_DataHelper {
     }
 
 
-    public static List<LoRa_Cjj> getCjj(int xqid) {
+    public static List<NS_Cjj> getCjj(int xqid) {
 
-        ArrayList<LoRa_Cjj> cjjList = new ArrayList<>();
+        ArrayList<NS_Cjj> cjjList = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT XqId, XqName, CjjId, CjjAddr  FROM   cjj where xqid=" + xqid, null);
 
         while (c.moveToNext()) {
-            LoRa_Cjj cjj = new LoRa_Cjj();
+            NS_Cjj cjj = new NS_Cjj();
             cjj.XqId = c.getInt(c.getColumnIndex("XqId"));
 
             cjj.XqName = c.getString(c.getColumnIndex("XqName"));
@@ -75,13 +81,13 @@ public class NS_DataHelper {
     /**
      * 根据总采号获取下辖分采信息
      */
-    public static List<LoRa_Cjj> getFCjj(int xqid, int zcjj) {
+    public static List<NS_Cjj> getFCjj(int xqid, int zcjj) {
 
-        ArrayList<LoRa_Cjj> cjjList = new ArrayList<>();
+        ArrayList<NS_Cjj> cjjList = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT XqId, XqName, CjjId, CjjAddr  FROM   cjj where xqid=" + xqid, null);
 
         while (c.moveToNext()) {
-            LoRa_Cjj cjj = new LoRa_Cjj();
+            NS_Cjj cjj = new NS_Cjj();
             cjj.XqId = c.getInt(c.getColumnIndex("XqId"));
 
             cjj.XqName = c.getString(c.getColumnIndex("XqName"));
@@ -97,13 +103,13 @@ public class NS_DataHelper {
         return cjjList;
     }
 
-    public static List<LoRa_MeterUser> getMeters(int xqid, int cjjid) {
+    public static List<NS_MeterUser> getMeters(int xqid, int cjjid) {
 
-        ArrayList<LoRa_MeterUser> meters = new ArrayList<>();
+        ArrayList<NS_MeterUser> meters = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT  *  FROM   Meter where xqid=" + xqid + " and cjjid=" + cjjid, null);
 
         while (c.moveToNext()) {
-            LoRa_MeterUser m = new LoRa_MeterUser();
+            NS_MeterUser m = new NS_MeterUser();
             m.XqId = c.getInt(c.getColumnIndex("XqId"));
             m.CjjId = c.getInt(c.getColumnIndex("CjjId"));
             m.MeterId = c.getInt(c.getColumnIndex("MeterId"));
@@ -129,12 +135,12 @@ public class NS_DataHelper {
     /**
      * 根据总采号获取所有分采下水表
      */
-    public static List<LoRa_MeterUser> getZCMeters(int xqid, int zcjjid) {
+    public static List<NS_MeterUser> getZCMeters(int xqid, int zcjjid) {
 
-        ArrayList<LoRa_MeterUser> meters = new ArrayList<>();
+        ArrayList<NS_MeterUser> meters = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT  *  FROM   Meter where xqid=" + xqid, null);
         while (c.moveToNext()) {
-            LoRa_MeterUser m = new LoRa_MeterUser();
+            NS_MeterUser m = new NS_MeterUser();
             m.XqId = c.getInt(c.getColumnIndex("XqId"));
             m.CjjId = c.getInt(c.getColumnIndex("CjjId"));
             m.MeterId = c.getInt(c.getColumnIndex("MeterId"));
@@ -171,8 +177,8 @@ public class NS_DataHelper {
             try {
                 ContentValues cv = new ContentValues();//图片以byte数组字符串形式放入数据库
                 cv.put("Date", Date);
-//                cv.put("MeterId", meterNum);
-//                cv.put("MeterNumber", meterid);
+                //                cv.put("MeterId", meterNum);
+                //                cv.put("MeterNumber", meterid);
                 cv.put("Data", Data);
                 String[] args = {String.valueOf(xqid), String.valueOf(cjjid), String.valueOf(meterNum)};//将需要更新的数据放入
                 db.update("Meter", cv, "Xqid=? and Cjjid=? and Meterid=?", args);//更新数据表中特定数据
@@ -212,5 +218,167 @@ public class NS_DataHelper {
             return "/storage/sdcard0" + "/SeckLoRaDB";
         }
 
+    }
+
+    /**
+     * 网络部分完整小区
+     */
+    public static void addXqMsg(NsXqMsg nsXqMsg) {
+        try {
+            db.beginTransaction();
+            String xqid = nsXqMsg.getXqId();
+            String xqname = "";
+            if (!HzyUtils.isEmpty(nsXqMsg.getXqName())) {
+                xqname = nsXqMsg.getXqName();
+            }
+            Log.d("limbo", "xqid:" + xqid + " xqname:" + xqname);
+            List<CjjDetails> cjjlist = nsXqMsg.getCjjDetails();
+            Log.d("limbo", cjjlist.size() + "");
+
+            for (int i = 0; i < cjjlist.size(); i++) {
+                ContentValues cv = new ContentValues();
+                String cjjid = cjjlist.get(i).getCjjId();
+                String cjjtype = "";
+                String cjjaddr = "";
+                if (!HzyUtils.isEmpty(cjjlist.get(i).getCjjAddr())) {
+                    cjjaddr = cjjlist.get(i).getCjjAddr();
+                }
+                if (!HzyUtils.isEmpty(cjjlist.get(i).getCjjType())) {
+                    cjjtype = cjjlist.get(i).getCjjType();
+                }
+                cv.put("XqId", Integer.parseInt(xqid));
+                cv.put("XqName", xqname);
+                cv.put("CjjId", Integer.parseInt(cjjid));
+                cv.put("CjjAddr", cjjaddr);
+                cv.put("CjjType", cjjtype);
+                db.insert("Cjj", null, cv);//添加采集机表数据
+                List<MeterDetails> meterlist = cjjlist.get(i).getMeterDetails();
+
+                for (int j = 0; j < meterlist.size(); j++) {
+                    ContentValues cvx = new ContentValues();
+                    cvx.put("XqId", Integer.parseInt(xqid));
+                    cvx.put("CjjId", Integer.parseInt(cjjid));
+                    int meterid = Integer.parseInt(meterlist.get(j).getMeterId());
+                    String meternumber = "";
+                    String metertype = "";
+                    String username = "";
+                    String useraddr = "";
+                    String usernumber = "";
+                    String lastdata = "";
+                    String lastdate = "";
+                    String data = "";
+                    String date = "";
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getMeterNumber())) {
+                        meternumber = meterlist.get(j).getMeterNumber();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getMeterType())) {
+                        metertype = meterlist.get(j).getMeterType();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getUserName())) {
+                        username = meterlist.get(j).getUserName();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getUserAddr())) {
+                        useraddr = meterlist.get(j).getUserAddr();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getUserNumber())) {
+                        usernumber = meterlist.get(j).getUserNumber();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getLastData())) {
+                        lastdata = meterlist.get(j).getLastData();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getLastDate())) {
+                        lastdate = meterlist.get(j).getLastDate();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getData())) {
+                        data = meterlist.get(j).getData();
+                    }
+                    if (!HzyUtils.isEmpty(meterlist.get(j).getDate())) {
+                        date = meterlist.get(j).getDate();
+                    }
+
+                    cvx.put("MeterId", meterid);
+                    cvx.put("MeterNumber", meternumber);
+                    cvx.put("MeterType", metertype);
+                    cvx.put("UserName", username);
+                    cvx.put("UserAddr", useraddr);
+                    cvx.put("LastData", lastdata);
+                    cvx.put("LastDate", lastdate);
+                    cvx.put("Data", data);
+                    cvx.put("Date", date);
+                    db.insert("Meter", null, cvx);//添加采集机表数据
+                }
+
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d("limbo", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+
+    public static NsXqMsg uploadXqMsg(int xqid, String xqname) {
+
+        NsXqMsg xq = new NsXqMsg();
+        xq.setXqId(xqid + "");
+        xq.setXqName(xqname);
+        Cursor c = db.rawQuery("SELECT XqId, XqName, CjjId, CjjAddr,CjjType  FROM   Cjj where xqid=" + xqid, null);
+        ArrayList<CjjDetails> cjjDetailses = new ArrayList<>();
+        while (c.moveToNext()) {
+            CjjDetails cjjDetails = new CjjDetails();
+            int cjjid = c.getInt(c.getColumnIndex("CjjId"));
+            String cjjtype = c.getString(c.getColumnIndex("CjjType"));
+            cjjDetails.setCjjId(cjjid + "");
+            cjjDetails.setCjjType(cjjtype);
+
+            cjjDetails.setCjjAddr(c.getString(c.getColumnIndex("CjjAddr")));
+
+
+            Cursor c1 = db.rawQuery("SELECT  *  FROM   Meter where xqid=" + xqid + " and cjjid=" + cjjid, null);
+            ArrayList<MeterDetails> meterDetailses = new ArrayList<>();
+            while (c1.moveToNext()) {
+                MeterDetails meterDetails = new MeterDetails();
+                meterDetails.setMeterId(c1.getInt(c1.getColumnIndex("MeterId")) + "");
+                meterDetails.setMeterNumber(c1.getString(c1.getColumnIndex("MeterNumber")));
+                meterDetails.setMeterType(c1.getString(c1.getColumnIndex("MeterType")));
+                meterDetails.setUserName(c1.getString(c1.getColumnIndex("UserName")));
+                meterDetails.setUserAddr(c1.getString(c1.getColumnIndex("UserAddr")));
+                meterDetails.setLastData(c1.getString(c1.getColumnIndex("LastData")));
+                meterDetails.setLastDate(c1.getString(c1.getColumnIndex("LastDate")));
+                meterDetails.setData(c1.getString(c1.getColumnIndex("Data")));
+                meterDetails.setDate(c1.getString(c1.getColumnIndex("Date")));
+//                meterDetails.setData("12345");
+//                meterDetails.setDate("2018-03-30 13:00:00");
+
+
+                meterDetailses.add(meterDetails);
+            }
+            cjjDetails.setMeterDetails(meterDetailses);
+            cjjDetailses.add(cjjDetails);
+        }
+        xq.setCjjDetails(cjjDetailses);
+
+        c.close();
+        return xq;
+    }
+    public static void deleteXqAndMeter(int xqid) {
+        try {
+            db.beginTransaction();
+            try {
+                String[] args = {String.valueOf(xqid)};//将需要更新的数据放入
+                db.delete("Cjj", "XqId=?", args);
+                db.delete("Meter", "Xqid=?", args);
+                db.setTransactionSuccessful();
+                // 设置事务的标志为true，调用此方法会在执行到endTransaction()方法是提交事务，
+                // 若没有调用此方法会在执行到endTransaction()方法回滚事务。
+            } finally {
+                db.endTransaction();
+
+            }
+        } catch (Exception e) {
+            Log.d("limbo", e.toString());
+        }
     }
 }

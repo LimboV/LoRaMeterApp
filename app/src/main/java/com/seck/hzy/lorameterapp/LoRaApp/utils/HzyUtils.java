@@ -550,29 +550,6 @@ public class HzyUtils {
         return str;
     }
 
-    /**
-     * 开始协议设定时间
-     */
-    public static void prepareTimeStart(final int time) {
-        MenuActivity.TIMEOUT = false;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    for (int i = 0; i < time; i++) {
-                        Thread.sleep(100);
-                        if (MenuActivity.TIMEOUT) {
-                            break;
-                        }
-                    }
-                    MenuActivity.TIMEOUT = true;
-                    HzyUtils.closeProgressDialog();
-                } catch (Exception e) {
-
-                }
-            }
-        }).start();
-    }
 
     public static String GetBlueToothMsg() {
         String x = MenuActivity.Cjj_CB_MSG;

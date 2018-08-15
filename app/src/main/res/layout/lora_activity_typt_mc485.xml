@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:lineSpacingExtra="10dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标节点ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoHmActivity_et_aimJDID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标节点ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络ID   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPtoHmActivity_et_aimNetID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络ID"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   目标网络频率(KHz)   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoHmActivity_et_aimNetFreq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="目标网络频率(KHz)"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   末端信号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoHmActivity_et_endSingal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="末端信号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   电池电压   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoHmActivity_et_electric"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="电池电压"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:lineSpacingExtra="10dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   分采号   "
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/LoRa_TYPTtoHmActivity_et_fcNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="center"
+                        android:hint="分采号"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                        android:textCursorDrawable="@drawable/color_cursor"/>
+
+                    <Button
+                        android:id="@+id/btn_getSingleData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="实时点抄单个分采数据"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/khaki"
+                android:lineSpacingExtra="10dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分采号"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_bg"
+                            android:gravity="center"
+                            android:hint="分采号"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/common_signin_btn_dark_text_disabled"
+                            android:textCursorDrawable="@drawable/color_cursor"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="导入分采档案"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="导出分采档案"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="实时提取所有风采数据"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="复位转换器"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="复位界面"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

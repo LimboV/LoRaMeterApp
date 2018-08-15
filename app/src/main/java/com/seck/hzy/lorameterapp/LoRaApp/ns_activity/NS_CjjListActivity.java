@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_Cjj;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_Cjj;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NS_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 
@@ -32,7 +32,7 @@ public class NS_CjjListActivity extends Activity {
     @BindView(R.id.LyListActivity_lv_lyList)
     ListView LyListActivity_lv_lyList;
     private int xqid, cjjid;
-    public static List<LoRa_Cjj> cjjList;
+    public static List<NS_Cjj> cjjList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class NS_CjjListActivity extends Activity {
                 i--;
             }
         }
-        for (LoRa_Cjj cjj : cjjList) {
+        for (NS_Cjj cjj : cjjList) {
             data.add("分采号：" + cjj.CjjId % 10000 + "\n模块序列号：" + cjj.CjjAddr.substring(0, 10)
                     + "\n分采地址：" + cjj.CjjAddr.substring(10));
         }

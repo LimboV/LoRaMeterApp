@@ -38,7 +38,7 @@ public class BlueToothActivity extends ListActivity {
             adapter = new ArrayAdapter<>(this, R.layout.lora_activity_blue_tooth);
         }
         AndPermission.with(this)
-                .requestCode(300)
+                    .requestCode(300)
                 .permission(Permission.LOCATION)
                 .callback(this)
                 .rationale(new RationaleListener() {
@@ -60,7 +60,7 @@ public class BlueToothActivity extends ListActivity {
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                         if (adapter.getPosition(device.getName() + "\n" + device.getAddress()) < 0) {
-                            adapter.add("设备名："+device.getName() + "\n" + device.getAddress());
+                            adapter.add("设备名：" + device.getName() + "\n" + device.getAddress());
                             adapter.notifyDataSetChanged();
                         }
                     }
@@ -75,54 +75,65 @@ public class BlueToothActivity extends ListActivity {
         final BlueToothActivity thisAct = this;
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NetworkLayer.adapter.cancelDiscovery();// 停止搜索
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                // 创建新连接
-                String str = adapter.getItem(position);
-                String[] values = str.split("\n");
-                String address = values[1];
-                Log.v("limbo", "Connect to  " + address);
-                BluetoothDevice btDev = NetworkLayer.adapter.getRemoteDevice(address);
-                BluetoothSocket mmSocket = null;
-                try {
-                    final UUID UUID_RFCOMM_GENERIC = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//串口通用UUID
-                    mmSocket = btDev.createRfcommSocketToServiceRecord(UUID_RFCOMM_GENERIC);
-                    //                    Method m = btDev.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
-                    //                    mmSocket = (BluetoothSocket) m.invoke(btDev, 1);
-                } catch (Exception e) {
-                    Log.v("limbo", e.toString());
-                    e.printStackTrace();
-                }
+                HzyUtils.showProgressDialog(BlueToothActivity.this);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NetworkLayer.adapter.cancelDiscovery();// 停止搜索
 
-                try {
-                    mmSocket.connect();
-                } catch (IOException connectException) {
-                    Log.v("limbo", connectException.toString());
-                    try {
-                        mmSocket.close();
-                    } catch (IOException closeException) {
-                        Log.v("limbo", connectException.toString());
+                        // 创建新连接
+                        String str = adapter.getItem(position);
+                        String[] values = str.split("\n");
+                        String address = values[1];
+                        Log.v("limbo", "Connect to  " + address);
+                        BluetoothDevice btDev = NetworkLayer.adapter.getRemoteDevice(address);
+                        BluetoothSocket mmSocket = null;
+                        try {
+                            final UUID UUID_RFCOMM_GENERIC = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//串口通用UUID
+                            mmSocket = btDev.createRfcommSocketToServiceRecord(UUID_RFCOMM_GENERIC);
+                            //                    Method m = btDev.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
+                            //                    mmSocket = (BluetoothSocket) m.invoke(btDev, 1);
+                        } catch (Exception e) {
+                            Log.v("limbo", e.toString());
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            mmSocket.connect();
+                        } catch (IOException connectException) {
+                            Log.v("limbo", connectException.toString());
+                            try {
+                                mmSocket.close();
+                            } catch (IOException closeException) {
+                                Log.v("limbo", connectException.toString());
+                            }
+
+                            //Toast.makeText(getApplicationContext(), "无法建立有效连接", Toast.LENGTH_LONG).show();
+                            Intent data = new Intent();
+                            setResult(BluetoothConnectThread.NETWORK_FAILED, data);//设置返回结果-->失败
+
+                            HzyUtils.closeProgressDialog();
+                            thisAct.finish();
+                            return;
+                        }
+
+                        // Create network thread.
+                        MenuActivity.netThread = new BluetoothConnectThread(mmSocket);
+                        MenuActivity.netThread.deviceName = btDev.getName();
+                        MenuActivity.netThread.start();
+
+                        // Test a AT command.
+                        // netThread.write(new byte[] {'A', 'T'});
+                        // Toast.makeText(getApplicationContext(), "网络连接已建立", Toast.LENGTH_LONG).show();
+                        Intent data = new Intent();
+                        setResult(BluetoothConnectThread.NETWORK_CONNECTED, data);//设置返回结果-->成功
+
+                        HzyUtils.closeProgressDialog();
+                        thisAct.finish();
                     }
-
-                    //Toast.makeText(getApplicationContext(), "无法建立有效连接", Toast.LENGTH_LONG).show();
-                    Intent data = new Intent();
-                    setResult(BluetoothConnectThread.NETWORK_FAILED, data);//设置返回结果-->失败
-                    thisAct.finish();
-                    return;
-                }
-
-                // Create network thread.
-                MenuActivity.netThread = new BluetoothConnectThread(mmSocket);
-                MenuActivity.netThread.deviceName = btDev.getName();
-                MenuActivity.netThread.start();
-
-                // Test a AT command.
-                // netThread.write(new byte[] {'A', 'T'});
-                // Toast.makeText(getApplicationContext(), "网络连接已建立", Toast.LENGTH_LONG).show();
-                Intent data = new Intent();
-                setResult(BluetoothConnectThread.NETWORK_CONNECTED, data);//设置返回结果-->成功
-                thisAct.finish();
+                }).start();
             }
         });
 

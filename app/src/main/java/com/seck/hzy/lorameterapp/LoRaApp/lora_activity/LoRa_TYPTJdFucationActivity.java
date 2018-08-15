@@ -28,11 +28,26 @@ public class LoRa_TYPTJdFucationActivity extends Activity{
      */
     @BindView(R.id.LoRaJdFucationg_btn_CameraDebug)
     Button LoRaJdFucationg_btn_CameraDebug;
+    /**
+     * 单表脉冲节点调试
+     */
+    @BindView(R.id.LoRaJdFucationg_btn_singleMeterPulse)
+    Button LoRaJdFucationg_btn_singleMeterPulse;
+    /**
+     * 单表厚膜节点调试
+     */
+    @BindView(R.id.LoRaJdFucationg_btn_singleMeterHm)
+    Button LoRaJdFucationg_btn_singleMeterHm;
+    /**
+     * 485总线厚膜节点调试
+     */
+    @BindView(R.id.LoRaJdFucationg_btn_485Hm)
+    Button LoRaJdFucationg_btn_485Hm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_lora_jd_fucation);
+        setContentView(R.layout.lora_activity_typtjd_fucation);
         ButterKnife.bind(this);
         LoRaJdFucationg_btn_commonParameter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +60,20 @@ public class LoRa_TYPTJdFucationActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoRa_TYPTJdFucationActivity.this,LoRa_TYPTJd_CameraDebug.class);
+                startActivity(i);
+            }
+        });
+        LoRaJdFucationg_btn_singleMeterPulse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoRa_TYPTJdFucationActivity.this,LoRa_TYPTJd_Pulse.class);
+                startActivity(i);
+            }
+        });
+        LoRaJdFucationg_btn_485Hm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoRa_TYPTJdFucationActivity.this,LoRa_TYPTtoHmActivity.class);
                 startActivity(i);
             }
         });

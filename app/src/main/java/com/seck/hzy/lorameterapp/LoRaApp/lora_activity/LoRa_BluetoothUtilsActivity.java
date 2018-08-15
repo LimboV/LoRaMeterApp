@@ -22,7 +22,9 @@ import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
 import com.seck.hzy.lorameterapp.R;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -37,7 +39,7 @@ import java.util.Date;
 public class LoRa_BluetoothUtilsActivity extends Activity {
 
     private TextView tvMsg;
-    private Button btnSend, btnTest, btnSave, btnJcTest, btnCTS, btnCTS2;
+    private Button btnSend, btnTest, btnSave, btnJcTest, btnCTS, btnCTS2, btn_Save;
     private EditText etSend;
     private Spinner spTest;
     private CheckBox mCheckBox, mCheckBox1;
@@ -48,6 +50,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
     private String txtMsg = "";
     private long mPressedTime = 0;
     private ScrollView mScrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
         btnJcTest = (Button) findViewById(R.id.BluetoothUtilsActivity_btn_JcTest);
         btnCTS = (Button) findViewById(R.id.BluetoothUtilsActivity_btn_ConnectToService);
         btnCTS2 = (Button) findViewById(R.id.BluetoothUtilsActivity_btn_ConnectToService2);
+        btn_Save = (Button) findViewById(R.id.BluetoothUtilsActivity_btn_Save);
         mCheckBox = (CheckBox) findViewById(R.id.checkBox);
         mCheckBox1 = (CheckBox) findViewById(R.id.checkBox1);
         mScrollView = (ScrollView) findViewById(R.id.BluetoothUtilsActivity_sv_msg);
@@ -281,6 +285,7 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
                 }).start();
             }
         });
+        tvMsg.setText("test");
 
         btnCTS2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,6 +317,59 @@ public class LoRa_BluetoothUtilsActivity extends Activity {
             }
         });
 
+        /**
+         * 保存数据
+         */
+        btn_Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveMyBitmap(tvMsg.getText().toString());
+            }
+        });
+
+    }
+
+    /**
+     * Save Bitmap to a file.保存txt到SD卡。
+     */
+    public void saveMyBitmap(String xMsg) {
+        Calendar c = Calendar.getInstance();
+        Date date = c.getTime();
+        DateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH点mm分ss秒");
+        String bitName = df.format(date);
+        BufferedWriter writer = null;
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SeckLoRaDB/" + bitName + ".txt");
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+        }
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(fOut));
+            writer.write(xMsg);
+
+            HintDialog.ShowHintDialog(this, "数据保存成功!", "提示");
+        } catch (Exception e) {
+            HintDialog.ShowHintDialog(this, "数据保存失败！", "错误");
+        }finally {
+            try{
+                if (writer !=null){
+                    writer.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void scrollToBottom(final View scroll, final View inner) {

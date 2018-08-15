@@ -411,229 +411,245 @@ public class LoRa_TYPTtoJDActivity extends Activity {
                     /**
                      * 磁铁激活返回
                      */
-                    String returnMsg = "";
-                    getMsg = getMsg.contains("6800318000") ? getMsg.substring(getMsg.indexOf("6800318000")) : getMsg;
-                    getMsg = getMsg.contains("68001a8082") ? getMsg.substring(getMsg.indexOf("68001a8082")) : getMsg;
-                    if (getMsg.length() >= 98 && getMsg.contains("6800318000") &&
-                            getMsg.substring(getMsg.indexOf("6800318000") + 96, getMsg.indexOf("6800318000") + 98).equals("16")) {
-                        Log.d("limbo", "磁铁激活返回:" + getMsg);
-                        String crc16back = getMsg.substring(92, 96);
+                    try{
+                        String returnMsg = "";
+                        getMsg = getMsg.contains("6800318000") ? getMsg.substring(getMsg.indexOf("6800318000")) : getMsg;
+                        getMsg = getMsg.contains("68002a8000") ? getMsg.substring(getMsg.indexOf("68002a8000")) : getMsg;
+                        getMsg = getMsg.contains("68001a8082") ? getMsg.substring(getMsg.indexOf("68001a8082")) : getMsg;
+                        if ((getMsg.length() >= 98 && getMsg.contains("6800318000") &&
+                                getMsg.substring(getMsg.indexOf("6800318000") + 96,
+                                        getMsg.indexOf("6800318000") + 98).equals("16"))||
+                                (getMsg.length() >= 84 && getMsg.contains("68002a8000") &&
+                                        getMsg.substring(getMsg.indexOf("68002a8000") + 82,
+                                                getMsg.indexOf("68002a8000") + 84).equals("16"))) {
+                            Log.d("limbo", "磁铁激活返回:" + getMsg);
+                     /*   String crc16back = getMsg.substring(92, 96);
                         String crc16result = HzyUtils.CRC16(getMsg.substring(0, 92));
                         if (!crc16result.equals(crc16back)) {
                             Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
                             HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
                             break;
-                        }
-                        String JDid = getMsg.substring(10, 24);//节点id
-                        String endSingal = Integer.parseInt(getMsg.substring(24, 26), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(26, 28);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String Subtype = getMsg.substring(30, 32);//设备子类型
-                        String netId = getMsg.substring(32, 36);//网络ID
-                        String netFreq = getMsg.substring(36, 42);//网络频率
-                        String floor = getMsg.substring(42, 44);//层数
-                        String region = getMsg.substring(44, 46);//区域
-                        String totalNum = Integer.parseInt(getMsg.substring(46, 50), 16) + "";//全局编号
-                        String partNum = Integer.parseInt(getMsg.substring(50, 54), 16) + "";//局部编号
-                        String softwareVersion = getMsg.substring(54, 62);//软件版本
-                        String hardwareVersion = getMsg.substring(62, 70);//硬件版本
-                        String otherVersion = getMsg.substring(70, 78);//附加版本
-                        String data = getMsg.substring(78, 88);//直读数据
-                        data = Integer.parseInt(data.substring(0, 6)) + "." + data.substring(6, 10);
-                        String dataState = getMsg.substring(88, 90);//数据状态
-                        String valveState = getMsg.substring(90, 92);//阀控状态
-                        LoRa_TYPTtoJDActivity_et_aimJDID.setText(JDid);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
-                        LoRa_TYPTtoJDActivity_et_aimNetID.setText(netId);
-                        LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
-                        LoRa_TYPTtoJDActivity_et_floor.setText(floor);
-                        LoRa_TYPTtoJDActivity_et_region.setText(region);
-                        LoRa_TYPTtoJDActivity_et_totalNum.setText(totalNum);
-                        LoRa_TYPTtoJDActivity_et_partNum.setText(partNum);
-                        LoRa_TYPTtoJDActivity_et_softwareVersion.setText(softwareVersion);
-                        LoRa_TYPTtoJDActivity_et_hardwareVersion.setText(hardwareVersion);
-                        LoRa_TYPTtoJDActivity_et_otherVersion.setText(otherVersion);
-                        LoRa_TYPTtoJDActivity_et_data.setText(data);
-                        LoRa_TYPTtoJDActivity_et_state.setText(dataState);
-                        LoRa_TYPTtoJDActivity_et_valveState.setText(valveState);
-                        returnMsg = "磁激活获取数据成功";
-                    } else if (getMsg.length() >= 52 && getMsg.contains("68001a8082") &&
-                            getMsg.substring(getMsg.indexOf("68001a8082") + 50, getMsg.indexOf("68001a8082") + 52).equals("16")) {
-                        Log.d("limbo", "修改节点网络ID返回:" + getMsg);
-                        String crc16back = getMsg.substring(46, 50);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 46));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
-                        }
-                        String JDid = getMsg.substring(10, 24);//节点id
-                        String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
-                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
-                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
-                        String netId = getMsg.substring(42, 46);//目标节点网络ID
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
-                        LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
-                        LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
-                        LoRa_TYPTtoJDActivity_et_aimNetID.setText(netId);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                        }*/
 
-                        returnMsg = "修改节点网络id成功";
+                            String JDid = getMsg.substring(10, 24);//节点id
+                            String endSingal = Integer.parseInt(getMsg.substring(24, 26), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(26, 28);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String Subtype = getMsg.substring(30, 32);//设备子类型
+                            String netId = getMsg.substring(32, 36);//网络ID
+                            String netFreq = getMsg.substring(36, 42);//网络频率
+                            String floor = getMsg.substring(42, 44);//层数
+                            String region = getMsg.substring(44, 46);//区域
+                            String totalNum = Integer.parseInt(getMsg.substring(46, 50), 16) + "";//全局编号
+                            String partNum = Integer.parseInt(getMsg.substring(50, 54), 16) + "";//局部编号
+                            String softwareVersion = getMsg.substring(54, 62);//软件版本
+                            String hardwareVersion = getMsg.substring(62, 70);//硬件版本
+                            String otherVersion = getMsg.substring(70, 78);//附加版本
 
-                    } else if (getMsg.length() >= 62 && getMsg.contains("68001f8084") &&
-                            getMsg.substring(getMsg.indexOf("68001f8084") + 60, getMsg.indexOf("68001f8084") + 62).equals("16")) {
-                        Log.d("limbo", "修改节点ID返回:" + getMsg);
-                        String crc16back = getMsg.substring(56, 60);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 56));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
-                        }
-                        String JDid = getMsg.substring(10, 24);//节点id
-                        String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
-                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
-                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
-                        String jdid = getMsg.substring(42, 56);//目标节点ID
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
-                        LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
-                        LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
-                        LoRa_TYPTtoJDActivity_et_aimJDID.setText(jdid);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
-                        returnMsg = "修改节点id成功";
+                            if (getMsg.substring(6, 8).equals("31")) {
+                                String data = getMsg.substring(78, 88);//直读数据
+                                data = Integer.parseInt(data.substring(0, 6)) + "." + data.substring(6, 10);
+                                String dataState = getMsg.substring(88, 90);//数据状态
+                                String valveState = getMsg.substring(90, 92);//阀控状态
+                                LoRa_TYPTtoJDActivity_et_data.setText(data);
+                                LoRa_TYPTtoJDActivity_et_state.setText(dataState);
+                                LoRa_TYPTtoJDActivity_et_valveState.setText(valveState);
+                            }
+                            LoRa_TYPTtoJDActivity_et_aimJDID.setText(JDid);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
+                            LoRa_TYPTtoJDActivity_et_aimNetID.setText(netId);
+                            LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
+                            LoRa_TYPTtoJDActivity_et_floor.setText(floor);
+                            LoRa_TYPTtoJDActivity_et_region.setText(region);
+                            LoRa_TYPTtoJDActivity_et_totalNum.setText(totalNum);
+                            LoRa_TYPTtoJDActivity_et_partNum.setText(partNum);
+                            LoRa_TYPTtoJDActivity_et_softwareVersion.setText(softwareVersion);
+                            LoRa_TYPTtoJDActivity_et_hardwareVersion.setText(hardwareVersion);
+                            LoRa_TYPTtoJDActivity_et_otherVersion.setText(otherVersion);
 
-                    } else if (getMsg.length() >= 54 && getMsg.contains("68001b8083") &&
-                            getMsg.substring(getMsg.indexOf("68001b8083") + 52, getMsg.indexOf("68001b8083") + 54).equals("16")) {
-                        Log.d("limbo", "修改节点网络频率返回:" + getMsg);
-                        String crc16back = getMsg.substring(48, 52);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 48));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
-                        }
-                        String JDid = getMsg.substring(10, 24);//节点id
-                        String JDStyle = getMsg.substring(24, 26);//节点id
-                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
-                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
-                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
-                        String netFreq = getMsg.substring(42, 48);//目标节点频率
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
-                        LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
-                        LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
-                        LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
-                        returnMsg = "修改节点网络频率成功";
-                    } else if (getMsg.length() >= 92 && getMsg.contains("68002f8089") &&
-                            getMsg.substring(getMsg.indexOf("68002f8089") + 90, getMsg.indexOf("68002f8089") + 92).equals("16")) {
-                        Log.d("limbo", "一键读取返回:" + getMsg);
-                        String crc16back = getMsg.substring(86, 90);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 86));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
-                        }
-                        String JDid = getMsg.substring(10, 24);//节点id
-                        String Subtype = getMsg.substring(24, 26);//设备子类型
-                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
-                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
-                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
-                        String netID = getMsg.substring(42, 46);//目标节点网络ID
-                        String netFreq = getMsg.substring(46, 52);//目标节点网络频率
-                        String floor = getMsg.substring(52, 54);//所在层数
-                        String region = getMsg.substring(54, 56);//所在区域
-                        String totalNum = Integer.parseInt(getMsg.substring(56, 60), 16) + "";//全局编号
-                        String partNum = Integer.parseInt(getMsg.substring(60, 64), 16) + "";//局部编号
-                        String softwareVersion = getMsg.substring(64, 72);//软件版本
-                        String hardwareVersion = getMsg.substring(72, 80);//硬件版本
-                        String otherVersion = getMsg.substring(80, 88);//其他版本
+                            returnMsg = "磁激活获取数据成功";
+                        } else if (getMsg.length() >= 52 && getMsg.contains("68001a8082") &&
+                                getMsg.substring(getMsg.indexOf("68001a8082") + 50, getMsg.indexOf("68001a8082") + 52).equals("16")) {
+                            Log.d("limbo", "修改节点网络ID返回:" + getMsg);
+                            String crc16back = getMsg.substring(46, 50);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 46));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            String JDid = getMsg.substring(10, 24);//节点id
+                            String JDStyle = getMsg.substring(24, 26);//节点id
+                            String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(28, 30);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                            String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                            String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
+                            String netId = getMsg.substring(42, 46);//目标节点网络ID
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
+                            LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
+                            LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
+                            LoRa_TYPTtoJDActivity_et_aimNetID.setText(netId);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+
+                            returnMsg = "修改节点网络id成功";
+
+                        } else if (getMsg.length() >= 62 && getMsg.contains("68001f8084") &&
+                                getMsg.substring(getMsg.indexOf("68001f8084") + 60, getMsg.indexOf("68001f8084") + 62).equals("16")) {
+                            Log.d("limbo", "修改节点ID返回:" + getMsg);
+                            String crc16back = getMsg.substring(56, 60);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 56));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            String JDid = getMsg.substring(10, 24);//节点id
+                            String JDStyle = getMsg.substring(24, 26);//节点id
+                            String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(28, 30);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                            String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                            String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
+                            String jdid = getMsg.substring(42, 56);//目标节点ID
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
+                            LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
+                            LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
+                            LoRa_TYPTtoJDActivity_et_aimJDID.setText(jdid);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                            returnMsg = "修改节点id成功";
+
+                        } else if (getMsg.length() >= 54 && getMsg.contains("68001b8083") &&
+                                getMsg.substring(getMsg.indexOf("68001b8083") + 52, getMsg.indexOf("68001b8083") + 54).equals("16")) {
+                            Log.d("limbo", "修改节点网络频率返回:" + getMsg);
+                            String crc16back = getMsg.substring(48, 52);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 48));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            String JDid = getMsg.substring(10, 24);//节点id
+                            String JDStyle = getMsg.substring(24, 26);//节点id
+                            String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(28, 30);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                            String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                            String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
+                            String netFreq = getMsg.substring(42, 48);//目标节点频率
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
+                            LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
+                            LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
+                            LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                            returnMsg = "修改节点网络频率成功";
+                        } else if (getMsg.length() >= 92 && getMsg.contains("68002f8089") &&
+                                getMsg.substring(getMsg.indexOf("68002f8089") + 90, getMsg.indexOf("68002f8089") + 92).equals("16")) {
+                            Log.d("limbo", "一键读取返回:" + getMsg);
+                            String crc16back = getMsg.substring(86, 90);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 86));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            String JDid = getMsg.substring(10, 24);//节点id
+                            String Subtype = getMsg.substring(24, 26);//设备子类型
+                            String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(28, 30);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                            String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                            String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
+                            String netID = getMsg.substring(42, 46);//目标节点网络ID
+                            String netFreq = getMsg.substring(46, 52);//目标节点网络频率
+                            String floor = getMsg.substring(52, 54);//所在层数
+                            String region = getMsg.substring(54, 56);//所在区域
+                            String totalNum = Integer.parseInt(getMsg.substring(56, 60), 16) + "";//全局编号
+                            String partNum = Integer.parseInt(getMsg.substring(60, 64), 16) + "";//局部编号
+                            String softwareVersion = getMsg.substring(64, 72);//软件版本
+                            String hardwareVersion = getMsg.substring(72, 80);//硬件版本
+                            String otherVersion = getMsg.substring(80, 88);//其他版本
 
 
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
-                        LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
-                        LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_floor.setText(floor);
-                        LoRa_TYPTtoJDActivity_et_region.setText(region);
-                        LoRa_TYPTtoJDActivity_et_totalNum.setText(totalNum);
-                        LoRa_TYPTtoJDActivity_et_partNum.setText(partNum);
-                        LoRa_TYPTtoJDActivity_et_softwareVersion.setText(softwareVersion);
-                        LoRa_TYPTtoJDActivity_et_hardwareVersion.setText(hardwareVersion);
-                        LoRa_TYPTtoJDActivity_et_otherVersion.setText(otherVersion);
-                        LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
+                            LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
+                            LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_floor.setText(floor);
+                            LoRa_TYPTtoJDActivity_et_region.setText(region);
+                            LoRa_TYPTtoJDActivity_et_totalNum.setText(totalNum);
+                            LoRa_TYPTtoJDActivity_et_partNum.setText(partNum);
+                            LoRa_TYPTtoJDActivity_et_softwareVersion.setText(softwareVersion);
+                            LoRa_TYPTtoJDActivity_et_hardwareVersion.setText(hardwareVersion);
+                            LoRa_TYPTtoJDActivity_et_otherVersion.setText(otherVersion);
+                            LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
 
-                        returnMsg = "一键读取成功";
-                    } else if (getMsg.length() >= 72 && getMsg.contains("6800248087") &&
-                            getMsg.substring(getMsg.indexOf("6800248087") + 70, getMsg.indexOf("6800248087") + 72).equals("16")) {
-                        Log.d("limbo", "一键修改返回:" + getMsg);
-                        String crc16back = getMsg.substring(66, 70);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 66));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
+                            returnMsg = "一键读取成功";
+                        } else if (getMsg.length() >= 72 && getMsg.contains("6800248087") &&
+                                getMsg.substring(getMsg.indexOf("6800248087") + 70, getMsg.indexOf("6800248087") + 72).equals("16")) {
+                            Log.d("limbo", "一键修改返回:" + getMsg);
+                            String crc16back = getMsg.substring(66, 70);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 66));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            String JDid = getMsg.substring(10, 24);//旧节点id
+                            String Subtype = getMsg.substring(24, 26);//设备子类型
+                            String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
+                            String electricVoltage = getMsg.substring(28, 30);//电池电压
+                            electricVoltage = volt(electricVoltage);
+                            String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
+                            String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
+                            String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
+                            String jdID = getMsg.substring(42, 56);//目标节点ID
+                            String netid = getMsg.substring(56, 60);//目标节点网络id
+                            String netFreq = getMsg.substring(60, 66);//目标节点网络频率
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
+                            LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
+                            LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
+                            LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
+                            LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
+                            LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
+                            LoRa_TYPTtoJDActivity_et_aimJDID.setText(jdID);
+                            LoRa_TYPTtoJDActivity_et_aimNetID.setText(netid);
+                            LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
+                            returnMsg = "一键修改成功";
+                        } else if (getMsg.length() >= 60 && getMsg.contains("68001e8aff") &&
+                                getMsg.substring(getMsg.indexOf("68001e8aff") + 58, 60).equals("16")) {
+                            Log.d("limbo", "接收到:" + getMsg + "\n");
+                            String crc16back = getMsg.substring(54, 58);
+                            String crc16result = HzyUtils.CRC16(getMsg.substring(0, 54));
+                            if (!crc16result.equals(crc16back)) {
+                                Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
+                                HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
+                                break;
+                            }
+                            Log.d("limbo", "复位返回");
+                            returnMsg = "复位成功";
                         }
-                        String JDid = getMsg.substring(10, 24);//旧节点id
-                        String Subtype = getMsg.substring(24, 26);//设备子类型
-                        String endSingal = Integer.parseInt(getMsg.substring(26, 28), 16) + "";//末端强度
-                        String electricVoltage = getMsg.substring(28, 30);//电池电压
-                        electricVoltage = volt(electricVoltage);
-                        String LYXH1 = Integer.parseInt(getMsg.substring(36, 38), 16) + "";//路由信号1
-                        String LYXH2 = Integer.parseInt(getMsg.substring(38, 40), 16) + "";//路由信号2
-                        String LYXH3 = Integer.parseInt(getMsg.substring(40, 42), 16) + "";//路由信号3
-                        String jdID = getMsg.substring(42, 56);//目标节点ID
-                        String netid = getMsg.substring(56, 60);//目标节点网络id
-                        String netFreq = getMsg.substring(60, 66);//目标节点网络频率
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_LYSignal1.setText(LYXH1);
-                        LoRa_TYPTtoJDActivity_et_LYSignal2.setText(LYXH2);
-                        LoRa_TYPTtoJDActivity_et_LYSignal3.setText(LYXH3);
-                        LoRa_TYPTtoJDActivity_et_endSingal.setText(endSingal);
-                        LoRa_TYPTtoJDActivity_et_electricVoltage.setText(electricVoltage);
-                        LoRa_TYPTtoJDActivity_et_deviceStyle.setText(Subtype);
-                        LoRa_TYPTtoJDActivity_et_aimJDID.setText(jdID);
-                        LoRa_TYPTtoJDActivity_et_aimNetID.setText(netid);
-                        LoRa_TYPTtoJDActivity_et_aimNetFreq.setText(netFreq);
-                        returnMsg = "一键修改成功";
-                    } else if (getMsg.length() >= 60 && getMsg.contains("68001e8aff") &&
-                            getMsg.substring(getMsg.indexOf("68001e8aff") + 58, 60).equals("16")) {
-                        Log.d("limbo", "接收到:" + getMsg + "\n");
-                        String crc16back = getMsg.substring(54, 58);
-                        String crc16result = HzyUtils.CRC16(getMsg.substring(0, 54));
-                        if (!crc16result.equals(crc16back)) {
-                            Log.d("limbo", "CRC ERROR -- " + crc16back + ":" + crc16result);
-                            HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, "CRC16校验出错。", "提示");
-                            break;
+                        //                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, returnMsg, "提示");
+                        if (returnMsg.length() != 0) {
+                            Toast.makeText(LoRa_TYPTtoJDActivity.this, returnMsg, Toast.LENGTH_LONG).show();
                         }
-                        Log.d("limbo", "复位返回");
-                        returnMsg = "复位成功";
+
+                    }catch (Exception e){
+                        Toast.makeText(LoRa_TYPTtoJDActivity.this,e.toString(),Toast.LENGTH_LONG).show();
                     }
-                    //                    HintDialog.ShowHintDialog(LoRa_TYPTtoJDActivity.this, returnMsg, "提示");
-                    if (returnMsg.length() != 0) {
-                        Toast.makeText(LoRa_TYPTtoJDActivity.this, returnMsg, Toast.LENGTH_LONG).show();
-                    }
+
 
                     timeOut = true;
                     HzyUtils.closeProgressDialog();

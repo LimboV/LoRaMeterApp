@@ -6,13 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_Cjj;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_Cjj;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NS_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 
@@ -30,8 +32,8 @@ public class NS_ZCjjListActivity extends Activity {
     @BindView(R.id.ZCjjListActivity_lv_lyList)
     ListView ZCjjListActivity_lv_lyList;
     private int xqid;
-    public static List<LoRa_Cjj> cjjList;
-    public static List<LoRa_Cjj> ZcjjList;//用以存放总采集信息
+    public static List<NS_Cjj> cjjList;
+    public static List<NS_Cjj> ZcjjList;//用以存放总采集信息
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,14 +44,23 @@ public class NS_ZCjjListActivity extends Activity {
         xqid = bundle.getInt("xqid");
         cjjList = NS_DataHelper.getCjj(xqid); //根据小区ID加载采集机信息列表
         ZcjjList = NS_DataHelper.getCjj(xqid); //根据小区ID加载采集机信息列表
-        ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getZCjj());
+        Log.d("limbo",""+cjjList.size());
+        Log.d("limbo",""+ZcjjList.size());
+        ListAdapter adapter = null;
+        try {
+            adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getZCjj());
+        } catch (Exception e) {
+            Toast.makeText(NS_ZCjjListActivity.this, "蓝牙未连接或数据库文件数据格式有误!", Toast.LENGTH_LONG).show();
+            Log.d("limbo", e.toString());
+            finish();
+        }
         ZCjjListActivity_lv_lyList.setAdapter(adapter);
         ZCjjListActivity_lv_lyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(NS_ZCjjListActivity.this, NS_CjjListActivity.class);
                 intent.putExtra("xqid", ZcjjList.get(position).XqId);
-                intent.putExtra("cjjid", ZcjjList.get(position).CjjId );
+                intent.putExtra("cjjid", ZcjjList.get(position).CjjId);
                 startActivity(intent);
             }
         });
@@ -64,7 +75,7 @@ public class NS_ZCjjListActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(NS_ZCjjListActivity.this, NS_CBActivity.class);
                         intent.putExtra("xqid", ZcjjList.get(position).XqId);
-                        intent.putExtra("cjjid", ZcjjList.get(position).CjjId );
+                        intent.putExtra("cjjid", ZcjjList.get(position).CjjId);
                         startActivity(intent);
 
                     }
@@ -86,40 +97,37 @@ public class NS_ZCjjListActivity extends Activity {
      */
     private List<String> getZCjj() {
         List<String> data = new ArrayList<>();
-        boolean flag = true;
-        ZcjjList.clear();
+        int flag = 0;
+        if (ZcjjList.size()>0){
+            ZcjjList.clear();
+        }
+
+        Log.d("limbo", cjjList.size() + "");
         for (int i = 0; i < cjjList.size(); i++) {
+            flag = 0;
             if (ZcjjList.size() == 0) {
                 ZcjjList.add(cjjList.get(i));
             } else {
                 for (int j = 0; j < ZcjjList.size(); j++) {
                     if (ZcjjList.get(j).CjjId / 10000 == cjjList.get(i).CjjId / 10000) {
-                        flag = false;
+                    } else {
+                        flag++;
                     }
                 }
-                if (flag) {
+                if (flag == ZcjjList.size()) {
                     ZcjjList.add(cjjList.get(i));
-                } else {
-                    flag = true;
                 }
 
             }
         }
 
-        for (LoRa_Cjj cjj : ZcjjList) {
-            data.add("lora模块序号：" + cjj.CjjId / 10000
-                    + "\nLoRa模块地址：" + cjj.CjjAddr.substring(10));
-        }
-        return data;
-    }
+        Log.d("limbo", ZcjjList.size() + "");
 
-    private List<String> getCjj() {
-        List<String> data = new ArrayList<>();
-
-        for (LoRa_Cjj cjj : cjjList) {
+        for (NS_Cjj cjj : ZcjjList) {
             data.add("lora总采号：" + cjj.CjjId / 10000
                     + "\nLoRa模块地址：" + cjj.CjjAddr.substring(10));
         }
         return data;
     }
+
 }

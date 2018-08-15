@@ -46,6 +46,8 @@ public class LoRa_MeterCsSettingActivity extends Activity  {
     TextView tvWlAddr;
     @BindView(R.id.CsSettingActivity_cb_isLy)
     CheckBox cbIsLy;
+    @BindView(R.id.CsSettingActivity_cb_isReplaceAddr)
+    CheckBox CsSettingActivity_cb_isReplaceAddr;
 
     private String oldMeterAddr = "", oldFreq = "", oldNetID = "";
     int noflag;
@@ -620,7 +622,9 @@ public class LoRa_MeterCsSettingActivity extends Activity  {
                                                 "\n版本号" + bbh +
                                                 "\n电压" + dy);
                                         etWlAddr.setText(wlmoID);
-                                        etMeterAddr.setText(mkId);
+                                        if (CsSettingActivity_cb_isReplaceAddr.isChecked()){
+                                            etMeterAddr.setText(mkId);
+                                        }
 //                                        etNetId.setText(netId);
 //                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
                                         MenuActivity.Cjj_CB_MSG = "";
@@ -653,7 +657,10 @@ public class LoRa_MeterCsSettingActivity extends Activity  {
                                                 "\n模块ID" + mkId +
                                                 "\n物理模块ID" + wlmoID);
                                         etWlAddr.setText(wlmoID);
-                                        etMeterAddr.setText(mkId);
+                                        if (CsSettingActivity_cb_isReplaceAddr.isChecked()){
+                                            etMeterAddr.setText(mkId);
+                                        }
+
 //                                        etNetId.setText(netId);
 //                                        etNetFreq.setText(Integer.parseInt(sfreq, 16) + "");
                                         MenuActivity.Cjj_CB_MSG = "";

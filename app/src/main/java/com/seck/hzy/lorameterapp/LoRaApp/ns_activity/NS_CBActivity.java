@@ -18,10 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seck.hzy.lorameterapp.LoRaApp.lora_activity.MenuActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_Cjj;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_MeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HzyUtils;
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_Cjj;
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_MeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NS_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 
@@ -36,14 +36,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.seck.hzy.lorameterapp.LoRaApp.lora_activity.LoRa_TYPTActivity.timeOut;
+
 /**
  * Created by limbo on 2017/11/28.
  */
 
 public class NS_CBActivity extends Activity {
     private int xqid, zcjjid, cjjid, DelayTime;//小区号 ，总采号，采集机号
-    private List<LoRa_MeterUser> meterList;
-    private List<LoRa_Cjj> cjjList;
+    private List<NS_MeterUser> meterList;
+    private List<NS_Cjj> cjjList;
     private ArrayList<HashMap<String, Object>> listItem = new ArrayList<>();
     private String from[] = new String[]{"meterid", "data"};
     private int to[] = new int[]{R.id.meterId, R.id.data};
@@ -86,6 +88,8 @@ public class NS_CBActivity extends Activity {
                     HintDialog.ShowHintDialog(NS_CBActivity.this, "频率及网络id不可为空。", "提示");
                     return;
                 }
+
+                MenuActivity.Cjj_CB_MSG = "";
                 HzyUtils.showProgressDialog1(NS_CBActivity.this, "抄表中......");
 
                 //                freq = Integer.toHexString(Integer.valueOf(freq));
@@ -93,26 +97,33 @@ public class NS_CBActivity extends Activity {
                 freq = HzyUtils.isLength(freq, 4);
                 netid = HzyUtils.isLength(netid, 4);
                 size = cjjList.size();//分采个数
+                if (size == 0) {
+                    return;
+                }
                 fcCount = 0;
-                DelayTime = 10 + 10 * size;
-                HzyUtils.prepareTimeStart(DelayTime * 10);
+                DelayTime = 200 + 100 * size;
+                prepareTimeStart(DelayTime);
                 String fcCount = HzyUtils.isLength(HzyUtils.toHexString(size + ""), 2);
                 String fcMsg = "";
                 for (int i = 0; i < size; i++) {
                     fcMsg = fcMsg + HzyUtils.isLength(cjjList.get(i).CjjId % 10000 + "", 2);
                 }
-                for (int i = 0; i < (20 - size); i++) {
+
+                /*for (int i = 0; i < (20 - size); i++) {
                     fcMsg = fcMsg + "00";
-                }
+                }*/
                 Log.d("limbo", fcMsg);
                 String sendMsg = "68"
                         + freq
                         + netid
                         + cjjList.get(0).CjjAddr.substring(0, 10)
-                        + "402aa10140"
+                        + "40"
+                        + HzyUtils.isLength(HzyUtils.toHexString(size + 15 + ""), 2)//有效数据长度
+                        + "a10140"
                         + fcCount
                         + fcMsg
-                        + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
+                        + "5B5B5B3F3F7B7B7B01FE3F5D5D5D";
+                tv_1.append("发送:" + sendMsg);
                 MenuActivity.sendCmd(sendMsg);
                 MenuActivity.btAuto = true;
                 new Thread(new Runnable() {
@@ -120,26 +131,30 @@ public class NS_CBActivity extends Activity {
                     public void run() {
                         try {
                             String getMsg = "";
-
                             while (true) {
-                                Thread.sleep(1000);
+                                Thread.sleep(3000);
                                 MenuActivity.Cjj_CB_MSG = MenuActivity.Cjj_CB_MSG.replaceAll("0x", "").replaceAll(" ", "");
                                 MenuActivity.Cjj_CB_MSG = HzyUtils.toStringHex1(MenuActivity.Cjj_CB_MSG).replaceAll("�", "").replaceAll("\n", "");
-                                getMsg = getMsg + MenuActivity.Cjj_CB_MSG;
-                                getMsg = getMsg.replaceAll("�", "");
-                                MenuActivity.Cjj_CB_MSG = "";
+                                if (MenuActivity.Cjj_CB_MSG.contains("AAAAAAAAAA")) {
+                                    MenuActivity.Cjj_CB_MSG = MenuActivity.Cjj_CB_MSG.substring(MenuActivity.Cjj_CB_MSG.indexOf("AAAAAAAAAA"));
+                                    if (MenuActivity.Cjj_CB_MSG.substring(10, 14).equals("4008")) {
+                                        MenuActivity.Cjj_CB_MSG = MenuActivity.Cjj_CB_MSG.substring(10);
+                                    }
+                                }
+
+                                getMsg = getMsg + HzyUtils.GetBlueToothMsg();
+
 
                                 Log.d("limbo", getMsg);
                                 if (getMsg.contains("AAAAAAAAAA") && getMsg.contains("FBFB") && getMsg.contains("7B7B7B")
-                                        && getMsg.contains("5D5D5D")) {
+                                        && getMsg.contains("5D5D5D") && getMsg.length() >= 46) {
                                     getMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA"));
                                     Message message = new Message();
                                     message.what = 0x00;
                                     message.obj = getMsg;
                                     mHandler.sendMessage(message);
-                                    getMsg = "";
+                                    getMsg = getMsg.substring(getMsg.indexOf("5D5D5D") + 6);
                                 }
-
                             }
                         } catch (InterruptedException e) {
                             HzyUtils.closeProgressDialog();
@@ -184,50 +199,60 @@ public class NS_CBActivity extends Activity {
             switch (msg.what) {
                 case 0x00:
                     String getMsg = msg.obj.toString();
+                    try {
+                        if (getMsg.trim().length() != 0) {
+                            tv_1.append(getMsg);
+                            fcCount++;
+                            //                        Log.d("limbo", "读到数据  :" + getMsg);
+                            //                        tv_1.append("\n" + getMsg);
+                            String fcid = getMsg.substring(24, 26) + (255 - Integer.parseInt(getMsg.substring(46, 48), 16));
+                            String hx = getMsg.substring(26, 28);//户型--表数
+                            int meterCount = 0;
+                            if (hx.equals("04")) {
+                                meterCount = 16;
+                            } else {
+                                meterCount = Integer.parseInt(hx);
+                            }
+                            String data = getMsg.substring(48, 48 + meterCount * 6);//表数据
+                            tv_1.append("\n分采号" + fcid);
+                            tv_1.append("\n户型" + hx);
+                            tv_1.append("\n表数据" + data);
+                            Log.d("limbo", "分采:" + fcid);
+                            Log.d("limbo", "户型:" + hx);
+                            Log.d("limbo", "表数据:" + data);
 
-                    if (getMsg.trim().length() != 0) {
-                        fcCount++;
-                        //                        Log.d("limbo", "读到数据:" + getMsg);
-                        //                        tv_1.append("\n" + getMsg);
-                        int startLocation = getMsg.indexOf("AAAAAAAAAA");
-                        String fcid = getMsg.substring(startLocation + 24, startLocation + 26) + getMsg.substring(startLocation + 44, startLocation + 46);
-                        String hx = getMsg.substring(startLocation + 26, startLocation + 28);//户型--表数
-                        String data = getMsg.substring(startLocation + 48, startLocation + 48 + Integer.parseInt(hx) * 6);//表数据
-                        tv_1.append("\n分采号" + fcid);
-                        tv_1.append("\n户型" + hx);
-                        tv_1.append("\n表数据" + data);
-                        Log.d("limbo", "分采:" + fcid);
-                        Log.d("limbo", "户型:" + hx);
-                        Log.d("limbo", "表数据:" + data);
-                        int meterCount = 0;
-                        if (hx.equals("04")) {
-                            meterCount = 16;
-                        } else {
-                            meterCount = Integer.parseInt(hx);
+                            String date;
+                            Calendar c = Calendar.getInstance();
+                            Date d = c.getTime();
+                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            date = df.format(d);
+                            String cjjid = (zcjjid * 10000 + Integer.parseInt(fcid)) + "";
+                            for (int i = 0; i < meterCount; i++) {
+                                String meterData = data.substring(0 + 6 * i, 6 + 6 * i);
+                                meterData = meterData.substring(0, 5) + "." + meterData.substring(5, 6);
+                                NS_DataHelper.changeUser(xqid, Integer.parseInt(cjjid), "" + (1 + i), (i + 1), meterData, date);
+                            }
+                            if (fcCount == size) {
+                                Toast.makeText(NS_CBActivity.this, "抄表完成", Toast.LENGTH_LONG).show();
+                                HzyUtils.closeProgressDialog();
+                            }
+                            getList();
+                            listItemAdapter = new SimpleAdapter(NS_CBActivity.this, listItem, R.layout.lora_list_item, from, to);
+                            listItemAdapter.setViewBinder(new ListViewBinder());
+                            NS_CBActivity_lv_meterList.setAdapter(listItemAdapter);
                         }
-                        String date;
-                        Calendar c = Calendar.getInstance();
-                        Date d = c.getTime();
-                        DateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH点mm分ss秒");
-                        date = df.format(d);
-                        String cjjid = zcjjid + fcid;
-                        for (int i = 0; i < meterCount; i++) {
-                            String meterData = data.substring(0 + 6 * i, 6 + 6 * i);
-                            meterData = meterData.substring(0, 5) + "." + meterData.substring(5, 6);
-                            NS_DataHelper.changeUser(xqid, Integer.parseInt(cjjid), "" + i, i, meterData, date);
-                        }
-                        if (fcCount ==size){
-                            Toast.makeText(NS_CBActivity.this,"抄表完成",Toast.LENGTH_LONG).show();
-                            HzyUtils.closeProgressDialog();
-                        }
-
-
+                    } catch (Exception e) {
+                        tv_1.append(e.toString());
+                        tv_1.append("\n" + getMsg);
                     }
-
+                    break;
+                case 0x98:
+                    HzyUtils.closeProgressDialog();
+                    Toast.makeText(NS_CBActivity.this, "超时", Toast.LENGTH_LONG).show();
                     break;
                 case 0x99:
                     HzyUtils.closeProgressDialog();
-                    HintDialog.ShowHintDialog(NS_CBActivity.this, "未接收到数据", "提示");
+                    Toast.makeText(NS_CBActivity.this, "未接收到数据", Toast.LENGTH_LONG).show();
                     break;
                 default:
                     break;
@@ -237,6 +262,7 @@ public class NS_CBActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        MenuActivity.btAuto = false;
         saveUser(NS_CBActivity_et_freq.getText().toString().trim(), NS_CBActivity_et_netid.getText().toString().trim());
         super.onDestroy();
     }
@@ -263,5 +289,31 @@ public class NS_CBActivity extends Activity {
         SharedPreferences pref = getSharedPreferences("nscb", MODE_PRIVATE);
         NS_CBActivity_et_freq.setText(pref.getString("freq", "4935"));
         NS_CBActivity_et_netid.setText(pref.getString("netid", "0001"));
+    }
+
+    /**
+     * 开始协议设定时间
+     */
+
+    private void prepareTimeStart(final int timeMax) {
+        timeOut = false;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < timeMax && !timeOut; i++) {
+                        Thread.sleep(100);
+                    }
+                    if (!timeOut) {
+                        Message message = new Message();
+                        message.what = 0x98;
+                        mHandler.sendMessage(message);
+                    }
+                    timeOut = true;
+                } catch (Exception e) {
+
+                }
+            }
+        }).start();
     }
 }

@@ -2,7 +2,6 @@ package com.seck.hzy.lorameterapp.LoRaApp.lora_activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +26,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seck.hzy.lorameterapp.LoRaApp.ns_activity.NS_UploadActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.ns_activity.NS_UserMsgActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.ns_activity.NS_XqListActivity;
+import com.seck.hzy.lorameterapp.LoRaApp.ns_activity.NS_XqSelectActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_CameraTestActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_ChooseActivity;
 import com.seck.hzy.lorameterapp.LoRaApp.p_activity.P_GPRSNetActivity;
@@ -87,6 +89,8 @@ public class MenuActivity extends Activity {
     final static public String DEFAULT_BADDR = "AAAAAAAAAAAAAA";
     final static public String DEFAULT_SERVER = "www.seck.com.cn:9200";
 
+    public static String ns_username, ns_password, ns_url,ns_id;
+
     public static String[] strAllPath;
     public static String moblieStorgePath = "";
     public static String sDStorgePath = "";
@@ -105,7 +109,6 @@ public class MenuActivity extends Activity {
     @BindView(R.id.menuActivity_tv_meterStyle)
     TextView menuActivity_tv_meterStyle;
 
-    private ProgressDialog progressBar = null;
     static public MenuActivity uiAct = null;
 
 
@@ -156,15 +159,13 @@ public class MenuActivity extends Activity {
                 Toast.makeText(MenuActivity.this, "DB文件创建失败", Toast.LENGTH_LONG).show();
                 break;
             case 3://已存在
-                Toast.makeText(MenuActivity.this, "DB文件已存在", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MenuActivity.this, "DB文件已存在", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
         }
         ButterKnife.bind(this);
         textView.setText("软件版本：" + this.getAppVersionName(this).substring(this.getAppVersionName(this).indexOf(".") + 1));
-        progressBar = new ProgressDialog(this);
-        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         uiAct = this;
         strAllPath = HzyUtils.getAllSdPaths(this);
@@ -268,73 +269,115 @@ public class MenuActivity extends Activity {
 
                         break;
                     case 3:
-                        if (MenuActivity.netThread == null) {
-                            networkConnect();
-                            return;
+                        if (METER_STYLE.equals("NS")) {//数字状态表
+                            SharedPreferences pref = getSharedPreferences("userMsg", MODE_PRIVATE);
+                            ns_username = pref.getString("editText", "");
+                            ns_password = pref.getString("editText2", "");
+                            ns_url = pref.getString("editText3", "");
+                            ns_id = pref.getString("userID", "");
+                            if (HzyUtils.isEmpty(ns_username)||HzyUtils.isEmpty(ns_password)||HzyUtils.isEmpty(ns_url)||HzyUtils.isEmpty(ns_id)){
+                                new SweetAlertDialog(MenuActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("提示")
+                                        .setContentText("请先验证账户!")
+                                        .show();
+                                return;
+                            }
+                            i = new Intent(uiAct, NS_XqSelectActivity.class);
+                            startActivity(i);
                         } else {
-                            if (METER_STYLE.equals("P")) {//P型表采集机抄表
-                                i = new Intent(MenuActivity.this, P_PxqActivity.class);
-                                startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {//直读表查询
-                                i = new Intent(uiAct, Z_XQListActivity.class);
-                                i.putExtra("CB", false);
-                                startActivity(i);
-                            } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对摄像表操作
-                                i = new Intent(MenuActivity.this, LoRa_SxbChooseActivity.class);
-                                startActivity(i);
-                            } else if (METER_STYLE.equals("CS")) {//超声波表
-                                i = new Intent(uiAct, LoRa_SxbChooseActivity.class);
-                                startActivity(i);
+                            if (MenuActivity.netThread == null) {
+                                networkConnect();
+                                return;
                             } else {
+                                if (METER_STYLE.equals("P")) {//P型表采集机抄表
+                                    i = new Intent(MenuActivity.this, P_PxqActivity.class);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("Z")) {//直读表查询
+                                    i = new Intent(uiAct, Z_XQListActivity.class);
+                                    i.putExtra("CB", false);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对摄像表操作
+                                    i = new Intent(MenuActivity.this, LoRa_SxbChooseActivity.class);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("CS")) {//超声波表
+                                    i = new Intent(uiAct, LoRa_SxbChooseActivity.class);
+                                    startActivity(i);
+                                } else {
+
+                                }
+
 
                             }
-
-
                         }
+
 
                         break;
                     case 4:
-                        if (METER_STYLE.equals("P")) {//P型表查询
-                            i = new Intent(MenuActivity.this, P_XqActivity.class);
-                            i.putExtra("isRead", true);
-                            startActivity(i);
-                        } else if (METER_STYLE.equals("Z")) {//直读表表参数
-                            i = new Intent(uiAct, Z_MeterTestActivity.class);
-                            startActivity(i);
-                        } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对采集机操作
-                            i = new Intent(MenuActivity.this, LoRa_CjjChooseActivity.class);
-                            startActivity(i);
-                        } else if (METER_STYLE.equals("CS")) {//超声波表
-                            i = new Intent(uiAct, LoRa_CjjChooseActivity.class);
+                        if (METER_STYLE.equals("NS")) {//数字状态表
+                            SharedPreferences pref = getSharedPreferences("userMsg", MODE_PRIVATE);
+                            ns_username = pref.getString("editText", "");
+                            ns_password = pref.getString("editText2", "");
+                            ns_url = pref.getString("editText3", "");
+                            ns_id = pref.getString("userID", "");
+                            if (HzyUtils.isEmpty(ns_username)||HzyUtils.isEmpty(ns_password)||HzyUtils.isEmpty(ns_url)||HzyUtils.isEmpty(ns_id)){
+                                new SweetAlertDialog(MenuActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("提示")
+                                        .setContentText("请先验证账户!")
+                                        .show();
+                                return;
+                            }
+                            i = new Intent(uiAct, NS_UploadActivity.class);
                             startActivity(i);
                         } else {
-
-                        }
-
-                        break;
-                    case 5:
-                        if (MenuActivity.netThread == null) {
-                            networkConnect();
-                            return;
-                        } else {
-                            if (METER_STYLE.equals("P")) {//P型表测试
-                                i = new Intent(MenuActivity.this, P_CameraTestActivity.class);
+                            if (METER_STYLE.equals("P")) {//P型表查询
+                                i = new Intent(MenuActivity.this, P_XqActivity.class);
+                                i.putExtra("isRead", true);
                                 startActivity(i);
-                            } else if (METER_STYLE.equals("Z")) {//测试
-                                i = new Intent(uiAct, Z_OtherCommandsActivity.class);
+                            } else if (METER_STYLE.equals("Z")) {//直读表表参数
+                                i = new Intent(uiAct, Z_MeterTestActivity.class);
                                 startActivity(i);
                             } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对采集机操作
-                                i = new Intent(MenuActivity.this, LoRa_BluetoothUtilsActivity.class);
+                                i = new Intent(MenuActivity.this, LoRa_CjjChooseActivity.class);
                                 startActivity(i);
                             } else if (METER_STYLE.equals("CS")) {//超声波表
-                                i = new Intent(uiAct, LoRa_BluetoothUtilsActivity.class);
+                                i = new Intent(uiAct, LoRa_CjjChooseActivity.class);
                                 startActivity(i);
                             } else {
 
                             }
-
-
                         }
+
+
+                        break;
+                    case 5:
+                        if (METER_STYLE.equals("NS")) {//数字状态表
+                            i = new Intent(uiAct, NS_UserMsgActivity.class);
+                            startActivity(i);
+                        } else {
+                            if (MenuActivity.netThread == null) {
+                                networkConnect();
+                                return;
+                            } else {
+                                if (METER_STYLE.equals("P")) {//P型表测试
+                                    i = new Intent(MenuActivity.this, P_CameraTestActivity.class);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("Z")) {//测试
+                                    i = new Intent(uiAct, Z_OtherCommandsActivity.class);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("L") || METER_STYLE.equals("W") || METER_STYLE.equals("F") || METER_STYLE.equals("JY")) {//LoRa表对采集机操作
+                                    i = new Intent(MenuActivity.this, LoRa_BluetoothUtilsActivity.class);
+                                    startActivity(i);
+                                } else if (METER_STYLE.equals("CS")) {//超声波表
+                                    i = new Intent(uiAct, LoRa_BluetoothUtilsActivity.class);
+                                    startActivity(i);
+                                } else {
+
+                                }
+
+
+                            }
+                        }
+
                         break;
                     case 6:
                         if (MenuActivity.netThread == null) {
@@ -461,8 +504,8 @@ public class MenuActivity extends Activity {
         /**
          * 数字状态表
          */
-        private String NS_Titls[] = {"未连接", "表类型选择", "抄表"};
-        private String NS_Titls2[] = {"已连接", "表类型选择", "抄表"};
+        private String NS_Titls[] = {"未连接", "表类型选择", "抄表", "小区信息\n下载", "小区信息\n上传", "账户设置"};
+        private String NS_Titls2[] = {"已连接", "表类型选择", "抄表", "小区信息\n下载", "小区信息\n上传", "账户设置"};
 
         private int LoRa_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
                 R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon, R.drawable.lora_pic_cjj, R.drawable.pic_meter};
@@ -472,7 +515,7 @@ public class MenuActivity extends Activity {
                 R.drawable.pic_preferences, R.drawable.pic_set, R.drawable.pic_isync, R.drawable.pic_gprsnet, R.drawable.pic_meter, R.drawable.updater};
         private int CS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_sxb, R.drawable.pic_cjjcb,
                 R.drawable.pic_bluetoothutils, R.drawable.pic_save, R.drawable.fcicon, R.drawable.pic_set};
-        private int NS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter};
+        private int NS_Imgs[] = {R.drawable.pic_bluetoothno, R.drawable.pic_set, R.drawable.pic_meter, R.drawable.pic_save, R.drawable.pic_save, R.drawable.pic_set};
 
 
         public imageAdapter(Context c) {
@@ -492,7 +535,7 @@ public class MenuActivity extends Activity {
             } else if (MenuActivity.METER_STYLE.equals("CS")) {
                 return 9;
             } else if (MenuActivity.METER_STYLE.equals("NS")) {
-                return 3;
+                return 6;
             } else {
                 return 9;
             }

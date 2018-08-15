@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_MeterUser;
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_MeterUser;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NS_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 
@@ -33,7 +33,7 @@ public class NS_MeterListActivity extends Activity {
     Button UserActivity_btn_cb;
     private int xqid, cjjid;
     private String LoRaNum;
-    private List<LoRa_MeterUser> meterList;
+    private List<NS_MeterUser> meterList;
     private ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
     private String from[] = new String[]{"meterid", "data"};
     private int to[] = new int[]{R.id.meterId, R.id.data};

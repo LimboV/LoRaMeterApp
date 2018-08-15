@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="读写通用参数"/>
     <Button
+        android:id="@+id/LoRaJdFucationg_btn_singleMeterHm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="单表厚膜节点调试"/>
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:text="单表摄像节点调试"/>
     <Button
+        android:id="@+id/LoRaJdFucationg_btn_singleMeterPulse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="单表脉冲节点调试"/>
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Mbus总线厚膜分采节点"/>
     <Button
+        android:id="@+id/LoRaJdFucationg_btn_485Hm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="485总线厚膜分采节点"/>

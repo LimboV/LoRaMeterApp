@@ -250,8 +250,8 @@ public class LoRa_DataHelper {
             Date) {
 
         try {
+        try {
             db.beginTransaction();
-            try {
                 ContentValues cv = new ContentValues();//图片以byte数组字符串形式放入数据库
                 cv.put("Date", Date);
                 cv.put("MeterId", meterNum);

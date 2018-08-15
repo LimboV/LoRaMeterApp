@@ -503,6 +503,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                 if (jd.length() == 0) {
                     jd = "0";
                 }
+                jd = HzyUtils.isLength(jd,10);
                 String AllFcMsg = "";
                 for (int i = 0; i < 20; i++) {
                     String fcMsg = etId[i].getText().toString().trim();
@@ -671,7 +672,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
             }
         });
         /**
-         *获取节点信息
+         *获取所有节点信息
          */
         btnGetJdMsg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -697,8 +698,7 @@ public class LoRa_LoRaSettingActivity extends Activity {
                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                 int AllCount = Integer.parseInt(getMsg.substring(4, 6), 16);//总节点
                                 while (getMsg.length() != AllCount * 76) {
-                                    getMsg = HzyUtils.GetBlueToothMsg();
-                                    getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
+                                    getMsg = getMsg+ HzyUtils.GetBlueToothMsg().replaceAll("0x", "").replaceAll(" ", "");
                                 }
 
 

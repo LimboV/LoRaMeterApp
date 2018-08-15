@@ -5,7 +5,7 @@
 
     <uses-sdk
         android:installLocation="internalOnly"
-        android:maxSdkVersion="22"
+        android:maxSdkVersion="2 2"
         android:minSdkVersion="14"
         android:sharedUserId="android.uid.system"/>
 
@@ -24,16 +24,12 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-    <permission android:name="android.permission.BAIDU_LOCATION_SERVICE"/>
 
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <application
         tools:replace="android:icon, android:theme"
@@ -619,6 +615,12 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTJd_Pulse"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
             android:name=".LoRaApp.ns_activity.NS_XqListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
@@ -649,6 +651,24 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+            android:name=".LoRaApp.ns_activity.NS_XqSelectActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_UploadActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".LoRaApp.ns_activity.NS_UserMsgActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
             android:name=".LoRaApp.lora_activity.LoRa_TYPTJdFucationActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
@@ -656,6 +676,12 @@
         </activity>
         <activity
             android:name=".LoRaApp.lora_activity.LoRa_TYPTJd_CameraDebug"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".LoRaApp.lora_activity.LoRa_TYPTtoHmActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">

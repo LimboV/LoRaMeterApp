@@ -154,12 +154,18 @@ public class LoRa_Meter485TestActivity extends Activity {
                 String netId = Meter485TestActivity_et_netid.getText().toString().trim();
                 String mkId = Meter485TestActivity_et_mkid.getText().toString().trim();
                 fcList.clear();
+                int z= 0;
                 for (int i = 0; i < 20; i++) {
                     EditText view = (EditText) findViewById(idList[i]);
-                    fcList.add(i, view.getText().toString().trim());
+                    String x = view.getText().toString().trim();
+                    if (!HzyUtils.isEmpty(x)) {
+                        fcList.add(i, HzyUtils.toHexString(x));
+                        z++;
+                    }
+
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() > 0) {
                         xxx++;
                     }
@@ -198,7 +204,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                     HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据过大", "错误");
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() <= 2) {
                         while (fcList.get(i).length() < 2) {
                             fcList.set(i, "0" + fcList.get(i));
@@ -214,12 +220,12 @@ public class LoRa_Meter485TestActivity extends Activity {
                     HzyUtils.showProgressDialog(LoRa_Meter485TestActivity.this);
                     String fcMsg = "";
                     for (String fc : fcList) {
-                        fc = HzyUtils.toHexString(fc);
                         if (fc.length() < 2)
                             fc = "0" + fc;
                         fcMsg = fcMsg + fc;
                     }
-                    String sendMsg = "68" + freq + netId + mkId + "402aa10140" + strx + fcMsg + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
+                    String sendMsg = "68" + freq + netId + mkId + "402aa10140" + strx + fcMsg
+                            + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
                     //                    sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);
@@ -248,7 +254,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                             }
                         }
                     }).start();
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY") || MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
             }
@@ -263,12 +269,18 @@ public class LoRa_Meter485TestActivity extends Activity {
                 String netId = Meter485TestActivity_et_netid.getText().toString().trim();
                 String mkId = Meter485TestActivity_et_mkid.getText().toString().trim();
                 fcList.clear();
+                int z= 0;
                 for (int i = 0; i < 20; i++) {
                     EditText view = (EditText) findViewById(idList[i]);
-                    fcList.add(i, view.getText().toString().trim());
+                    String x = view.getText().toString().trim();
+                    if (!HzyUtils.isEmpty(x)) {
+                        fcList.add(i, HzyUtils.toHexString(x));
+                        z++;
+                    }
+
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() > 0) {
                         xxx++;
                     }
@@ -312,7 +324,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                     HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据过大", "错误");
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() <= 2) {
                         while (fcList.get(i).length() < 2) {
                             fcList.set(i, "0" + fcList.get(i));
@@ -330,6 +342,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                     String fcMsg = "";
                     for (String fc : fcList) {
                         fcMsg = fcMsg + fc;
+
                     }
                     /**
                      * 《写入》功能：
@@ -365,7 +378,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         }
                     }).start();
 
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY") || MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
             }
@@ -384,12 +397,19 @@ public class LoRa_Meter485TestActivity extends Activity {
                 String netId = Meter485TestActivity_et_netid.getText().toString().trim();
                 String mkId = Meter485TestActivity_et_mkid.getText().toString().trim();
                 fcList.clear();
+                int z= 0;
                 for (int i = 0; i < 20; i++) {
                     EditText view = (EditText) findViewById(idList[i]);
-                    fcList.add(i, view.getText().toString().trim());
+                    String x = view.getText().toString().trim();
+                    if (!HzyUtils.isEmpty(x)) {
+                        fcList.add(i, HzyUtils.toHexString(x));
+                        Log.d("limboV",x);
+                        z++;
+                    }
+
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() > 0) {
                         xxx++;
                     }
@@ -433,7 +453,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                     HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据过大", "错误");
                 }
 
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < z; i++) {
                     if (fcList.get(i).length() <= 2) {
                         while (fcList.get(i).length() < 2) {
                             fcList.set(i, "0" + fcList.get(i));
@@ -442,6 +462,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "数据过大", "错误");
                     }
                 }
+
                 /**
                  * 表类型使用不同的通讯协议
                  */
@@ -455,7 +476,8 @@ public class LoRa_Meter485TestActivity extends Activity {
                      * 《读取》的发送指令：68 1338 0814 0000000021 4B 02A0F0401401
                      68+频率（2）+网络id（2）+模块id（5）+命令号4B+02A0F0401401
                      */
-                    String sendMsg = "68" + freq + netId + mkId + "4b02a0f0401401" + strx + fcMsg + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
+                    String sendMsg = "68" + freq + netId + mkId + "4b02a0f0401401" + strx + fcMsg
+                            + "000000000000005B5B5B3F3F7B7B7B01FE3F5D5D5D";
                     //                    sendMsg = sendMsg + HzyUtils.CRC16(sendMsg);
                     Log.d("limbo", "获取:" + sendMsg);
                     MenuActivity.sendCmd(sendMsg);
@@ -485,7 +507,7 @@ public class LoRa_Meter485TestActivity extends Activity {
                         }
                     }).start();
 
-                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY")|| MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
+                } else if (MenuActivity.METER_STYLE.equals("W") || MenuActivity.METER_STYLE.equals("JY") || MenuActivity.METER_STYLE.equals("CS")) {//Wmrnet表
 
                 }
 
@@ -517,12 +539,16 @@ public class LoRa_Meter485TestActivity extends Activity {
                         Log.d("limbo", "读到数据:" + getMsg);
                         Meter485TestActivity_tv_showMsg.append(getMsg + "\n");
                         getMsg = getMsg.replaceAll("\n", "");
-                        if(getMsg.contains("AAAAAAAAAA")&& getMsg.contains("4B")){
+                        if (getMsg.contains("AAAAAAAAAA") && getMsg.contains("4B")) {
                             int resultLen = Integer.parseInt(getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 12, getMsg.indexOf("AAAAAAAAAA") + 14)) - 2;
                             String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 14, getMsg.indexOf("AAAAAAAAAA") + 14 + resultLen * 2);
                             for (int i = 0; i < resultLen; i++) {
                                 EditText view = (EditText) findViewById(idList[i]);
-                                view.setText(resultMsg.substring(2 * i,     2 + 2 * i));
+                                String num = "" + Integer.parseInt(resultMsg.substring(2 * i, 2 + 2 * i), 16);
+                                if (!num.equals("0")) {
+                                    view.setText(num);
+                                }
+
                             }
                         }
                     }
@@ -540,8 +566,8 @@ public class LoRa_Meter485TestActivity extends Activity {
                         Log.d("limbo", "读到数据:" + getMsg);
                         Meter485TestActivity_tv_showMsg.append(getMsg + "\n");
                         getMsg = getMsg.replaceAll("\n", "");
-                        if (getMsg.contains("AAAAAAAAAA")){
-                            String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA")+14, getMsg.indexOf("AAAAAAAAAA")+16);
+                        if (getMsg.contains("AAAAAAAAAA")) {
+                            String resultMsg = getMsg.substring(getMsg.indexOf("AAAAAAAAAA") + 14, getMsg.indexOf("AAAAAAAAAA") + 16);
                             if (resultMsg.equals("AA")) {
                                 HintDialog.ShowHintDialog(LoRa_Meter485TestActivity.this, "写入成功", "提示");
                             } else {

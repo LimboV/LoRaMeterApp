@@ -111,6 +111,24 @@
                             android:layout_weight="1"
                             android:text="防锈"/>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:layout_weight="1"
+                            android:id="@+id/btn_JyUpdate"
+                            android:text="升级(隽永表)"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:layout_weight="1"
+                            android:id="@+id/btn_JYbbcx"
+                            android:text="版本查询(隽永表)"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

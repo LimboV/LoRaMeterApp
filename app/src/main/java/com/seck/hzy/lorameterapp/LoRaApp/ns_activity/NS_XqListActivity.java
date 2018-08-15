@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.seck.hzy.lorameterapp.LoRaApp.model.NS_Cjj;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.HintDialog;
-import com.seck.hzy.lorameterapp.LoRaApp.utils.LoRa_Cjj;
 import com.seck.hzy.lorameterapp.LoRaApp.utils.NS_DataHelper;
 import com.seck.hzy.lorameterapp.R;
 
@@ -36,7 +36,7 @@ public class NS_XqListActivity extends Activity {
     @BindView(R.id.XqListActivity_lv_xq)
     ListView XqListActivity_lv_xq;
 
-    public List<LoRa_Cjj> xqList;//小区列表
+    public List<NS_Cjj> xqList;//小区列表
     private ListAdapter adapter;
 
     @Override
@@ -70,7 +70,7 @@ public class NS_XqListActivity extends Activity {
         List<String> data = new ArrayList<>();
         try {
             xqList = NS_DataHelper.getXq();//从数据库提取出
-            for (LoRa_Cjj cjj : xqList) {
+            for (NS_Cjj cjj : xqList) {
                 data.add(cjj.XqName + "(" + cjj.XqId + ")");
             }
         } catch (Exception e) {

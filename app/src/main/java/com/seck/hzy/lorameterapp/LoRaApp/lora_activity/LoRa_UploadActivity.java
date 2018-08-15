@@ -57,6 +57,7 @@ public class LoRa_UploadActivity extends Activity {
         tvFile = (TextView) findViewById(R.id.UploadActivity_tv_file);
         tvUploadMsg = (TextView) findViewById(R.id.UploadActivity_tv_uploadMsg);
 
+
         btnChooseFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -281,10 +282,9 @@ public class LoRa_UploadActivity extends Activity {
                                             if (getMsg.length() == 0) {
                                                 RECEPTION = false;
                                                 message = new Message();
-                                                message.what = 0x98;
-                                                message.obj = getMsg;
-                                                message.arg1 = i;
+                                                message.what = 0x97;
                                                 mHandler.sendMessage(message);
+                                                isbreak = true;
                                             } else {
                                                 getMsg = getMsg.replaceAll("0x", "").replaceAll(" ", "");
                                                 message = new Message();
@@ -292,6 +292,7 @@ public class LoRa_UploadActivity extends Activity {
                                                 message.obj = getMsg;
                                                 message.arg1 = i;
                                                 mHandler.sendMessage(message);
+
                                             }
                                         }
                                     }
@@ -489,7 +490,7 @@ public class LoRa_UploadActivity extends Activity {
                     if (getMsg.length() == 0) {
                         tvUploadMsg.append("握手失败,未接收到任何数据\n");
                     } else {
-                        if (getMsg.equals("000600892183")) {
+                        if (getMsg.contains("000600892183")) {
                             tvUploadMsg.append("握手成功\n");
                             sucFlag = true;
                         } else {
@@ -536,6 +537,13 @@ public class LoRa_UploadActivity extends Activity {
                     tvUploadMsg.append(getMsg);
                     break;
 
+                /**
+                 * 错误
+                 */
+                case 0x97:
+                    HzyUtils.closeProgressDialog();
+                    HintDialog.ShowHintDialog(LoRa_UploadActivity.this, "升级失败", "提示");
+                    break;
                 /**
                  * 错误
                  */

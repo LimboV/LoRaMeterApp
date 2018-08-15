@@ -771,7 +771,7 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
         }).start();
     }
 
-    private String getTime() {
+    public static String getTime() {
         String time;
         Calendar c = Calendar.getInstance();
         Date date = c.getTime();
@@ -781,8 +781,8 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
     }
 
     public static String getVolt(String sVolt) {
-        int x = Integer.parseInt(sVolt, 16);
-        float y = (float) ((float) (255 / x) * 1.224);
+        float x = Integer.parseInt(sVolt, 16);
+        float y = (float) ((255 / x) * 1.224);
         String yy = y + "";
         if (!yy.contains(".")) {
             yy = yy + ".000";
