@@ -140,6 +140,7 @@ public class LoRa_TYPTJd_CameraDebug extends Activity {
             public void run() {
                 while (MenuActivity.btAuto) {
                     try {
+
                         Thread.sleep(1500);
                         resultMsg = resultMsg + HzyUtils.GetBlueToothMsg();
                         if (resultMsg.length() != 0) {
