@@ -178,7 +178,6 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/common_signin_btn_dark_text_disabled"
                         android:textCursorDrawable="@drawable/color_cursor"/>
-
                     <Button
                         android:id="@+id/btn_getSingleData"
                         android:layout_width="wrap_content"
